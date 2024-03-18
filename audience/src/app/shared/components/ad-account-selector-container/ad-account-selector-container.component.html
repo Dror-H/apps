@@ -1,0 +1,65 @@
+<form [formGroup]="group" class="ingo-add-edit-form margin-top-20">
+  <ingo-ad-account-selector
+    [adAccountList]="adAccountList"
+    [formControl]="group.controls.account"
+    [provider]="supportedProviders.FACEBOOK"
+  >
+  </ingo-ad-account-selector>
+</form>
+
+<nz-row nzJustify="center">
+  <button class="btn-outline btn-light margin-right-10" nz-button nzType="default">Cancel</button>
+  <button
+    [disabled]="group.controls.account.status === 'INVALID'"
+    nz-button
+    nzType="primary"
+    (click)="exportToFacebook()"
+  >
+    {{ group.controls?.account?.value?.name | exportTo }}
+  </button>
+</nz-row>
+
+<div nz-row nzGutter="0" class="w-100">
+  <div nz-col nzSpan="24">
+    <nz-divider class="howto-divider"></nz-divider>
+    <nz-tabset nzCentered class="howto-tabs" [nzSelectedIndex]="1">
+      <nz-tab nzTitle="How to" nzDisabled></nz-tab>
+      <nz-tab nzTitle="Save to Facebook">
+        <div class="howto">
+          <div class="step">
+            <div>Click on<br /><strong>Take me there</strong></div>
+            <span>1</span>
+          </div>
+          <div class="step">
+            <div>Scroll down to<br /><strong>Audience</strong></div>
+            <span>2</span>
+          </div>
+          <div class="step">
+            <div>Click on<br /><strong>Save this audience</strong></div>
+            <span>3</span>
+          </div>
+        </div>
+        <img class="helper-gif" src="assets/images/helper-save-audience.gif" alt="helper save audience" />
+      </nz-tab>
+      <nz-tab nzTitle="Create a Campaign">
+        <div class="howto">
+          <div class="step">
+            <div>Click on<br /><strong>Take me there</strong></div>
+            <span>1</span>
+          </div>
+          <div class="step">
+            <div>
+              Next to campaign<br /><strong>click <i class="far fa-ellipsis-h"></i></strong>
+            </div>
+            <span>2</span>
+          </div>
+          <div class="step">
+            <div>Click on<br /><strong>Duplicate</strong></div>
+            <span>3</span>
+          </div>
+        </div>
+        <img class="helper-gif" src="assets/images/helper-create-campaign.gif" alt="helper save audience" />
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>

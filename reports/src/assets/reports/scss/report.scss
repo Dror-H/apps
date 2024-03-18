@@ -1,0 +1,68 @@
+@import './general';
+
+.flex {
+  display: flex;
+}
+
+.row {
+  margin: 20px 0;
+  width: 100%;
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+}
+
+.col-6 {
+  flex: 0 0 49%;
+  width: 49%;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.content {
+  margin-top: 10px;
+  padding-left: 1cm;
+  padding-right: 1cm;
+  padding-top: 1cm;
+
+  .page-title {
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+}
+
+.report-widget-bg {
+  background: #f9f9f9;
+}
+
+.widget {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 30px 12px;
+
+  .widget-title {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .widget-content {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+
+    img {
+      height: auto;
+      max-width: 100%;
+      transform: scale(0.9);
+    }
+  }
+}

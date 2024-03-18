@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search-utils removeEmptyObjectsAndArraysFromTargeting should remove empty objects and arrays from flexible specs and exclusions 1`] = `
+Object {
+  "createdByContributors": false,
+  "id": "478605de-ba43-5d8c-9c52-b1043e4cc0b7",
+  "segments": Array [
+    "SO - Conversions - Bracelet - CBO - UK Only",
+    "Interest Jewellry - UK - 18+ – Copy",
+    "Jewellery",
+  ],
+  "spec": Object {
+    "campaign": Object {
+      "id": "23848984859400054",
+      "name": "SO - Conversions - Bracelet - CBO - UK Only",
+    },
+    "id": "23848984859650054",
+    "name": "Interest Jewellry - UK - 18+ – Copy",
+    "targeting": Object {
+      "age_max": 65,
+      "age_min": 35,
+      "brand_safety_content_filter_levels": Array [
+        "FACEBOOK_STANDARD",
+        "AN_STANDARD",
+      ],
+      "exclusions": undefined,
+      "flexible_spec": Array [],
+      "genders": Array [
+        2,
+      ],
+      "geo_locations": Object {
+        "countries": Array [
+          "GB",
+        ],
+        "location_types": Array [
+          "home",
+          "recent",
+        ],
+      },
+    },
+  },
+  "topics": Array [
+    "uk",
+    "jewellry",
+    "jewellery",
+    "interest",
+    "copy",
+  ],
+  "userTags": Array [],
+}
+`;
+
+exports[`search-utils removeInvalidExclusionsFromFb should remove invalid segments from exclusions 1`] = `
+Object {
+  "createdByContributors": false,
+  "id": "478605de-ba43-5d8c-9c52-b1043e4cc0b7",
+  "segments": Array [
+    "SO - Conversions - Bracelet - CBO - UK Only",
+    "Interest Jewellry - UK - 18+ – Copy",
+    "Jewellery",
+  ],
+  "spec": Object {
+    "campaign": Object {
+      "id": "23848984859400054",
+      "name": "SO - Conversions - Bracelet - CBO - UK Only",
+    },
+    "id": "23848984859650054",
+    "name": "Interest Jewellry - UK - 18+ – Copy",
+    "targeting": Object {
+      "age_max": 65,
+      "age_min": 35,
+      "brand_safety_content_filter_levels": Array [
+        "FACEBOOK_STANDARD",
+        "AN_STANDARD",
+      ],
+      "exclusions": Object {
+        "interests": Array [
+          Object {
+            "id": "6003109292833",
+            "name": "Drop shipping",
+          },
+        ],
+      },
+      "flexible_spec": Array [
+        Object {
+          "interests": Array [
+            Object {
+              "id": "6003266225248",
+              "name": "Jewellery",
+            },
+          ],
+        },
+      ],
+      "genders": Array [
+        2,
+      ],
+      "geo_locations": Object {
+        "countries": Array [
+          "GB",
+        ],
+        "location_types": Array [
+          "home",
+          "recent",
+        ],
+      },
+    },
+  },
+  "topics": Array [
+    "uk",
+    "jewellry",
+    "jewellery",
+    "interest",
+    "copy",
+  ],
+  "userTags": Array [],
+}
+`;
+
+exports[`search-utils removeInvalidFlexibleSpecFromFb should remove invalid segments from flexible spec 1`] = `
+Object {
+  "createdByContributors": false,
+  "id": "4870eab0-7ed2-56b1-9493-5b4684a7b03c",
+  "segments": Array [],
+  "spec": Object {
+    "id": "0478f7d5-55c7-4106-ba34-4f691236969c",
+    "name": "",
+    "targeting": Object {
+      "age_max": 65,
+      "age_min": 18,
+      "excluded_custom_audiences": Array [],
+      "excluded_geo_locations": Object {},
+      "exclusions": Object {},
+      "flexible_spec": Array [
+        Object {
+          "work_positions": Array [
+            Object {
+              "id": "105703889464434",
+              "name": "Motivational speaker",
+            },
+          ],
+        },
+      ],
+      "genders": Array [
+        0,
+      ],
+      "geo_locations": Object {
+        "countries": Array [
+          "US",
+        ],
+        "location_types": Array [
+          "home",
+          "recent",
+        ],
+      },
+      "locales": Array [],
+      "targeting_optimization": "none",
+    },
+  },
+  "topics": Array [],
+  "userTags": Array [],
+}
+`;

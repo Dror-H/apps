@@ -1,0 +1,153 @@
+<div class="sticky-overview-overlay" [ngClass]="{ inview: isOverviewActive }" (click)="toggleOverview(false)"></div>
+<div nz-row [nzGutter]="24" class="ingo-newcamp-step">
+  <div nz-col nzSpan="18" [nzXl]="19">
+    <nz-collapse nzGhost [nzAccordion]="false">
+      <nz-collapse-panel
+        [nzHeader]="campaignSettings"
+        [nzActive]="step === 0"
+        [nzShowArrow]="false"
+        (nzActiveChange)="setStep(0)"
+      >
+        <ingo-linkedin-campaign-settings
+          [settingsForm]="campaignForm.controls.settings"
+          (setStep)="setStep($event)"
+        ></ingo-linkedin-campaign-settings>
+      </nz-collapse-panel>
+
+      <nz-collapse-panel
+        [nzHeader]="creatives"
+        [nzActive]="step === 1"
+        [nzShowArrow]="false"
+        (nzActiveChange)="setStep(1)"
+        [nzDisabled]="campaignForm.controls.settings.status === 'INVALID'"
+      >
+        <ingo-linkedin-creative-settings
+          [creativesForm]="campaignForm.controls.creatives"
+          (setStep)="setStep($event)"
+          *ngIf="step === 1"
+        ></ingo-linkedin-creative-settings>
+      </nz-collapse-panel>
+
+      <nz-collapse-panel
+        [nzHeader]="targeting"
+        [nzActive]="step === 2"
+        [nzShowArrow]="false"
+        (nzActiveChange)="setStep(2)"
+        [nzDisabled]="campaignForm.controls.settings.status === 'INVALID'"
+      >
+        <ingo-linkedin-targeting-settings
+          [targetingForm]="campaignForm.controls.targeting"
+          [adAccount]="campaignForm.value.settings.account"
+          (setStep)="setStep($event)"
+          *ngIf="step === 2"
+        ></ingo-linkedin-targeting-settings>
+      </nz-collapse-panel>
+
+      <nz-collapse-panel
+        [nzHeader]="budgetSettings"
+        [nzActive]="step === 3"
+        [nzShowArrow]="false"
+        (nzActiveChange)="setStep(3)"
+        [nzDisabled]="
+          campaignForm.controls.settings.status === 'INVALID' || campaignForm.controls.targeting.status === 'INVALID'
+        "
+      >
+        <ingo-linkedin-budget-settings
+          [budgetForm]="campaignForm.controls.budget"
+          (createCampaign)="createCampaign()"
+          *ngIf="step === 3"
+        ></ingo-linkedin-budget-settings>
+      </nz-collapse-panel>
+
+      <ng-template #campaignSettings>
+        <div class="ant-card-head">
+          <div class="ant-card-head-wrapper">
+            <div class="ant-card-head-title">
+              <h2>Set campaign properties</h2>
+            </div>
+            <div class="ant-card-extra">
+              <span *ngIf="campaignForm.controls.settings.status === 'VALID'" class="newcamp-step-indicator step-done"
+                ><i class="far fa-check"></i>
+              </span>
+              <span *ngIf="campaignForm.controls.settings.status === 'INVALID'" class="newcamp-step-indicator"
+                ><i class="fas fa-exclamation-circle danger"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #creatives>
+        <div class="ant-card-head">
+          <div class="ant-card-head-wrapper">
+            <div class="ant-card-head-title">
+              <h2>Creatives</h2>
+            </div>
+            <div class="ant-card-extra">
+              <span *ngIf="campaignForm.controls.creatives.status === 'VALID'" class="newcamp-step-indicator step-done"
+                ><i class="far fa-check"></i>
+              </span>
+              <span *ngIf="campaignForm.controls.creatives.status === 'INVALID'" class="newcamp-step-indicator"
+                ><i class="fas fa-exclamation-circle danger"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #targeting>
+        <div class="ant-card-head">
+          <div class="ant-card-head-wrapper">
+            <div class="ant-card-head-title">
+              <h2>Define your audience</h2>
+            </div>
+            <div class="ant-card-extra">
+              <span *ngIf="campaignForm.controls.targeting.status === 'VALID'" class="newcamp-step-indicator step-done"
+                ><i class="far fa-check"></i>
+              </span>
+              <span *ngIf="campaignForm.controls.targeting.status === 'INVALID'" class="newcamp-step-indicator"
+                ><i class="fas fa-exclamation-circle danger"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #budgetSettings>
+        <div class="ant-card-head">
+          <div class="ant-card-head-wrapper">
+            <div class="ant-card-head-title">
+              <h2>Budget & Schedule Settings</h2>
+            </div>
+            <div class="ant-card-extra">
+              <span
+                *ngIf="campaignForm.controls.budget.status === 'VALID' && !campaignForm.errors?.minBudget"
+                class="newcamp-step-indicator step-done"
+                ><i class="far fa-check"></i>
+              </span>
+              <span
+                *ngIf="campaignForm.controls.budget.status === 'INVALID' || campaignForm.errors?.minBudget"
+                class="newcamp-step-indicator"
+                ><i class="fas fa-exclamation-circle danger"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </nz-collapse>
+  </div>
+
+  <div
+    nz-col
+    nzSpan="6"
+    [nzXl]="5"
+    class="sticky-overview"
+    [ngClass]="{ inview: isOverviewActive }"
+    (click)="toggleOverview(true)"
+  >
+    <ingo-linkedin-campaign-overview
+      [campaignForm]="campaignForm"
+      [stepFunc]="step"
+      (collapseStep)="step = $event"
+    ></ingo-linkedin-campaign-overview>
+  </div>
+</div>

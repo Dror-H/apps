@@ -1,0 +1,29 @@
+<div nz-row [nzGutter]="24" *ngIf="tableData$ | async as tableData; else spin">
+  <div nz-col [nzSpan]="24">
+    <div class="vector-map-table">
+      <nz-table #basicTable [nzData]="tableData.topRegions" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>Top Regions</th>
+            <th>{{ metricType }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>
+              <span class="country-flag">{{ data?.emoji }}</span
+              >{{ data.region }}
+            </td>
+            <td>{{ data.value | number: '1.0-2':'en-US' }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<ng-template #spin>
+  <div class="spin">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>

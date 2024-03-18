@@ -1,0 +1,145 @@
+@use 'utils';
+@import 'backgrounds.variables';
+@import 'borders.variables';
+@import 'border-radius.variables';
+@import 'colors.variables';
+@import 'typography.variables';
+
+$icon-container-width: 2rem;
+$icon-container-padding-left: 1rem;
+$icon-width: 18px;
+
+.search-container {
+  background: $white;
+  border: $border-1;
+  border-radius: $border-radius-lg;
+  position: relative;
+
+  .search-icon-container {
+    box-sizing: content-box;
+    height: 100%;
+    left: 0;
+    padding-left: $icon-container-padding-left;
+    position: absolute;
+    width: $icon-container-width;
+    z-index: 1;
+
+    &__icon {
+      width: $icon-width;
+    }
+
+    &__spinner {
+      width: $icon-container-width;
+    }
+  }
+
+  .ant-select-multiple {
+    .ant-select-selector {
+      min-height: 58px;
+      padding-left: calc(#{$icon-container-width} + #{$icon-container-padding-left});
+    }
+
+    .ant-select-selection {
+      &-placeholder {
+        padding-left: calc(#{$icon-container-width} + #{$icon-container-padding-left});
+      }
+
+      &-search-mirror {
+        font-size: $font-size-sm;
+        width: 100%;
+      }
+
+      &-search {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      &-item {
+        height: auto;
+        line-height: $line-height-sm;
+        margin-right: 0.5rem;
+        padding: 0;
+
+        &-content {
+          @include ellipsis(47ch);
+          margin-left: 2px;
+        }
+
+        &-remove {
+          display: flex;
+          padding: 1px 2px;
+        }
+      }
+    }
+  }
+}
+
+.search-dropdown {
+  .search-option {
+    &-container {
+      flex-wrap: nowrap;
+      height: 100%;
+      width: 100%;
+    }
+
+    &-history-icon {
+      margin-right: 0.5rem;
+    }
+
+    &-remove {
+      align-items: center;
+      border-radius: $border-radius-lg;
+      color: $primary-color;
+      display: flex;
+      font-size: $font-size-xxs;
+      height: 100%;
+      line-height: $line-height-xxs;
+      padding: 0 0.5rem;
+      transition: background-color 100ms ease-in-out;
+
+      &:hover {
+        background-color: darken($bkg-active-option, 3);
+      }
+    }
+  }
+
+  .ant-select {
+    &-item-option {
+      border-radius: $border-radius-sm;
+      margin: 0 1.5rem;
+      padding: 0;
+
+      &-content {
+        align-items: center;
+        display: flex;
+        padding: 0 1.5rem;
+
+        .search-option-label-container {
+          overflow: hidden;
+        }
+      }
+
+      &-active {
+        .search-option-label {
+          color: $primary-color;
+        }
+      }
+    }
+
+    &-item-empty {
+      min-height: unset;
+    }
+
+    &-dropdown {
+      padding: 1.5rem 0;
+    }
+  }
+
+  .option-spinner {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+}

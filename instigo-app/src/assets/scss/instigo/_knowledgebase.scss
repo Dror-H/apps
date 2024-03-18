@@ -1,0 +1,174 @@
+.ingo-kb-nav .ant-card-body {
+  padding: 12px 25px;
+
+  ul {
+    margin-left: 15px;
+
+    span {
+      color: #5a5f7d;
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 0 12px 20px;
+      position: relative;
+      transition: all 0.3s ease 0s;
+
+      &::before {
+        background: color(purple);
+        border-radius: 10px;
+        content: '';
+        height: 60%;
+        left: -25px;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.3s ease 0s;
+        visibility: hidden;
+        width: 2px;
+      }
+
+      &::after {
+        background: rgba(color(purple), 0.31%);
+        border-radius: 50%;
+        content: '';
+        height: 8px;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.3s ease 0s;
+        width: 8px;
+      }
+    }
+
+    li {
+      cursor: pointer;
+
+      &.active span {
+        color: color(purple);
+
+        &::after {
+          background: color(purple);
+        }
+
+        &::before {
+          left: -15px;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+
+.ingo-primary-collapse {
+  > .ant-collapse-item {
+    background: #fff;
+    border: 1px solid f1f2f6 !important;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  .ant-collapse-header {
+    background-color: #f8f9fb;
+    border-radius: 5px !important;
+    color: rgb(39, 43, 65) !important;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 18px 25px !important;
+  }
+
+  .ant-collapse-content {
+    border-color: #e3e6ef;
+    box-shadow: 0 15px 40px rgb(146 153 184 / 8%);
+
+    > .ant-collapse-content-box {
+      border-top: 1px solid #f1f2f6 !important;
+      padding: 20px 25px 30px !important;
+
+      p {
+        color: #5a5f7d;
+        font-size: 15px;
+        line-height: 1.667;
+        margin-bottom: 35px;
+      }
+
+      h4 {
+        color: #272b41;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 24px;
+        margin-bottom: 12px;
+      }
+
+      .kb-action {
+        background: transparent;
+        border: 1px solid #fa8b0c;
+        border-radius: 4px;
+        box-shadow: 0 0;
+        color: #fa8b0c;
+        font-weight: 500;
+        height: 36px;
+        padding: 0 20px;
+        padding: 0 15px;
+
+        &:hover,
+        &:focus {
+          border: 1px solid #d47407;
+          color: #d47407;
+        }
+
+        &:not(:last-child) {
+          border: 1px solid #20c997;
+          color: #20c997;
+          margin-right: 10px;
+
+          &:hover,
+          &:focus {
+            border: 1px solid #0cab7c;
+            color: #0cab7c;
+          }
+        }
+      }
+    }
+  }
+}
+
+.collapse-expand-icon {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  .fa-minus {
+    display: none;
+  }
+}
+
+.ant-collapse-item-active .collapse-expand-icon {
+  .fa-minus {
+    display: block;
+  }
+
+  .fa-plus {
+    display: none;
+  }
+}
+
+.ingo-card-banner .ant-card-body {
+  padding: 30px !important;
+  text-align: center;
+
+  h4 {
+    color: #272b41;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 22px;
+    margin-bottom: 20px;
+  }
+
+  figure {
+    margin-bottom: 30px;
+  }
+}

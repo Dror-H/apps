@@ -1,0 +1,241 @@
+.ingo-dp {
+  align-items: center;
+  border: 0 none;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px rgba(146, 153, 184, 0.102);
+  color: color(gray, 50);
+  cursor: pointer;
+  display: inline-flex;
+  height: 34px;
+  line-height: 1;
+  padding: 0;
+  position: relative;
+  width: 222px;
+
+  > input {
+    border: 0 none;
+    color: color(gray, 50);
+    cursor: pointer;
+    height: 100%;
+    order: 1;
+    padding-left: 40px;
+
+    &:focus {
+      border-right-width: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  > span {
+    border-right: solid 1px color(gray);
+    color: color(gray, 50);
+    flex: 0 0 30px;
+    left: 0;
+    margin-left: 0;
+    order: 0;
+    padding: 10px 4px;
+    position: absolute;
+    text-align: center;
+    width: 30px;
+  }
+}
+
+.ingo-dp-indicate {
+  animation: reveal-indicator 0.3s linear 0.05s 1 forwards;
+  background: rgb(195 193 193 / 20%);
+  border-radius: 4px;
+  height: 30px;
+  left: 35px;
+  opacity: 0;
+  position: absolute;
+  top: 2px;
+  transition: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  width: calc(100% - 137px);
+
+  &.indicate-end {
+    left: 126px;
+  }
+}
+@keyframes reveal-indicator {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.litepicker {
+  font-family: 'proxima-nova';
+  margin-top: 10px;
+
+  .ingo-dp-header {
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #f0f3ff;
+    border-radius: 4px 4px 0 0;
+    box-shadow: -1px 0 7px -3px rgb(0 0 0 / 7%), 0 -5px 7px -3px rgb(0 0 0 / 4%);
+    color: #474b6d;
+    display: flex;
+    font-size: 15px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: space-between;
+    left: -120px;
+    line-height: 1;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    width: calc(100% + 120px);
+    z-index: -1;
+  }
+
+  .container__main {
+    box-shadow: 1px 4px 7px -3px rgb(0 0 0 / 7%), 0 2px 7px -3px rgb(0 0 0 / 8%);
+  }
+
+  .container__predefined-ranges {
+    border-radius: 0 0 0 4px;
+    border-right: 1px solid #f0f3ff;
+    box-shadow: 0 5px 7px -5px rgb(0 0 0 / 8%), -5px 0 7px -3px rgb(0 0 0 / 8%);
+    height: calc(116% - 48px);
+    width: 120px;
+  }
+
+  .container__months {
+    border-radius: 0 0 4px;
+    box-shadow: none;
+    padding: 0 10px 10px;
+
+    .month-item-weekdays-row > div {
+      color: color(gray, 40);
+      cursor: default;
+      font-size: 13px;
+      height: 30px;
+      min-height: 24px;
+    }
+  }
+
+  .container__predefined-ranges[data-pos='left'] button,
+  .container__predefined-ranges[data-pos='right'] button {
+    background-color: transparent;
+    border: 0 none;
+    border-color: transparent;
+    color: color(gray, 50);
+    display: block;
+    font-size: 14px;
+    margin: 0;
+    padding: 9px 15px;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:hover {
+      background-color: rgba(color(purple), 6%);
+      color: color(purple);
+      cursor: pointer;
+      opacity: 1 !important;
+    }
+  }
+
+  .container__days {
+    .day-item {
+      cursor: pointer;
+      font-size: 14px;
+      height: 36px;
+      line-height: 26px;
+      margin: 3px 0;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      &.is-in-range {
+        background-color: rgba(95, 99, 242, 0.12) !important;
+      }
+
+      &:hover {
+        background-color: #e9eafa61 !important;
+        box-shadow: none;
+        color: color(purple) !important;
+      }
+
+      &.is-start-date,
+      &.is-end-date {
+        background-color: color(purple) !important;
+        box-shadow: none;
+
+        &:hover {
+          background-color: color(purple) !important;
+          color: #fff !important;
+        }
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  .container__months .month-item-header {
+    padding-top: 2px;
+
+    .button-previous-month,
+    .button-next-month {
+      cursor: pointer;
+      transition: all 0.25 ease;
+
+      svg {
+        cursor: pointer;
+        transform: scale(0.7);
+        transition: all 0.25 ease;
+      }
+
+      &:hover svg {
+        fill: color(purple);
+      }
+    }
+
+    div {
+      > .month-item-year,
+      > .month-item-name {
+        -webkit-appearance: none;
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+        height: 30px;
+        text-indent: 1px;
+        text-overflow: initial;
+        transition: all 0.25s ease;
+
+        &:hover {
+          color: color(purple);
+        }
+
+        &:focus {
+          outline: 0 !important;
+        }
+      }
+
+      > .month-item-year {
+        font-size: 14px;
+      }
+
+      > .month-item-name {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .container__tooltip {
+    background-color: color(navy, 20);
+    color: #fff;
+
+    &::after {
+      border-top: 4px solid color(navy, 20);
+    }
+
+    &::before {
+      border-top: 5px solid rgba(color(navy, 20), 15%);
+    }
+  }
+}

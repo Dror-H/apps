@@ -1,0 +1,36 @@
+<div nz-row [nzGutter]="25">
+  <div nz-col nzSpan="24" [nzMd]="24">
+    <nz-page-header class="site-page-header">
+      <nz-page-header-title>New Ad Template</nz-page-header-title>
+    </nz-page-header>
+  </div>
+</div>
+
+<section [formGroup]="adTemplateForm">
+  <app-new-ad-template-create
+    [adTemplateForm]="adTemplateForm"
+    (createAdTemplate)="createAdTemplate()"
+  ></app-new-ad-template-create>
+  <ng-container *ngIf="adAccount.errors; then errors; else editPage"></ng-container>
+  <ng-template #editPage>
+    <app-ad-templates-edit-page [adTemplateForm]="adTemplateForm"></app-ad-templates-edit-page>
+  </ng-template>
+  <ng-template #errors>
+    <nz-alert
+      class="mt-5px"
+      *ngIf="adAccount.errors"
+      nzType="warning"
+      [nzMessage]="warningMessage"
+      nzShowIcon
+    ></nz-alert>
+  </ng-template>
+</section>
+
+<ng-template #warningMessage>
+  <div nz-row nzJustify="space-between">
+    <span>There are no ad accounts connected to this provider!</span>
+    <button nz-button nzType="default" class="btn-outline btn-primary" (click)="redirectToWorkspace()">
+      Connect ad accounts
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,19 @@
+<div class="ingo-add-edit-form">
+  <nz-form-item>
+    <nz-form-label nzRequired>Create Form under </nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzPlaceHolder="Select Page"
+        [ngModel]="selectedPage"
+        (ngModelChange)="onSourceChange($event)"
+        [nzOptions]="sources"
+        [nzOptionHeightPx]="38"
+      ></nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</div>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="destroyModal()">Cancel</button>
+  <button nz-button nzType="primary" [disabled]="disabled" (click)="createLeadgenForm()">Create</button>
+</div>

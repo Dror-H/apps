@@ -1,0 +1,63 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24" [nzXXl]="24">
+    <!--    <form nz-form [formGroup]="multivariate">-->
+    <!--      <nz-form-item>-->
+    <!--        <nz-form-control>-->
+    <!--          <ingo-ad-preview-placement-->
+    <!--            [formControl]="adSetFormat"-->
+    <!--            [adSetFormat]="adSetFormat.value"-->
+    <!--            [instagramAccountControl]="instagramAccountControl"-->
+    <!--            (placementPreview)="placementPreview($event)"-->
+    <!--          ></ingo-ad-preview-placement>-->
+    <!--        </nz-form-control>-->
+    <!--      </nz-form-item>-->
+    <!--    </form>-->
+  </div>
+  <div nz-col [nzSpan]="24" [nzXXl]="24">
+    <nz-form-item>
+      <nz-form-label>
+        <ng-container *ngIf="!multivariateGenerator.activePlacement; else adPreviewTitle">Ad Preview</ng-container>
+        <ingo-explain tooltipId="app.campCreate.creative.preview"></ingo-explain>
+      </nz-form-label>
+      <nz-form-control>
+        <ng-container
+          *ngIf="
+            multivariate.valid && multivariate['controls'].adCombinations.value?.length > 0;
+            then carousel;
+            else nothing
+          "
+        ></ng-container>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>
+
+<ng-template #adPreviewTitle>Preview Ad on {{ multivariateGenerator.activePlacement }}</ng-template>
+
+<ng-template #carousel>
+  <nz-form-item class="ingo-tabs-view ingo-devices-preview">
+    <nz-form-control>
+      <nz-tabset
+        nzType="card"
+        (nzSelectedIndexChange)="previewDevice($event)"
+        [nzSelectedIndex]="multivariateGenerator.isMobile === 'desktop' ? 0 : 1"
+      >
+        <nz-tab nzTitle="Desktop" [nzDisabled]="multivariateGenerator.previewType.desktop == false">
+          <ingo-ad-preview-carousel
+            *ngIf="multivariateGenerator.isMobile === 'desktop'"
+            [formCombinations]="multivariate['controls'].adCombinations.value"
+          ></ingo-ad-preview-carousel>
+        </nz-tab>
+        <nz-tab nzTitle="Mobile" [nzDisabled]="multivariateGenerator.previewType.mobile == false">
+          <ingo-ad-preview-carousel
+            *ngIf="multivariateGenerator.isMobile === 'mobile'"
+            [formCombinations]="multivariate['controls'].adCombinations.value"
+          ></ingo-ad-preview-carousel>
+        </nz-tab>
+      </nz-tabset>
+    </nz-form-control>
+  </nz-form-item>
+</ng-template>
+<ng-template #nothing>
+  <ingo-ad-template-skeleton></ingo-ad-template-skeleton>
+</ng-template>

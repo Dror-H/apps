@@ -1,0 +1,65 @@
+<div class="container-fluid py-4">
+  <app-data-table
+    *ngIf="tableData | async; else skeleton"
+    [tableConfiguration]="tableConfiguration"
+    [state]="tableState | async"
+    [tableData]="tableData | async"
+    (stateChange)="onTableStateChange($event)"
+  ></app-data-table>
+
+  <app-data-table-templates [state]="tableState | async"></app-data-table-templates>
+</div>
+
+<ng-template #searchTermTemplateAndSelect let-column="column" let-value="value" let-row="row">
+  <a
+    class="selectable-table-item"
+    ingoHighlight
+    [searchedWords]="(tableState | async).searchTerm"
+    [text]="value.length > 32 ? (value | slice: 0:32) + '...' : value"
+    nz-tooltip
+    [nzTooltipTitle]="value"
+    nzTooltipPlacement="bottom"
+    nzTooltipOverlayClassName="ingo-explain-card campaign-name-tooltip"
+    nzTooltipColor="#5f63f2"
+    classToApply="ingo-highlight"
+  ></a>
+</ng-template>
+
+<ng-template #adStatusAndActions let-column="column" let-value="value" let-row="row">
+  <span
+    class="status-badge with-switch"
+    [ngClass]="{
+      active: value === 'ACTIVE',
+      completed: value == 'COMPLETED',
+      paused: value == 'PAUSED',
+      review: value == 'INREVIEW',
+      draft: value == 'DRAFT'
+    }"
+  >
+    {{ value | titlecase }}
+  </span>
+  <ng-container *ngIf="value === 'ACTIVE' || value === 'PAUSED'">
+    <span
+      class="status-change-icon"
+      [ngClass]="{ active: value === 'ACTIVE' }"
+      nz-tooltip
+      [nzTooltipTitle]="statusChangeType"
+      nzTooltipOverlayClassName="ingo-explain-card"
+      nzTooltipColor="#5f63f2"
+      (click)="changeSingleAdStatus(row, value === 'ACTIVE' ? 'PAUSED' : 'ACTIVE')"
+    >
+      <nz-spin [nzSpinning]="row?.loading" [nzSize]="'small'">
+        <i class="fas fa-pause" *ngIf="value === 'ACTIVE'"></i>
+        <i class="fas fa-play" *ngIf="value === 'PAUSED'"></i>
+      </nz-spin>
+    </span>
+    <ng-template #statusChangeType> {{ value === 'ACTIVE' ? 'Pause' : 'Enable' }} ad delivery </ng-template>
+  </ng-container>
+</ng-template>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton
+    [columns]="tableConfiguration.columns"
+    [isScroll]="tableConfiguration.scrollbarH"
+  ></app-data-table-skeleton>
+</ng-template>

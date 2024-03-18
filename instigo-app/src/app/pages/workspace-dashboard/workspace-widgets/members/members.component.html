@@ -1,0 +1,51 @@
+<nz-card *ngIf="members$ | async as members; else skeleton" [nzTitle]="title" [nzExtra]="extra">
+  <div *ifWithLoading="members.type" class="workspace-members-outline">
+    <div class="member-info" *ngFor="let member of members.value[0].slice(0, 6)">
+      <figure>
+        <img *ngIf="member.pictureUrl; else phAvatar" [src]="member.pictureUrl" alt="" style="width: 40px" />
+        <ng-template #phAvatar>
+          <nz-avatar [nzText]="userInitials(member.fullName)"></nz-avatar>
+        </ng-template>
+      </figure>
+      <figcaption>
+        <h4 class="member-name">{{ member.fullName }}</h4>
+        <span class="member-role">Last Seen {{ lastLogin(member.updatedAt) }}</span>
+        <span
+          class="member-is-owner"
+          *ngIf="member.id === members.value[1].id"
+          nz-tooltip
+          nzTooltipTitle="Workspace Admin"
+          nzTooltipOverlayClassName="ingo-explain-card"
+          nzTooltipColor="#5f63f2"
+          ><i class="fas fa-user-crown"></i
+        ></span>
+      </figcaption>
+    </div>
+  </div>
+</nz-card>
+
+<ng-template #title>
+  <h2>Members</h2>
+</ng-template>
+
+<ng-template #extra>
+  <button
+    *ngIf="viewAllBtn"
+    nz-button
+    nzType="primary"
+    class="btn-primary btn-clear btn-tiny btn-small"
+    (click)="viewAll()"
+  >
+    View All
+  </button>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-card [nzTitle]="title">
+    <div class="workspace-members-outline">
+      <div class="member-info">
+        <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 6 }" [nzTitle]="false"></nz-skeleton>
+      </div>
+    </div>
+  </nz-card>
+</ng-template>

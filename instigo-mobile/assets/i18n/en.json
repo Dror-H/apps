@@ -1,0 +1,41 @@
+{
+  "login": {
+    "signIn": "Sign in",
+    "username": "Username",
+    "password": "Password",
+    "requiredError": "The field cannot be empty!",
+    "minLength": "Min characters: ",
+    "emailError": "Invalid email address!",
+    "loginError": "Username or password didn't match"
+  },
+  "settings": {
+    "settings": "Settings",
+    "profile": "Profile",
+    "activity": "Activity",
+    "darkMode": "Dark Mode",
+    "chooseLanguage": "Choose Language",
+    "logout": "Logout",
+    "user": {
+      "last_login": "Last login",
+      "member_since": "Member Since",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "language": {
+      "title": "Language Selection",
+      "description": "Select one of the  below languages",
+      "en": "English",
+      "de": "German",
+      "cancel": "Cancel"
+    }
+  },
+  "global": {
+    "loading": "Loading...",
+    "processing": "Processing Data...",
+    "error": "Server issue, we are investigating..."
+  },
+  "home": {
+    "accountInfo": "Account Information",
+    "manage": "MANAGE"
+  }
+}

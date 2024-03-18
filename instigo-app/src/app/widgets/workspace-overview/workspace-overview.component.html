@@ -1,0 +1,107 @@
+<nz-card
+  style="width: 100%"
+  [nzTitle]="mainChartHeading"
+  [nzExtra]="mainChartExtra"
+  class="card-row-cols h-100"
+  id="main-chart-card"
+>
+  <nz-spin nzTip="Exporting..." [nzSpinning]="isExporting">
+    <div nz-row [nzGutter]="25">
+      <div nz-col [nzXXl]="6" [nzSm]="24" id="main-chart-legend">
+        <div class="ingo-chart-side">
+          <div *ngFor="let metric of barChart.datasets; let i = index">
+            <p>{{ chartMetrics[i].title }}</p>
+            <h2>
+              <span style="min-width: 50px"
+                >{{ chartMetrics[i].prefix }}{{ chartMetrics[i].total }}{{ chartMetrics[i].suffix }}</span
+              >
+            </h2>
+            <span class="col-metrics-change">
+              <span *ngIf="chartMetrics[i].icon === 'up'">
+                <i class="far fa-chart-line fa-fw"></i>
+                {{ chartMetrics[i].change }}%
+              </span>
+              <span *ngIf="chartMetrics[i].icon === 'down'" [ngClass]="{ decrease: chartMetrics[i].icon === 'down' }">
+                <i class="far fa-chart-line-down fa-fw"></i>
+                {{ chartMetrics[i].change }}%
+              </span>
+              vs. last {{ activeRange }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzXXl]="18" [nzXs]="24" id="main-chart-content">
+        <div>
+          <ingo-widget-workspace-overview-chart
+            [model]="barChart"
+            [chartId]="'main-bar-chart'"
+            [chartType]="selectedChartType"
+          ></ingo-widget-workspace-overview-chart>
+        </div>
+        <ul class="chart-card-legend">
+          <li *ngFor="let item of barChart.datasets; let i = index" [id]="i + 1" (click)="toggleSeries(i)">
+            <span [ngStyle]="{ 'background-color': item.hoverBackgroundColor }"></span>
+            {{ item.label }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nz-spin>
+</nz-card>
+<ng-template #mainChartHeading>
+  <h2>
+    Workspace Overview <span>{{ rangeText }}</span>
+  </h2>
+  <!-- <div class="card-explain">
+    <i class="fal fa-question-circle"></i>
+  </div> -->
+</ng-template>
+<ng-template #mainChartExtra>
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="cardDropdown"
+    class="card-extra-dropdown"
+    [nzOverlayClassName]="'dropdown-arrow-right'"
+    [nzTrigger]="'click'"
+    data-html2canvas-ignore="true"
+  >
+    <i class="fas fa-ellipsis-h"></i>
+  </a>
+  <ul class="card-extra-actions" data-html2canvas-ignore="true">
+    <li *ngFor="let label of ranges" [ngClass]="{ active: label.label == activeRange }">
+      <a (click)="toggleRange(label.label)">{{ label.text }}</a>
+    </li>
+  </ul>
+  <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <ng-container *ngFor="let item of dropdownItems">
+        <li nz-menu-item *ngIf="item.submenu.length === 0 && item.show" (click)="item.click()">
+          <div class="ingo-dropdown-inner-icon">
+            <i class="{{ item.icon }} fa-fw"></i>
+          </div>
+          <div class="ingo-dropdown-option">
+            {{ item.label }}
+          </div>
+        </li>
+        <li nz-submenu *ngIf="item.submenu.length > 0">
+          <div title class="ingo-dropdown-inner-icon">
+            <i class="{{ item.icon }} fa-fw"></i>
+          </div>
+          <div title class="ingo-dropdown-option">
+            {{ item.label }}
+          </div>
+          <ul>
+            <li nz-menu-item *ngFor="let subItem of item.submenu" (click)="subItem.click()">
+              <div class="ingo-dropdown-inner-icon">
+                <i class="{{ subItem.icon }} fa-fw"></i>
+              </div>
+              <div class="ingo-dropdown-option">
+                {{ subItem.label }}
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>

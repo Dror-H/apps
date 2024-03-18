@@ -1,0 +1,15 @@
+<form [formGroup]="audienceForm">
+  <div>
+    <div *ngIf="audienceForm.controls.provider.value === 'facebook'">
+      <ingo-facebook-saved-audience-targeting
+        [audienceForm]="audienceForm"
+        [rules]="rules"
+        [adAccountControl]="adAccount"
+      >
+      </ingo-facebook-saved-audience-targeting>
+    </div>
+    <div *ngIf="audienceForm.controls.provider.value === 'linkedin'">
+      <app-linkedin-saved-audience-targeting [audienceTypeForm]="audienceForm"></app-linkedin-saved-audience-targeting>
+    </div>
+  </div>
+</form>

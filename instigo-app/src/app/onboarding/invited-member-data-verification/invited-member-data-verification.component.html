@@ -1,0 +1,85 @@
+<div @slideUp class="onboarding-section-wrapper">
+  <h1>
+    {{ 'app.onboarding.welcome' | translate }}
+  </h1>
+  <h6>
+    {{ 'app.onboarding.welcomeSubMessage' | translate }}
+  </h6>
+
+  <form class="form-signin" [formGroup]="dataValidationForm" (ngSubmit)="submitForm()" autocomplete="off">
+    <div class="row">
+      <div class="col-xs-12 col-xl-6">
+        <div class="form-label-group">
+          <input
+            formControlName="firstName"
+            type="text"
+            id="inputFirstName"
+            autocomplete="off"
+            name="fakeusernameremembered"
+            class="form-control shadow-sm"
+            placeholder="{{ 'app.onboarding.firstName' | translate }}"
+            required
+          />
+          <label for="inputFirstName"> {{ 'app.onboarding.firstName' | translate }} </label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-xl-6">
+        <div class="form-label-group">
+          <input
+            formControlName="lastName"
+            type="text"
+            id="inputLastName"
+            autocomplete="off"
+            name="fakeusernameremembered"
+            class="form-control shadow-sm"
+            placeholder="{{ 'app.onboarding.lastName' | translate }}"
+            required
+          />
+          <label for="inputLastName"> {{ 'app.onboarding.lastName' | translate }} </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-label-group">
+      <input
+        formControlName="email"
+        type="text"
+        id="inputEmail"
+        autocomplete="off"
+        name="fakeusernameremembered"
+        class="form-control shadow-sm"
+        placeholder="{{ 'app.login.email' | translate }}"
+        required
+      />
+      <label for="inputEmail"> {{ 'app.login.email' | translate }} </label>
+    </div>
+
+    <div class="form-label-group">
+      <input
+        formControlName="password"
+        type="password"
+        id="inputPassword"
+        class="form-control shadow-sm"
+        placeholder="{{ 'app.login.password' | translate }}"
+        required
+        autocomplete="on"
+      />
+      <label for="inputPassword"> {{ 'app.login.password' | translate }} </label>
+    </div>
+    <div class="form-label-group">
+      <input
+        formControlName="repeatPassword"
+        type="password"
+        id="repeatPassword"
+        class="form-control shadow-sm"
+        placeholder="{{ 'app.login.repeatPassword' | translate }}"
+        required
+        autocomplete="on"
+      />
+      <label for="repeatPassword"> {{ 'app.register.repeatPassword' | translate }} </label>
+    </div>
+
+    <button class="btn btn-lg btn-block btn-square shadow-sm custom-submit-btn" type="submit">
+      {{ 'app.onboarding.lookingGood' | translate }}
+    </button>
+  </form>
+</div>

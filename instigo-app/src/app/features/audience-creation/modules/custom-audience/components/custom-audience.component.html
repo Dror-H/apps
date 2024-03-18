@@ -1,0 +1,41 @@
+<div
+  *ngIf="
+    adTemplateForm.controls.provider.value === 'facebook' &&
+    adTemplateForm.controls.adAccount.value as facebookAdAccount
+  "
+>
+  <div *ngIf="adTemplateForm.controls.audienceSubType.value as audienceSubType">
+    <ingo-facebook-list-audience
+      *ngIf="audienceSubType === AudienceSubType.LIST"
+      [adAccount]="facebookAdAccount"
+      [formControl]="audienceFiles.facebook"
+    >
+    </ingo-facebook-list-audience>
+    <ingo-facebook-website-audience
+      *ngIf="audienceSubType === AudienceSubType.WEBSITE"
+      [adAccount]="facebookAdAccount"
+      [formControl]="audienceRules.facebook"
+    >
+    </ingo-facebook-website-audience>
+  </div>
+</div>
+<div
+  *ngIf="
+    adTemplateForm.controls.provider.value === 'linkedin' &&
+    adTemplateForm.controls.adAccount.value as linkedinAdAccount
+  "
+>
+  <div *ngIf="adTemplateForm.controls.audienceSubType.value as audienceSubType">
+    <app-linkedin-list-audience
+      *ngIf="audienceSubType === AudienceSubType.LIST"
+      [adAccount]="linkedinAdAccount"
+      [formControl]="audienceFiles.linkedin"
+    >
+    </app-linkedin-list-audience>
+    <ingo-linkedin-website-audience
+      *ngIf="audienceSubType === AudienceSubType.WEBSITE"
+      [formControl]="audienceRules.linkedin"
+    >
+    </ingo-linkedin-website-audience>
+  </div>
+</div>

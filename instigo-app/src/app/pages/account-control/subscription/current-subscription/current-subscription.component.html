@@ -1,0 +1,104 @@
+<div
+  nz-row
+  [nzGutter]="25"
+  *ngIf="currentSubscription$ | async as currentSubscription; else loadingSkeleton"
+  class="current-plan"
+  [ngClass]="{ inactive: !currentSubscription.active }"
+>
+  <div nz-col [nzLg]="16" [nzXs]="24">
+    <nz-card>
+      <div nz-row nzGutter="0">
+        <div nz-col [nzSpan]="16" class="current-plan-meta">
+          <div class="current-tag">
+            {{ currentSubscription.active ? 'Premium Plan' : 'Inactive' }}
+            <nz-tag [nzColor]="currentSubscription.color">{{ currentSubscription.label }}</nz-tag>
+          </div>
+          <ng-container *ngIf="currentSubscription.active">
+            <div>
+              <nz-list class="ingo-subs-features">
+                <nz-list-item>
+                  <span class="ingo-subs-feature-icon">
+                    <i class="far fa-check"></i>
+                  </span>
+                  <span>All Features</span>
+                </nz-list-item>
+                <nz-list-item>
+                  <span class="ingo-subs-feature-icon">
+                    <i class="far fa-check"></i>
+                  </span>
+                  <span
+                    >Up to <span class="spend-cap">{{ currentSubscription.spendCap }}K</span> in ad spent</span
+                  >
+                </nz-list-item>
+              </nz-list>
+            </div>
+            <div class="meta-text">
+              ${{ currentSubscription.used | number: '1.2-2' }} of ${{
+                currentSubscription.spendCap * 1000 | number: '1.2-2'
+              }}
+              used
+              <nz-progress
+                [nzPercent]="((currentSubscription.used * 0.01) / currentSubscription.spendCap) * 10"
+                [nzShowInfo]="false"
+                nzStrokeColor="#5f63f2"
+              ></nz-progress>
+            </div>
+          </ng-container>
+        </div>
+        <div nz-col [nzSpan]="8" class="current-plan-pricing">
+          <ng-container *ngIf="currentSubscription.active">
+            <h3>${{ currentSubscription.planCost }}</h3>
+            <span class="meta-text">Billed {{ currentSubscription.billingCycle | titlecase }}</span>
+          </ng-container>
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="small"
+            class="subs-action-btn"
+            [ngClass]="{ 'btn-bottom': currentSubscription.active }"
+            (click)="changeSubscription.emit(true)"
+          >
+            {{ currentSubscription.active ? 'Change Plan' : 'Subscribe' }}
+          </button>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col [nzLg]="8" [nzXs]="24">
+    <nz-card>
+      <ng-container *ngIf="currentSubscription?.active">
+        <span class="meta-text">{{ currentSubscription?.cancelAtPeriodEnd ? 'Active Until' : 'Next payment' }}</span>
+        <h4 class="next-payment">{{ currentSubscription?.nextPayment }}</h4>
+        <a routerLink="/account-control/invoices">View Invoices</a>
+      </ng-container>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="small"
+        class="subs-action-btn btn-primary btn-clear btn-payments"
+        [ngClass]="{ 'btn-bottom btn-payments': currentSubscription?.active }"
+        (click)="openPaymentsModal()"
+      >
+        Manage Payments
+      </button>
+    </nz-card>
+    <ingo-change-payment-method #paymentsModalContent></ingo-change-payment-method>
+  </div>
+</div>
+
+<ng-template #loadingSkeleton>
+  <div class="sub-summary">
+    <nz-card [nzBordered]="false" class="sub-summary-table" [nzBodyStyle]="{ 'background-color': '#fff' }">
+      <div class="sub-summary-inner">
+        <ul class="sub-list">
+          <li><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></li>
+          <li><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></li>
+          <li><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></li>
+        </ul>
+        <nz-divider></nz-divider>
+        <h4 class="sub-total"><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></h4>
+        <nz-skeleton-element *nzSpaceItem nzType="button"></nz-skeleton-element>
+      </div>
+    </nz-card>
+  </div>
+</ng-template>

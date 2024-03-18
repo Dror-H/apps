@@ -1,0 +1,28 @@
+<form class="ingo-add-edit-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24" [nzXXl]="12">
+      <ingo-linkedin-image-multivariate
+        [multivariateImageForm]="multivariate['controls'].image"
+      ></ingo-linkedin-image-multivariate>
+    </div>
+
+    <div nz-col [nzSpan]="24" [nzXXl]="12" [ngSwitch]="multivariate.value.adTemplateType">
+      <ingo-linkedin-preview-carousel-container
+        [multivariate]="multivariate"
+        *ngSwitchCase="adType.IMAGE"
+      ></ingo-linkedin-preview-carousel-container>
+    </div>
+  </div>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-primary mr-10"
+    [disabled]="!(multivariate.status === 'VALID')"
+    (click)="nextStepEmitter.emit()"
+  >
+    Continue
+  </button>
+</form>

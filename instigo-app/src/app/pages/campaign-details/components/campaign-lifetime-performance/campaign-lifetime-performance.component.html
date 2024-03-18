@@ -1,0 +1,91 @@
+<nz-card [nzTitle]="cardTitle" *ngIf="multiCharts as charts; else empty">
+  <ng-container *ngIf="charts.type === 'finish'; else skeleton">
+    <div nz-card-grid class="w-25" *ngFor="let chartItem of charts.chartData">
+      <ng-container
+        [ngTemplateOutlet]="chartTemplate"
+        [ngTemplateOutletContext]="{ chartItem: chartItem }"
+        *ngIf="chartItem.labels.length > 0; else empty"
+      >
+      </ng-container>
+    </div>
+  </ng-container>
+</nz-card>
+<ng-template #cardTitle>
+  <ng-container *ngIf="metricsType === 'linkedinEngagement'">{{
+    'app.campDetails.campEngagement.title' | translate
+  }}</ng-container>
+  <ng-container *ngIf="metricsType === 'lifetimePerformance'">{{
+    'app.campDetails.campLifetime.title' | translate
+  }}</ng-container>
+</ng-template>
+<ng-template #chartTemplate let-chartItem="chartItem">
+  <div class="chart-metric multi-chart-metric">
+    <p>{{ chartItem.metric }}</p>
+    <h2>
+      <span class="min-width-50">
+        <ng-container *ngIf="chartItem.prefix === 'currency'; else printRegular">
+          {{ chartItem.total || 0 | currency: (campaignDetailsService.campaignCurrency | async) }}
+        </ng-container>
+        <ng-template #printRegular>
+          {{ chartItem.prefix }}{{ chartItem.total | number: '1.0-2':'en-US' }}{{ chartItem.suffix }}
+        </ng-template>
+      </span>
+    </h2>
+    <span class="col-metrics-change">
+      <ng-container *ngIf="chartItem.change !== '+'; else noChange">
+        <span *ngIf="chartItem.icon === 'up'">
+          <i class="far fa-chart-line fa-fw"></i>
+          {{ chartItem.change }}%
+        </span>
+        <span *ngIf="chartItem.icon === 'down'" [ngClass]="{ decrease: chartItem.icon === 'down' }">
+          <i class="far fa-chart-line-down fa-fw"></i>
+          {{ chartItem.change }}%
+        </span>
+        vs. last period
+      </ng-container>
+    </span>
+  </div>
+  <div>
+    <div class="parentContainer ingo-chart-card-chart display-block">
+      <canvas
+        #dashboardCard="base-chart"
+        baseChart
+        height="193"
+        [id]="chartItem.type"
+        [datasets]="chartItem.datasets"
+        [labels]="chartItem.labels"
+        [options]="chartItem.options"
+        legend="true"
+        chartType="line"
+      ></canvas>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <app-empty-range></app-empty-range>
+</ng-template>
+<ng-template #spin>
+  <div class="spin">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>
+
+<ng-template #chartTitle>
+  <h2>Campaign lifetime performance</h2>
+</ng-template>
+<ng-template #noChange>
+  <span
+    class="no-change"
+    nz-tooltip
+    [nzTooltipTitle]="'app.campDetails.campLifetime.warning' | translate"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    {{ 'app.campDetails.campLifetime.warning' | translate }}
+  </span>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 10 }" [nzTitle]="false" class="mb-20"></nz-skeleton>
+</ng-template>

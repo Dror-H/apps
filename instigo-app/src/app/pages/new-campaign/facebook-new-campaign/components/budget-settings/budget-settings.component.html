@@ -1,0 +1,140 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="budgetForm" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <ingo-budget-type-selector formControlName="budgetType"></ingo-budget-type-selector>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Budget
+            <ingo-explain tooltipId="app.campCreate.budgetSchedule.budget"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-input-group [nzAddOnAfter]="budgetCurrency" class="ingo-currency-input">
+              <input
+                class="ant-input"
+                currencyMask
+                formControlName="budget"
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currencyInfo.Symbol + ' ',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: false,
+                  min: 0,
+                  max: currencyInfo.SubunitLimit
+                }"
+              />
+            </nz-input-group>
+            <ng-template #budgetCurrency
+              ><span nz-tooltip [nzTooltipTitle]="currencyTooltip">{{ currencyCode }}</span>
+            </ng-template>
+            <ng-template #currencyTooltip>
+              The used currency for the budget cannot be changed, since it is determined by the selected ad account's
+              chosen currency.<br /><a href="some-knowledgebase-link" target="_blank">Learn More</a>
+            </ng-template>
+          </nz-form-control>
+          <nz-alert
+            nzType="error"
+            [nzMessage]="
+              'Your budget must be at least ' +
+              currencyInfo.Symbol +
+              ' ' +
+              parentForm.errors?.minBudget +
+              ' or your ads may not deliver. Please increase your budget for this ad set.'
+            "
+            *ngIf="parentForm.errors?.minBudget"
+          >
+          </nz-alert>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label
+            >Campaign Spend Cap
+            <ingo-explain tooltipId="app.campCreate.budgetSchedule.spendCap"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-input-group [nzAddOnAfter]="budgetCurrency" class="ingo-currency-input">
+              <input
+                class="ant-input"
+                currencyMask
+                formControlName="spendCap"
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currencyInfo.Symbol + ' ',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: true,
+                  min: 0,
+                  max: currencyInfo.SubunitLimit
+                }"
+              />
+            </nz-input-group>
+            <ng-template #budgetCurrency
+              ><span nz-tooltip [nzTooltipTitle]="currencyTooltip">{{ currencyCode }}</span>
+            </ng-template>
+            <ng-template #currencyTooltip
+              >The used currency for the budget cannot be changed, since it is determined by the selected ad account's
+              chosen currency.<br /><a href="some-knowledgebase-link" target="_blank">Learn More</a></ng-template
+            >
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <ingo-campaign-schedule [budgetForm]="budgetForm"></ingo-campaign-schedule>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label
+            >Ad Scheduling (Dayparting)
+            <ingo-explain tooltipId="app.campCreate.budgetSchedule.dayparting"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-switch
+              formControlName="useDayparting"
+              [nzCheckedChildren]="checkedTemplate"
+              [nzUnCheckedChildren]="unCheckedTemplate"
+              [nzDisabled]="budgetForm.value.budgetType === budgetType.DAILY"
+            ></nz-switch>
+            <div *ngIf="budgetForm.value.budgetType === budgetType.DAILY" class="ingo-switch-notice">
+              Scheduling is only available for lifetime budgets
+            </div>
+            <ng-template #checkedTemplate><i class="fas fa-check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i class="far fa-power-off"></i></ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div
+        nz-col
+        [nzSpan]="24"
+        *ngIf="budgetForm.value.useDayparting && budgetForm.value.budgetType === budgetType.LIFETIME"
+      >
+        <nz-form-item>
+          <nz-form-control>
+            <ingo-dayparting [budgetSettingsForm]="budgetForm"></ingo-dayparting>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <nz-divider class="mx--25"></nz-divider>
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10"
+      [disabled]="budgetForm.status === 'INVALID'"
+      (click)="setStep.emit()"
+    >
+      Continue
+    </button>
+  </form>
+</nz-card>

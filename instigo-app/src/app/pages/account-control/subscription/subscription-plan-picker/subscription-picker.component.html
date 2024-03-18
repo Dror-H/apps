@@ -1,0 +1,265 @@
+<ingo-current-subscription (changeSubscription)="isChangingSubscription = $event"></ingo-current-subscription>
+
+<div nz-row [nzGutter]="25" class="change-subscription" [ngClass]="{ active: isChangingSubscription }">
+  <div nz-col [nzSpan]="24">
+    <nz-card [nzTitle]="changeSubTitle" [nzExtra]="changeSubExtra">
+      <ng-container *ngIf="!isCancellingSubscription; else cancelSubscription">
+        <div nz-row [nzGutter]="40" nzJustify="center" nzAlign="middle">
+          <div nz-col [nzSpan]="16">
+            <form nz-form [formGroup]="subscriptionForm" class="sub-promo-form">
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-radio-group class="ingo-radio-group radio-group-3" formControlName="billingCycle">
+                    <label nz-radio-button nzValue="month">Monthly</label>
+                    <label nz-radio-button nzValue="quarter">Quarterly</label>
+                    <label nz-radio-button nzValue="annual">Annually</label>
+                  </nz-radio-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-slider
+                    formControlName="plan"
+                    [nzStep]="1"
+                    [nzMin]="1"
+                    [nzMax]="10"
+                    nzTooltipVisible="never"
+                  ></nz-slider>
+                  <div class="plan-change-meta">
+                    <div class="price">
+                      <h2 *ngIf="billingCycle === 'month'; else displayDiscountedPrice">
+                        ${{ selectedPlan.price }}<span class="interval">/mo</span>
+                      </h2>
+                    </div>
+                    <div class="cap">
+                      <h5>Includes ${{ selectedPlan.cap * 1000 | number }} of Ad Spend</h5>
+                    </div>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+              <div class="coupon-form" *ngIf="!(currentSubscription$ | async)?.id">
+                <button
+                  nz-button
+                  nzType="primary"
+                  nzSize="small"
+                  class="subs-action-btn btn-primary btn-clear"
+                  (click)="haveCoupon = true"
+                  *ngIf="!haveCoupon"
+                >
+                  I have a coupon
+                </button>
+                <nz-form-item *ngIf="haveCoupon" class="promo-form">
+                  <nz-form-control nzErrorTip="Please provide a valid coupon">
+                    <input #promoCode nz-input name="promo" type="text" id="promo" placeholder="Coupon Code" />
+                    <button
+                      type="submit"
+                      nz-button
+                      nzType="primary"
+                      class="btn-icon btn-primary btn-clear"
+                      (click)="checkPromoCode(promoCode.value)"
+                    >
+                      <i class="far fa-check"></i>
+                    </button>
+                    <span class="sub-promo-remove sub-promo-checkinput"
+                      ><i class="fal fa-backspace" (click)="removeDiscount(promoCode)"></i
+                    ></span>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </form>
+          </div>
+          <div nz-col [nzSpan]="8">
+            <nz-card [nzBordered]="false" class="sub-summary-card">
+              <div class="sub-summary" *ngIf="isChangingSubscription; else changeSummarySkeleton">
+                <h4 class="sub-summary-title">Change Summary</h4>
+                <nz-card [nzBordered]="false" class="sub-summary-table" [nzBodyStyle]="{ 'background-color': '#fff' }">
+                  <div class="sub-summary-inner">
+                    <ul class="sub-list">
+                      <li>
+                        <span class="sub-list-title">Subtotal:</span>
+                        <span class="sub-list-text">${{ subTotal | number: '1.0-2':'en-US' }}</span>
+                      </li>
+                      <li>
+                        <span class="sub-list-title">Discount:</span>
+                        <span class="sub-list-text">${{ discount | number: '1.0-2':'en-US' }}</span>
+                      </li>
+                      <li>
+                        <span class="sub-list-title">Cycle:</span>
+                        <span class="sub-list-text">{{ billingCycle | titlecase }}ly</span>
+                      </li>
+                    </ul>
+                    <nz-divider></nz-divider>
+                    <h4 class="sub-total">
+                      <span class="sub-total-label">Total:</span>
+                      <span class="sub-total-amount"> ${{ total | number: '1.0-2':'en-US' }} </span>
+                    </h4>
+                    <button
+                      nz-button
+                      nzType="primary"
+                      nzSize="small"
+                      class="btn-success subs-action-btn btn-confirm-sub"
+                      [disabled]="subscriptionForm.invalid"
+                      (click)="openConfirmModal()"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                </nz-card>
+              </div>
+            </nz-card>
+          </div>
+        </div>
+      </ng-container>
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #cancelSubscription>
+  <nz-result
+    nzTitle="We're sad to see you go"
+    nzStatus="error"
+    [nzSubTitle]="cancelSubtitle"
+    [nzIcon]="cancelSubIcon"
+    @slideUp
+  >
+    <div nz-result-content>
+      <div class="desc">
+        <h4 nz-title>Once your subscription is terminated:</h4>
+        <nz-list class="ingo-subs-features">
+          <nz-list-item>
+            <span class="ingo-subs-feature-icon"><i class="far fa-horizontal-rule"></i></span>
+            <span>You'll lose access to all features</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span class="ingo-subs-feature-icon"><i class="far fa-horizontal-rule"></i></span>
+            <span>You'll be able to use and see the workspace dashboard only</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span class="ingo-subs-feature-icon"><i class="far fa-horizontal-rule"></i></span>
+            <span>All accounts will be removed from all workspaces you manage</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span class="ingo-subs-feature-icon"><i class="far fa-horizontal-rule"></i></span>
+            <span>New data will not be fetched & existing insights will be deleted</span>
+          </nz-list-item>
+        </nz-list>
+      </div>
+    </div>
+    <div nz-result-extra>
+      <button
+        nz-button
+        nzType="primary"
+        class="btn-primary btn-clear btn-payments btn-bottom"
+        (click)="isCancellingSubscription = false"
+      >
+        Go Back
+      </button>
+      <button nz-button nzType="primary" class="btn-danger btn-bold" (click)="confirmCancellation()">
+        Confirm Cancellation
+      </button>
+    </div>
+  </nz-result>
+</ng-template>
+
+<ng-template #cancelSubtitle>
+  <div class="cancel-subtitle">
+    If you cancel today, you will still have full access until
+    <strong>{{ (currentSubscription$ | async).nextPayment }}</strong>
+  </div>
+</ng-template>
+
+<ng-template #cancelSubIcon>
+  <img src="/assets/images/others/cancel-sub-icon_1x.png" alt="" />
+</ng-template>
+
+<ng-template #changeSubTitle>
+  {{ isCancellingSubscription ? 'Cancel' : 'Change' }} Subscription
+  <i
+    class="far fa-times-hexagon btn-cancel-sub-change"
+    *ngIf="isChangingSubscription && !isCancellingSubscription"
+    (click)="isChangingSubscription = false"
+  ></i>
+</ng-template>
+
+<ng-template #changeSubExtra>
+  <button
+    nz-button
+    nzType="primary"
+    nzSize="small"
+    class="btn-bold btn-outline btn-light subs-action-btn btn-cancel-sub"
+    *ngIf="isChangingSubscription && (currentSubscription$ | async).active"
+    (click)="isCancellingSubscription ? (isCancellingSubscription = false) : (isCancellingSubscription = true)"
+  >
+    {{ isCancellingSubscription ? 'Go Back' : 'Cancel Subscription' }}
+  </button>
+</ng-template>
+
+<ng-template #displayDiscountedPrice>
+  <h2>
+    ${{ selectedPlan.price * discountedPrices[billingCycle] | number: '1.0-0':'en-US'
+    }}<span class="interval">/month</span>
+    <span class="discount-price">${{ selectedPlan.price }}</span>
+  </h2>
+</ng-template>
+
+<ng-template #changePlanModalContent>
+  <h2>Confirm Subscription</h2>
+  <nz-list class="ingo-subs-features confirm-sub-notices">
+    <nz-list-item>
+      <span
+        >You will be charged <strong>${{ total | number: '1.0-2':'en-US' }}</strong> using the card ending in
+        <strong>{{ (currentPaymentMethod$ | async)?.last4 }}</strong></span
+      >
+    </nz-list-item>
+    <nz-list-item>
+      <span
+        >Your subscription will be renewed on <strong>{{ nextRenew }}</strong></span
+      >
+    </nz-list-item>
+    <nz-list-item>
+      <span>Your subscription will be renewed {{ billingCycle | titlecase }}ly until cancelled</span>
+    </nz-list-item>
+    <nz-list-item>
+      <span
+        >Your subscription will be automatically upgraded to the next tier if and when an ad spend of
+        <strong>${{ selectedPlan.cap * 1000 | number }}</strong> is surpassed</span
+      >
+    </nz-list-item>
+  </nz-list>
+</ng-template>
+
+<ng-template #changePlanModalFooter let-ref="modalRef">
+  <div class="sub-terms-link">
+    Read our <a href="https://instigo.io/terms-of-use" target="_blank">Terms of Service</a>
+  </div>
+  <button nz-button nzType="primary" nzSize="small" class="btn-dark btn-clear subs-action-btn" (click)="ref.destroy()">
+    Cancel
+  </button>
+  <button
+    nz-button
+    nzType="primary"
+    nzSize="small"
+    class="btn-success subs-action-btn"
+    (click)="confirmNewPlan(); ref.destroy()"
+  >
+    Confirm
+  </button>
+</ng-template>
+
+<ng-template #changeSummarySkeleton>
+  <div class="sub-summary">
+    <h4 class="sub-summary-title"><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></h4>
+    <nz-card [nzBordered]="false" class="sub-summary-table" [nzBodyStyle]="{ 'background-color': '#fff' }">
+      <div class="sub-summary-inner">
+        <ul class="sub-list">
+          <li><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></li>
+          <li><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></li>
+          <li><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></li>
+        </ul>
+        <nz-divider></nz-divider>
+        <h4 class="sub-total"><nz-skeleton [nzParagraph]="{ rows: 0 }"></nz-skeleton></h4>
+        <nz-skeleton-element *nzSpaceItem nzType="button"></nz-skeleton-element>
+      </div>
+    </nz-card>
+  </div>
+</ng-template>

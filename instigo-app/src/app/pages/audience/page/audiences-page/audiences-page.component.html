@@ -1,0 +1,84 @@
+<div nz-row [nzGutter]="25">
+  <div nz-col nzSpan="24">
+    <nz-page-header class="site-page-header">
+      <nz-page-header-title>Audiences</nz-page-header-title>
+      <nz-page-header-extra>
+        <button nz-button nzType="primary" class="btn-raised btn-white btn-small" [routerLink]="['/audiences/new']">
+          <span>Create New Audience</span>
+          <i class="far fa-plus ml-10"></i>
+        </button>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+</div>
+<div nz-row [nzGutter]="24" class="ingo-tabs-view">
+  <div nz-col [nzSpan]="24">
+    <nz-tabset [nzSelectedIndex]="activeTab" [nzTabBarExtraContent]="tabsFilters">
+      <nz-tab [nzTitle]="audiencesTitle" (nzClick)="activeTab = 0">
+        <app-audiences-view (showAudienceDetails)="toggleSideBar($event, 'audience')" *ngIf="activeTab === 0">
+        </app-audiences-view>
+      </nz-tab>
+      <nz-tab [nzTitle]="targetingsTitle" (nzClick)="activeTab = 1">
+        <app-targetings-view
+          (showTargetingDetails)="toggleSideBar($event, 'targetingTemplate')"
+          *ngIf="activeTab === 1"
+        ></app-targetings-view>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+<nz-drawer
+  [nzClosable]="true"
+  [nzVisible]="sideBarOpened"
+  nzPlacement="right"
+  [nzTitle]="sideBarContent?.name"
+  [nzWidth]="500"
+  (nzOnClose)="closeSideBar()"
+>
+  <ng-container *nzDrawerContent>
+    <app-audience-details
+      [opened]="sideBarOpened"
+      [instance]="sideBarContent"
+      [type]="sideBarType"
+    ></app-audience-details>
+  </ng-container>
+</nz-drawer>
+<ng-template #audiencesTitle>
+  <i class="fad fa-stream"></i>
+  Audiences
+  <span *ngIf="(selectedAudiencesLength$ | async) > 0" (click)="deselectAudiences($event)" class="table-selected-badge">
+    {{ selectedAudiencesLength$ | async }}
+    <i class="ng-fa-icon fas fa-times-circle fa-1x"></i>
+  </span>
+</ng-template>
+<ng-template #targetingsTitle>
+  <i class="fad fa-stream"></i>
+  Targetings
+  <span
+    *ngIf="(selectedTargetingsLength$ | async) > 0"
+    (click)="deselectTargetings($event)"
+    class="table-selected-badge"
+  >
+    {{ selectedTargetingsLength$ | async }}
+    <i class="ng-fa-icon fas fa-times-circle fa-1x"></i>
+  </span>
+</ng-template>
+<ng-template #tabsFilters>
+  <div class="ingo-tabs-view-filters">
+    <span>Filter by</span>
+    <app-filter-by-provider
+      [providers]="(filters$ | async).providers"
+      (selectedProviders)="updateFilterState({ providers: $event })"
+    ></app-filter-by-provider>
+    <app-filter-by-adaccount
+      [adAccounts]="(filters$ | async).adAccounts"
+      (selectedAdAccounts)="updateFilterState({ adAccounts: $event })"
+    ></app-filter-by-adaccount>
+    <app-filter-by-status
+      [statusList]="(filters$ | async).status"
+      (selectedStatus)="updateFilterState({ status: $event })"
+    ></app-filter-by-status>
+    <app-filter-by-type [types]="(filters$ | async).types" (selectedTypes)="updateFilterState({ types: $event })">
+    </app-filter-by-type>
+  </div>
+</ng-template>

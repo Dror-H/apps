@@ -1,0 +1,199 @@
+<form nz-form [formGroup]="campaignCreatives" class="ingo-add-edit-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <div class="ingo-form-divider">
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label>
+          Available Templates
+          <div class="table-search">
+            <i
+              class="far fa-search"
+              (click)="toggleSearch()"
+              nz-tooltip
+              [nzTooltipTitle]="'Search'"
+              [nzTooltipColor]="'#5f63f2'"
+            ></i>
+            <nz-input-group [nzSuffix]="suffixIconSearch" [ngClass]="{ 'search-open': isSearchOpen }">
+              <input
+                type="text"
+                #searchText
+                nz-input
+                placeholder="Search Ad Templates"
+                (input)="searchTable(searchText.value)"
+                (keyup.enter)="searchTable(searchText.value)"
+              />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+          </div>
+          <div class="ingo-switch-view">
+            <i class="fas fa-th-list fa-fw" (click)="toggleView('list')" [ngClass]="{ active: isListView }"></i>
+            <i class="fas fa-th fa-fw" (click)="toggleView('cards')" [ngClass]="{ active: !isListView }"></i>
+          </div>
+        </nz-form-label>
+        <nz-form-control nzErrorTip="You have to select an ad template">
+          <nz-table
+            *ngIf="isListView && (adTemplateTableState$ | async) as state"
+            #templatesTable
+            [nzData]="(adTemplatesData$ | async) || []"
+            [nzFrontPagination]="false"
+            [nzShowPagination]="true"
+            nzTableLayout="fixed"
+            class="nc-ad-templates-table"
+            (nzPageIndexChange)="onPageChange($event)"
+            [nzTotal]="state.totalRecords"
+            [nzPageSize]="state.limit"
+            [nzPageIndex]="state.page"
+            [nzScroll]="{ x: '700px', y: '360px' }"
+          >
+            <thead>
+              <tr>
+                <ng-container *ngFor="let column of columns; let i = index">
+                  <th
+                    *ngIf="column.show && column.freezeLeft && column.ellipsis && column.width"
+                    nzLeft
+                    nzEllipsis
+                    [nzWidth]="column.width"
+                    [innerHTML]="column.name"
+                  ></th>
+                  <th
+                    *ngIf="column.show && column.width && !column.ellipsis"
+                    [nzWidth]="column.width"
+                    [innerHTML]="column.name"
+                  ></th>
+                  <th
+                    *ngIf="column.show && !column.freezeLeft && !column.ellipsis && !column.width"
+                    [innerHTML]="column.name"
+                  ></th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let adTemplate of templatesTable.data"
+                (click)="selectAdTemplate(adTemplate)"
+                [ngClass]="{ 'selected-ad-template': adTemplate.checked }"
+              >
+                <ng-container *ngFor="let column of columns; let i = index">
+                  <td *ngIf="i === 0">
+                    {{ adTemplate[column.prop] }}<i *ngIf="adTemplate.checked" class="fas fa-check-circle"></i>
+                  </td>
+                  <td *ngIf="i !== 0 && adTemplate[column.prop] !== 'adPreview'">{{ adTemplate[column.prop] }}</td>
+                  <td *ngIf="adTemplate[column.prop] == 'adPreview'">
+                    <ng-container>
+                      <ng-template>
+                        <span>Viewing Ad {{ adTemplate.name }}</span>
+                      </ng-template>
+
+                      <ng-template>
+                        <div class="nc-ad-preview-selector ingo-add-edit-form">
+                          <nz-select
+                            nzPlaceHolder="Select Placement"
+                            [nzCustomTemplate]="campaignAccountDD"
+                            [nzSuffixIcon]="dropdownIcon"
+                            [nzOptionHeightPx]="38"
+                          >
+                            <nz-option
+                              *ngFor="let placement of adPlacementsOptions"
+                              [nzValue]="placement.name"
+                              nzCustomContent
+                              >{{ placement.name }}</nz-option
+                            >
+                          </nz-select>
+                        </div>
+                        <ng-template #campaignAccountDD let-selected> {{ selected.nzValue }} </ng-template>
+                        <ng-template #dropdownIcon><i class="fas fa-angle-down"></i></ng-template>
+                      </ng-template>
+                      <button
+                        nz-button
+                        nzType="primary"
+                        class="btn-icon btn-light"
+                        (click)="openPreview(adTemplate, $event)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div>
+            <div nz-row [nzGutter]="24" *ngIf="!isListView" class="nc-ad-templates-cards">
+              <div nz-col [nzXl]="12" [nzSpan]="24" *ngFor="let adTemplate of adTemplatesData$ | async">
+                <nz-card
+                  [nzTitle]="adTemplate.name"
+                  [nzExtra]="templateCardChecked"
+                  [ngClass]="{ active: adTemplate.checked }"
+                >
+                  <ingo-preview-iframe-ad-template
+                    [adTemplateDto]="adTemplateFormsMap.get(adTemplate.id).value"
+                  ></ingo-preview-iframe-ad-template>
+
+                  <div class="template-meta">
+                    <div>
+                      <span>Created</span>
+                      <strong>{{ adTemplate.createdAt }}</strong>
+                    </div>
+                    <div>
+                      <span>Updated</span>
+                      <strong>{{ adTemplate.updatedAt }}</strong>
+                    </div>
+                  </div>
+                </nz-card>
+                <ng-template #templateCardChecked>
+                  <i class="fas fa-check-circle" *ngIf="adTemplate.checked"></i>
+                  <button
+                    nz-button
+                    nzType="light"
+                    class="ant-btn-light"
+                    *ngIf="!adTemplate.checked"
+                    (click)="selectAdTemplate(adTemplate)"
+                  >
+                    Use
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+            <nz-pagination
+              *ngIf="adTemplateTableState$ | async as state"
+              [nzTotal]="state.totalRecords"
+              [nzPageSize]="state.limit"
+              [nzPageIndex]="state.page"
+              (nzPageIndexChange)="onPageChange($event)"
+            >
+            </nz-pagination>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <nz-divider class="mx--25"></nz-divider>
+  <ng-content></ng-content>
+</form>
+
+<ng-template #changeCtaModalContent let-params>
+  <div class="modal-direct">
+    The selected ad template is using {{ params.currentCallToAction }} as a call to action, which is not compatible with
+    the {{ params.selectedCampObjective }} campaign objective
+  </div>
+  <div class="modal-direct">
+    To continue with selecting this ad template, choose a new compatible Call to Action from the list below. The
+    existing template will be updated accordingly.
+  </div>
+  <nz-select
+    class="w-100"
+    nzPlaceHolder="Call to Action"
+    [nzOptionHeightPx]="38"
+    [nzOptions]="params.validCallToActionOptions"
+    [(ngModel)]="newCtaValue"
+  >
+  </nz-select>
+</ng-template>

@@ -1,0 +1,83 @@
+<ng-container *ngIf="charts$ | async as chartsInput; else empty">
+  <ng-container *ngIf="chartsInput.type !== 'empty'; else empty">
+    <ng-container *ngIf="chartsInput.type === 'finish'; else skeleton">
+      <div nz-card-grid class="w-25" *ngFor="let chartItem of chartsInput.charts">
+        <ng-container
+          [ngTemplateOutlet]="chartTemplate"
+          [ngTemplateOutletContext]="{ chartItem: chartItem }"
+          *ngIf="chartItem.labels.length > 0; else empty"
+        >
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #chartTemplate let-chartItem="chartItem">
+  <div class="chart-metric multi-chart-metric">
+    <p>{{ chartItem.metric }}</p>
+    <h2>
+      <span class="min-width-50">
+        {{ chartItem.prefix }}{{ chartItem.total ? (chartItem.total | number: '1.0-2':'en-US') : 0
+        }}{{ chartItem.suffix }}
+      </span>
+    </h2>
+    <span class="col-metrics-change">
+      <ng-container *ngIf="chartItem.change !== '+'; else noChange">
+        <span *ngIf="chartItem.icon === 'up'">
+          <i class="far fa-chart-line fa-fw"></i>
+          {{ chartItem.change }}%
+        </span>
+        <span *ngIf="chartItem.icon === 'down'" [ngClass]="{ decrease: chartItem.icon === 'down' }">
+          <i class="far fa-chart-line-down fa-fw"></i>
+          {{ chartItem.change }}%
+        </span>
+        vs. last period
+      </ng-container>
+    </span>
+  </div>
+  <div>
+    <div class="parentContainer ingo-chart-card-chart display-block">
+      <canvas
+        #dashboardCard="base-chart"
+        baseChart
+        height="193"
+        [id]="chartItem.type"
+        [datasets]="chartItem.datasets"
+        [labels]="chartItem.labels"
+        [options]="chartItem.options"
+        legend="true"
+        chartType="line"
+      ></canvas>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="mb-25 mt-25">
+    <app-empty-range></app-empty-range>
+  </div>
+</ng-template>
+<ng-template #spin>
+  <div class="spin">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>
+
+<ng-template #noChange>
+  <span
+    class="no-change"
+    nz-tooltip
+    [nzTooltipTitle]="'app.campDetails.campLifetime.warning' | translate"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    Change not available
+  </span>
+</ng-template>
+
+<ng-template #skeleton>
+  <div [ngStyle]="{ padding: '25px' }">
+    <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 10 }" [nzTitle]="false" class="mb-20"></nz-skeleton>
+  </div>
+</ng-template>

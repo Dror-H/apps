@@ -1,0 +1,22 @@
+<nz-card class="ingo-card-nbm">
+  <ingo-targeting-type [formControl]="targetingForm.controls.targetingType"></ingo-targeting-type>
+
+  <ng-container *ngIf="targetingForm.controls.targetingType.value === audienceSourceOptions[0].id">
+    <app-create-saved-audience [createAudienceForm]="targetingForm.controls.createAudience"></app-create-saved-audience>
+  </ng-container>
+
+  <ng-container *ngIf="targetingForm.controls.targetingType.value === audienceSourceOptions[1].id">
+    <app-load-saved-audience [loadAudienceForm]="targetingForm.controls.loadAudience"></app-load-saved-audience>
+  </ng-container>
+
+  <nz-divider class="mx--25"></nz-divider>
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-primary mr-10"
+    (click)="setStep.emit()"
+    [disabled]="targetingForm.status === 'INVALID'"
+  >
+    Continue
+  </button>
+</nz-card>

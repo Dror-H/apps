@@ -1,0 +1,140 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="audienceForm" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="10">
+        <nz-form-item>
+          <nz-form-label>Audience Name</nz-form-label>
+          <nz-form-control>
+            <input formControlName="name" nz-input placeholder="Audience Name" />
+            <span
+              *ngIf="audienceForm.controls.name.errors && !audienceForm.controls.name.pristine"
+              class="text-danger mt-5 d-block"
+            >
+              Min. length of 4 letters is required
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="16" [nzXl]="14">
+        <nz-form-item>
+          <nz-form-label>Ad Network</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group class="ingo-radio-group radio-group-2" formControlName="provider">
+              <div nz-radio-button *ngFor="let network of adNetworks" [nzValue]="network.value">
+                <span class="icon">
+                  <i class="{{ network.icon }}"></i>
+                </span>
+                <span class="title">
+                  <span>{{ network.name }}</span>
+                </span>
+                <span class="selected-icon">
+                  <i class="fas fa-check-circle"></i>
+                </span>
+              </div>
+            </nz-radio-group>
+            <span
+              *ngIf="audienceForm.controls.provider.errors && !audienceForm.controls.provider.pristine"
+              class="text-danger"
+            >
+              You need to select an ad network.
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="16" [nzXl]="10" class="ml-neg-xl-6">
+        <nz-form-item
+          *ngIf="this.audienceForm.controls.provider.valid && this.audienceForm.controls.provider.value != null"
+        >
+          <nz-form-label>Ad Account</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="adAccount"
+              [nzOptions]="adAccountList"
+              nzPlaceHolder="Select an ad account"
+              [nzOptionHeightPx]="38"
+            >
+            </nz-select>
+            <span
+              *ngIf="audienceForm.controls.adAccount.errors && !audienceForm.controls.adAccount.pristine"
+              class="text-danger"
+            >
+              You need to select an ad account.
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzXl]="21">
+        <nz-form-item>
+          <nz-form-label>Audience Type</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group class="ingo-radio-group radio-group-3" formControlName="audienceType">
+              <ng-container *ngFor="let type of audienceTypes">
+                <div
+                  nz-radio-button
+                  [nzValue]="type.value"
+                  [nzDisabled]="
+                    type.value === audienceType.LOOKALIKE_AUDIENCE &&
+                    audienceForm.value.provider === supportedProviders.LINKEDIN
+                  "
+                >
+                  <span class="icon">
+                    <i class="{{ type.icon }}"></i>
+                  </span>
+                  <span class="title">
+                    <span>{{ type.name }}</span>
+                  </span>
+                  <span class="selected-icon">
+                    <i class="fas fa-check-circle"></i>
+                  </span>
+                </div>
+              </ng-container>
+            </nz-radio-group>
+            <span
+              *ngIf="audienceForm.controls.audienceType.errors && !audienceForm.controls.audienceType.pristine"
+              class="text-danger"
+            >
+              You need to select an audience type.
+            </span>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24" *ngIf="audienceForm.value.audienceType === audienceType.CUSTOM_AUDIENCE">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label>Custom Audience Source</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group class="ingo-radio-group radio-group-2" formControlName="audienceSubType">
+              <div
+                nz-radio-button
+                *ngFor="let type of audienceSubTypes"
+                [nzValue]="type.value"
+                [nzDisabled]="
+                  type.value === audienceSubType.LIST && audienceForm.value.provider === supportedProviders.LINKEDIN
+                "
+              >
+                <span class="icon">
+                  <i class="{{ type.icon }}"></i>
+                </span>
+                <span class="title">
+                  <span>{{ type.name }}</span>
+                </span>
+                <span class="selected-icon">
+                  <i class="fas fa-check-circle"></i>
+                </span>
+              </div>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <nz-divider class="mx--25"></nz-divider>
+    <button nz-button nzType="primary" class="btn-primary" (click)="setStep.emit(1)">
+      <span>Continue</span>
+    </button>
+  </form>
+</nz-card>

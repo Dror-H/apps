@@ -1,0 +1,133 @@
+export const includedTargetingResult = [
+  [
+    {
+      providerId: '6002714898572',
+      type: 'behaviors',
+      path: ['Behaviours', 'Digital activities', 'Small business owners'],
+      name: 'Small business owners',
+      audienceSize: 48970322,
+    },
+    {
+      providerId: '6002884511422',
+      type: 'interests',
+      path: ['Interests', 'Business and industry', 'Small business'],
+      name: 'Small business',
+      audienceSize: 192686100.5,
+    },
+    {
+      providerId: '109288035760640',
+      type: 'employers',
+      path: ['Demographics', 'Work', 'Employers', 'Business Owner'],
+      name: 'Business Owner',
+      audienceSize: 116699,
+    },
+    {
+      providerId: '112168642212790',
+      type: 'employers',
+      path: ['work_employers'],
+      name: 'Small Business owner',
+    },
+  ],
+  [
+    {
+      providerId: '6002964301046',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Business school'],
+      name: 'Business school',
+      audienceSize: 41083805,
+    },
+    {
+      providerId: '106335129403847',
+      type: 'fieldsOfStudy',
+      path: ['Demographics', 'Education', 'Fields of study', 'Business management'],
+      name: 'Business management',
+      audienceSize: 2636510.5,
+    },
+    { type: 'educationStatuses', providerId: '' },
+  ],
+  [
+    {
+      providerId: '6002964301046',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Business school'],
+      name: 'Business school',
+      audienceSize: 41083805,
+    },
+    {
+      providerId: '6003304824460',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Distance education'],
+      name: 'Distance education',
+      audienceSize: 58894087.5,
+    },
+    {
+      providerId: '6003333602237',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Online learning community'],
+      name: 'Online learning community',
+      audienceSize: 7387138.5,
+    },
+    {
+      providerId: '6003373318975',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Virtual learning environment'],
+      name: 'Virtual learning environment',
+      audienceSize: 1470629.5,
+    },
+    {
+      providerId: '6003490851457',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'ALISON - Free Online Courses'],
+      name: 'ALISON - Free Online Courses',
+      audienceSize: 1924,
+    },
+    {
+      providerId: '6003559352865',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Udemy'],
+      name: 'Udemy',
+      audienceSize: 20411111,
+    },
+    {
+      providerId: '6004765395213',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Codecademy'],
+      name: 'Codecademy',
+      audienceSize: 1847916,
+    },
+    {
+      providerId: '6005577919198',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Udacity'],
+      name: 'Udacity',
+      audienceSize: 6569904.5,
+    },
+    {
+      providerId: '6007069252238',
+      type: 'interests',
+      path: ['Interests', 'Additional interests', 'Coursera'],
+      name: 'Coursera',
+      audienceSize: 4286775.5,
+    },
+    {
+      providerId: '116050848438791',
+      type: 'employers',
+      path: ['Demographics', 'Work', 'Employers', 'Currently looking for a job.'],
+      name: 'Currently looking for a job.',
+      audienceSize: 3339.5,
+    },
+  ],
+];
+
+export const excludedTargetingResult = [
+  {
+    audienceSize: 539317289.5,
+    name: 'Engaged shoppers',
+    path: ['Behaviours', 'Purchase behaviour', 'Engaged shoppers'],
+    providerId: '6071631541183',
+    type: 'behaviors',
+  },
+  { audienceSize: 123456, name: 'test', path: ['Behaviours'], providerId: '123456', type: 'behaviors' },
+  { audienceSize: 654321, name: 'test 2', path: ['Demographics'], providerId: '654321', type: 'demographics' },
+  { audienceSize: 321654, name: 'test 2', path: ['Interests'], providerId: '123654', type: 'interests' },
+];

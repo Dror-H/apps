@@ -1,0 +1,22 @@
+/* copy of bootstrap class */
+.btn {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: #212529;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  transition: color 0.15s;
+  -webkit-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.summary-group-item h5 {
+  line-height: 18px;
+}

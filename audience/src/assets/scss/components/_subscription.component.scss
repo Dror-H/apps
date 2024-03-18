@@ -1,0 +1,68 @@
+.card-header {
+  position: relative;
+
+  .ant-collapse-header,
+  .ant-collapse-content-box {
+    padding: 0 !important;
+  }
+
+  .ant-collapse .ant-card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin: -1px;
+    margin-top: 0;
+  }
+
+  .ant-collapse .summary-list.summary-group .ant-card {
+    border-radius: 0.4rem;
+  }
+
+  .ant-collapse-item {
+    margin-bottom: 30px;
+
+    .ant-card-head {
+      border-radius: 0.4rem;
+    }
+
+    &.ant-collapse-item-active .ant-card-head {
+      border-radius: 0.4rem 0.4rem 0 0;
+    }
+  }
+}
+
+.user-subscription {
+  input,
+  .field.StripeElement {
+    background: #ffff 0 0 no-repeat padding-box;
+    border: 0.2px solid #dddd;
+    border-radius: var(--main-radius-mid);
+    box-shadow: 0 1px 11px #0000000d;
+    color: #393b4b;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-bottom: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    width: 100%;
+
+    &::placeholder {
+      color: #aab3bb;
+    }
+  }
+
+  .ingo-subs-features.confirm-sub-notices {
+    margin-bottom: -10px !important;
+
+    .ant-list-item {
+      background: rgb(95 99 242 / 6%);
+      border: 1px solid rgb(95 99 242 / 14%) !important;
+      border-radius: 0.4rem;
+      padding: 10px 15px !important;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div nz-form [formGroup]="audienceTypeForm">
+  <ingo-location-selector-container
+    [providerId]="audienceTypeForm.controls.adAccount.value.providerId"
+    [provider]="provider"
+    [rules]="rulesValue"
+    (getReach)="getReachEventFromChild($event)"
+  ></ingo-location-selector-container>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <ingo-linkedin-detailed-targeting
+    *ngIf="showDetails()"
+    (targetingCriteria)="dispatchGetTargetReach()"
+    [adAccountProviderId]="audienceTypeForm.controls.adAccount.value.providerId"
+    [provider]="provider"
+    [include]="includeDetailsTargeting"
+    [exclude]="excludeDetailsTargeting"
+  >
+  </ingo-linkedin-detailed-targeting>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <ingo-custom-audience-container
+    [demographicsForm]="demographicsForm"
+    [adAccount]="audienceTypeForm.value.adAccount"
+  ></ingo-custom-audience-container>
+</div>

@@ -1,0 +1,88 @@
+<ng-container *ngIf="!(layoutService.loadingOnCampaignCreate$ | async)">
+  <div nz-row [nzGutter]="[25, 25]">
+    <div nz-col nzSpan="12">
+      <nz-page-header class="site-page-header">
+        <nz-page-header-title>Create Campaign</nz-page-header-title>
+      </nz-page-header>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <div nz-row nzJustify="end" nzAlign="middle" class="h-100">
+        <button
+          *ngIf="(layoutService.campaignData$ | async)?.draftId != null"
+          nz-button
+          nzType="primary"
+          class="btn btn-secondary"
+          routerLink="/new-campaign"
+          (click)="layoutService.deleteAll()"
+        >
+          Reset campaign creation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nz-card nzTitle="Select provider">
+    <div nz-form class="newcamp-type-options ingo-add-edit-form">
+      <nz-form-item>
+        <nz-form-label>Creative Source</nz-form-label>
+        <nz-form-control>
+          <nz-button-group>
+            <button
+              nz-button
+              nzType="default"
+              class="btn-group-btn"
+              routerLink="./facebook"
+              routerLinkActive="active"
+              test-id="new-campaign-type-facebook"
+            >
+              Facebook
+            </button>
+
+            <button
+              *ngIf="enableLinkedinCampaign"
+              nz-button
+              class="btn-group-btn"
+              routerLink="./linkedin"
+              routerLinkActive="active"
+              test-id="new-campaign-type-linkedin"
+            >
+              Linkedin
+            </button>
+            <nz-badge [nzCount]="comingSoonIcon" *ngIf="!enableLinkedinCampaign">
+              <button
+                nz-button
+                nzType="light"
+                class="ant-btn-light"
+                routerLink="/new-campaign/linkedin"
+                routerLinkActive="active"
+                [disabled]="true"
+              >
+                Linkedin
+              </button>
+            </nz-badge>
+            <ng-template #comingSoonIcon>
+              <div class="coming-soon-btn" nz-tooltip [nzTooltipTitle]="'Coming Soon'" [nzTooltipColor]="'#5f63f2'">
+                <i class="fas fa-info-circle"></i>
+              </div>
+            </ng-template>
+          </nz-button-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </nz-card>
+  <router-outlet></router-outlet>
+</ng-container>
+
+<instigo-app-spinner
+  *ngIf="(layoutService.loadingOnCampaignCreate$ | async) === true && (layoutService.campaignResult$ | async) == null"
+  [text]="
+    'app.campCreate.campaign.campCreateLoading' | translate: { value: (layoutService.campaignData$ | async)?.name }
+  "
+></instigo-app-spinner>
+<ingo-campaign-result
+  *ngIf="(layoutService.loadingOnCampaignCreate$ | async) && (layoutService.campaignResult$ | async)"
+  [result]="layoutService.campaignResult$ | async"
+  (retry)="retry()"
+  (startOver)="startOver()"
+></ingo-campaign-result>

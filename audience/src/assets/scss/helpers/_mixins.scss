@@ -1,0 +1,15 @@
+@import 'colors.variables';
+
+@mixin slider-colors($color: $primary-color) {
+  .ant-slider:not(.ant-slider-disabled) {
+    .ant-slider {
+      &-handle {
+        background-color: $color;
+      }
+
+      &-track {
+        background-color: $color;
+      }
+    }
+  }
+}

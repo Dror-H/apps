@@ -1,0 +1,42 @@
+<ng-container *ngIf="foundAudiences">
+  <div class="limited-width-container--md">
+    <div nz-row [nzGutter]="[16, 16]">
+      <ng-container *ngFor="let audience of foundAudiences; let i = index">
+        <div *ngIf="i < visibleCardsCount" nz-col [nzXs]="{ span: 24 }" [nzSm]="{ span: 12 }" [nzLg]="{ span: 8 }">
+          <div
+            class="cursor-pointer card-wrapper"
+            (click)="toggleSelectAudience(audience)"
+            [ngClass]="{ 'card-wrapper--selected': isAudienceSelected(audience) }"
+            *ngIf="!(isLoadingAudiences$ | async); else cardSkeleton"
+          >
+            <audi-audience-card [audience]="audience"></audi-audience-card>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="divider--lg"></div>
+    <nz-row class="tooltip-pos" nzJustify="center">
+      <nz-col>
+        <ingo-explain *ngIf="loadMoreMessage" [tooltipId]="loadMoreMessage"></ingo-explain>
+        <button
+          #loadMoreBtn
+          (click)="loadMoreAudiences()"
+          class="load-more-btn"
+          nz-button
+          nzType="text"
+          [nzLoading]="isLoadingMore"
+          [disabled]="isLoadMoreDisabled"
+        >
+          Load More
+        </button>
+      </nz-col>
+    </nz-row>
+  </div>
+</ng-container>
+
+<ng-template #cardSkeleton>
+  <div class="card-wrapper">
+    <audi-card-skeleton></audi-card-skeleton>
+  </div>
+</ng-template>

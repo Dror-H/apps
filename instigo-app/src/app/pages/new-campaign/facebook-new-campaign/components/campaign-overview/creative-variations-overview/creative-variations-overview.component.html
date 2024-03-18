@@ -1,0 +1,57 @@
+<nz-card class="na-ov-wrapper ingo-card-np">
+  <ng-container [ngSwitch]="creativesForm.value.sourceType">
+    <ng-container *ngSwitchCase="creativeSourceOptions[0].id">
+      <ng-container [ngSwitch]="creativesForm.value.multivariate.adTemplateType">
+        <ingo-create-new-variations-overview
+          *ngSwitchCase="adTemplateType.IMAGE"
+          [editPage]="creativesForm.controls.multivariate['controls'].image"
+          [canAddVariations]="value"
+          [multivariateFields]="multivariateFields"
+        ></ingo-create-new-variations-overview>
+        <ingo-create-new-variations-overview
+          *ngSwitchCase="adTemplateType.CAROUSEL"
+          [editPage]="creativesForm.controls.multivariate['controls'].carousel"
+          [canAddVariations]="value"
+          [multivariateFields]="multivariateFields"
+        ></ingo-create-new-variations-overview>
+        <ingo-create-new-variations-overview
+          *ngSwitchCase="adTemplateType.VIDEO"
+          [editPage]="creativesForm.controls.multivariate['controls'].video"
+          [canAddVariations]="value"
+          [multivariateFields]="multivariateFields"
+        ></ingo-create-new-variations-overview>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="creativeSourceOptions[1].id">
+      <h2 class="nc-summary-title">Using Existing Templates</h2>
+      <nz-divider class="mx--25"></nz-divider>
+      <span class="nc-summary-total">
+        Total
+        <span [ngClass]="{ 'cannot-add': !value }">
+          {{ creativesForm.value.existingTemplate.adCombinations.length }}</span
+        >
+        templates selected</span
+      >
+    </ng-container>
+    <ng-container *ngSwitchCase="creativeSourceOptions[2].id">
+      <h2 class="nc-summary-title">Using Existing Post</h2>
+      <nz-divider class="mx--25"></nz-divider>
+      <span class="nc-summary-total"
+        >{{ creativesForm.value.existingPost.selectedPost ? '1' : 'No' }} post selected</span
+      >
+    </ng-container>
+
+    <ng-container *ngSwitchCase="creativeSourceOptions[4].id">
+      <h2 class="nc-summary-title">Promote page</h2>
+      <nz-divider class="mx--25"></nz-divider>
+      <span class="nc-summary-total"
+        >{{
+          creativesForm.controls.onlyPromotePage['controls'].fromPage['controls'].pageInfo.status === 'VALID'
+            ? creativesForm.value.onlyPromotePage.fromPage?.pageInfo?.name
+            : 'No'
+        }}
+        page selected</span
+      >
+    </ng-container>
+  </ng-container>
+</nz-card>

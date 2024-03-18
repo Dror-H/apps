@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- HTML5 -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Instigo</title>
+    <meta name="description" content="The ultimate marketing tool" />
+    <base href="/" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0,shrink-to-fit=no,viewport-fit=cover"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+      @keyframes preload-anim {
+        0% {
+          animation-timing-function: cubic-bezier(0.1858, 0.2841, 0.5834, 1.4615);
+          transform: skewX(0deg);
+        }
+        31% {
+          animation-timing-function: cubic-bezier(0.0467, 0.1102, 0.4803, 1.4719);
+          transform: skewX(6.775deg);
+        }
+        41% {
+          animation-timing-function: cubic-bezier(0.0469, 0.1108, 0.4775, 1.4732);
+          transform: skewX(-4.74deg);
+        }
+        51% {
+          animation-timing-function: cubic-bezier(0.0478, 0.1131, 0.4723, 1.4819);
+          transform: skewX(3.323deg);
+        }
+        61% {
+          animation-timing-function: cubic-bezier(0.0506, 0.1192, 0.4639, 1.4818);
+          transform: skewX(-2.323deg);
+        }
+        71% {
+          animation-timing-function: cubic-bezier(0.0581, 0.1374, 0.457, 1.4901);
+          transform: skewX(1.631deg);
+        }
+        81% {
+          animation-timing-function: cubic-bezier(0.0765, 0.1813, 0.4542, 1.4923);
+          transform: skewX(-1.141deg);
+        }
+        91% {
+          animation-timing-function: cubic-bezier(0.1747, 0.3181, 0.341, 0.878);
+          transform: skewX(0.8deg);
+        }
+        100% {
+          transform: skewX(-0.821deg);
+        }
+      }
+
+      .preloader {
+        align-items: center;
+        background-color: #fff;
+        display: flex;
+        font-size: 18px;
+        height: 100vh;
+        justify-content: center;
+        width: 100vw;
+      }
+
+      .preloader img {
+        width: 50px;
+        height: 50px;
+        transform-origin: 79px 53px;
+        transform: skewX(0deg);
+        animation: 1.5625s linear 0.3s infinite normal forwards running preload-anim;
+      }
+    </style>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#fff" />
+  </head>
+
+  <body>
+    <div class="overlay-handler"></div>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-54JRP5H');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-54JRP5H"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <app-root>
+      <div class="preloader"><img src="./assets/images/logo/logo-fold-white.svg" alt="loading..." /></div>
+    </app-root>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
+  </body>
+</html>

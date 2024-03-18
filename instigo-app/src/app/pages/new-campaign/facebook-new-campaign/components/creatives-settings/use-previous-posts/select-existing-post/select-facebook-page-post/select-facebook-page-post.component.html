@@ -1,0 +1,114 @@
+<div class="selectable-table-rows">
+  <nz-form-item class="ingo-add-edit-form">
+    <nz-form-label>Filter by Page</nz-form-label>
+    <nz-form-control>
+      <app-promote-page-selector
+        [promotePages]="promotePagesOfAdAccount"
+        [formControl]="promotePage"
+      ></app-promote-page-selector>
+    </nz-form-control>
+  </nz-form-item>
+
+  <app-data-table
+    *ngIf="tableData | async; else skeleton"
+    [tableConfiguration]="tableConfiguration"
+    [state]="tableState | async"
+    [tableData]="tableData | async"
+    (stateChange)="onTableStateChange($event)"
+  >
+  </app-data-table>
+
+  <app-data-table-templates [state]="tableState | async"></app-data-table-templates>
+</div>
+
+<ng-template #postContent let-column="column" let-value="value" let-row="row">
+  <a
+    class="selectable-table-item-wrap post-title-selection"
+    (click)="selectPost(row.providerId, !row.data.isEligibleForPromotion)"
+  >
+    <div
+      ingoHighlight
+      [searchedWords]="(tableState | async).searchTerm"
+      [text]="value ? value[0] || value[1] || 'Post title is not available' : 'Post title is not available'"
+      class="pre-wrap"
+    ></div>
+
+    <div class="existing-post-metrics">
+      <ng-container
+        [ngTemplateOutlet]="postEngagement"
+        [ngTemplateOutletContext]="{
+          column: column,
+          value: value,
+          row: row
+        }"
+      ></ng-container>
+      <div
+        class="engagement-box read-more"
+        nz-tooltip
+        [nzTooltipTitle]="value"
+        nzTooltipPlacement="right"
+        nzTooltipOverlayClassName="ingo-explain-card pre-wrap"
+        nzTooltipColor="#f5f6f9"
+      >
+        <i class="fas fa-glasses-alt"></i>
+      </div>
+    </div>
+  </a>
+</ng-template>
+
+<ng-template #postId let-column="column" let-value="value" let-row="row">
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-primary btn-clear btn-small btn-tiny btn-no-span"
+    nz-tooltip
+    [nzTooltipTitle]="'Copy ID'"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="fad fa-clipboard cell-copy" (click)="copyPostId(value)"></i>
+  </button>
+</ng-template>
+
+<ng-template #postEngagement let-column="column" let-value="value" let-row="row">
+  <div
+    class="engagement-box"
+    nz-tooltip
+    nzTooltipTitle="Likes"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="fas fa-thumbs-up"></i>
+    {{ row.data.likes }}
+  </div>
+  <div
+    class="engagement-box"
+    nz-tooltip
+    nzTooltipTitle="Comments"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="fas fa-comment"></i>
+    {{ row.data.comments }}
+  </div>
+  <div
+    class="engagement-box"
+    nz-tooltip
+    nzTooltipTitle="Shares"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="fas fa-share-alt"></i>
+    {{ row.data.shares }}
+  </div>
+</ng-template>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton [columns]="tableConfiguration.columns" [isScroll]="tableConfiguration.scrollbarH">
+  </app-data-table-skeleton>
+</ng-template>
+
+<ng-template #noDescription><span>No description available</span></ng-template>
+<ng-template #noTitle>
+  <h6>No title available</h6>
+</ng-template>

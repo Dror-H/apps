@@ -1,0 +1,15 @@
+@import 'reset';
+@import 'typography';
+@import 'utils';
+@import 'variables';
+@import 'placeholders';
+
+html,
+body {
+  background-color: $bkg-body-base;
+  font-family: $font-family-base;
+}
+
+* {
+  @extend %scrollbar-config;
+}

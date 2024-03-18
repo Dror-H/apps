@@ -1,0 +1,93 @@
+.activity-list {
+  margin: 0;
+  padding: 0;
+}
+
+.activity-single {
+  align-items: center;
+  -webkit-box-align: center;
+  box-align: center;
+  display: flex;
+  padding: 12px 25px;
+
+  &:hover {
+    box-shadow: rgba(136, 136, 136, 0.125) 0 15px 50px;
+  }
+}
+
+.activity-icon {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.082);
+  border-radius: 50%;
+  -webkit-box-align: center;
+  box-align: center;
+  display: flex;
+  height: 31px;
+  justify-content: center;
+  margin-right: 15px;
+  width: 31px;
+
+  &.primary {
+    background-color: rgba(95, 99, 242, 0.082);
+    color: rgb(95, 99, 242);
+  }
+
+  &.secondary {
+    background-color: rgba(255, 105, 165, 0.082);
+    color: rgb(255, 105, 165);
+  }
+
+  &.success {
+    background-color: rgba(32, 201, 151, 0.082);
+    color: rgb(32, 201, 151);
+  }
+
+  &.danger {
+    background-color: rgba(255, 77, 79, 0.082);
+    color: rgb(255, 77, 79);
+  }
+
+  &.info {
+    background-color: rgba(44, 153, 255, 0.082);
+    color: rgb(44, 153, 255);
+  }
+
+  &.warning {
+    background-color: rgba(250, 139, 12, 0.082);
+    color: rgb(250, 139, 12);
+  }
+}
+
+.activity-content {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+.activity-info {
+  display: block;
+
+  img {
+    border-radius: 50%;
+    margin-right: 20px;
+    max-width: 40px;
+  }
+
+  p {
+    color: rgb(90, 95, 125);
+    font-size: 14px;
+    margin-bottom: 0;
+
+    .hour {
+      color: rgb(173, 180, 210);
+      display: block;
+      margin-top: 3px;
+    }
+
+    .inline-text {
+      display: inline;
+      font-weight: 500;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<nz-select
+  class="w-100"
+  [nzPlaceHolder]="selectPlaceholder"
+  [(ngModel)]="selectedValue"
+  (ngModelChange)="onSelection($event)"
+  [nzCustomTemplate]="emptyTemplate"
+  [nzOptionHeightPx]="50"
+  [nzDropdownMatchSelectWidth]="false"
+  [nzDisabled]="promotePages.length === 0"
+>
+  <ng-container *ngFor="let page of promotePages">
+    <nz-option nzCustomContent [nzLabel]="page" [nzValue]="page">
+      <div class="account-select">
+        <div class="ingo-dropdown-inner-icon">
+          <img [src]="page.picture" width="25px" alt="image" ingoImgFallback />
+        </div>
+        <div class="ingo-dropdown-option">
+          {{ page.name }}
+          <span>Followers: {{ page.fanCount | number: '1.0':'en-US' }}</span>
+        </div>
+      </div>
+    </nz-option>
+  </ng-container>
+</nz-select>
+
+<ng-template #emptyTemplate
+  ><span class="dup-placeholder">
+    <ng-container *ngIf="promotePages.length > 0">Select Another</ng-container>
+    <ng-container *ngIf="promotePages.length === 0">All Pages Selected</ng-container>
+  </span></ng-template
+>
+<ng-template #selectPlaceholder>
+  <ng-container *ngIf="promotePages.length > 0">Select Page</ng-container>
+  <ng-container *ngIf="promotePages.length === 0">No Available Pages</ng-container>
+</ng-template>

@@ -1,0 +1,16 @@
+.no-data {
+  &-container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1080px;
+  }
+
+  &-text {
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  &-autocomplete-image {
+    width: 30%;
+  }
+}

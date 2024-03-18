@@ -1,0 +1,17 @@
+$border-radius: 8px;
+
+.custom-modal {
+  background-color: #f8f8fb;
+}
+
+.btn-save {
+  background: #34c38f;
+  border-radius: $border-radius;
+  color: #eff2f7;
+}
+
+.btn-cancel {
+  background: #74788d;
+  border-radius: $border-radius;
+  color: #eff2f7;
+}

@@ -1,0 +1,87 @@
+<ng-template #modal>
+  <div *ngIf="!isChangingPayMethod; else changePayMethodForm">
+    <h2>Payment Method</h2>
+    <div class="payment-method-container">
+      <ng-container *ngIf="currentPaymentMethod$ | async as currentPaymentMethod; else createFirstPayMethod">
+        <img src="/assets/images/payment-methods/{{ currentPaymentMethod.brand }}.jpg" alt="" />
+        <div class="payment-method">
+          <h4>Credit Card</h4>
+          <span>•••• •••• •••• {{ currentPaymentMethod.last4 }}</span>
+        </div>
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="small"
+          class="btn-primary btn-clear btn-payments"
+          (click)="isChangingPayMethod = true"
+        >
+          Change Card
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #createFirstPayMethod>
+  <div class="first-pay-method">
+    <h5>Choose a payment method to add</h5>
+    <div class="payment-method-type" (click)="isChangingPayMethod = true">
+      <i class="fas fa-credit-card-front"></i>
+      Credit Card
+      <i class="fal fa-long-arrow-right"></i>
+    </div>
+    <div
+      class="payment-method-type disabled"
+      nzTooltipPlacement="bottom"
+      nz-tooltip
+      nzTooltipTitle="Not Available"
+      nzTooltipColor="#5f63f2"
+    >
+      <i class="fab fa-cc-paypal"></i>
+      PayPal
+      <i class="fal fa-long-arrow-right"></i>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #changePayMethodForm>
+  <h2>New Payment Method</h2>
+  <div
+    ngxStripeCardGroup
+    [formGroup]="paymentForm"
+    [elementsOptions]="stripeElementsOptions"
+    class="new-pay-method-form"
+  >
+    <div nz-row [nzGutter]="15">
+      <div nz-col [nzSpan]="24">
+        <input class="form-control" formControlName="name" id="userName" placeholder="Name" />
+      </div>
+      <div nz-col [nzSpan]="24">
+        <ngx-stripe-card #cardElement [options]="stripeCardElementOptions"></ngx-stripe-card>
+      </div>
+    </div>
+    <ngx-stripe-payment-request-button></ngx-stripe-payment-request-button>
+
+    <div class="new-pay-method-btns">
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="small"
+        class="btn-dark btn-clear subs-action-btn"
+        (click)="isChangingPayMethod = false"
+      >
+        <i class="fas fa-arrow-left"></i>
+        Cancel
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="small"
+        class="btn-success subs-action-btn"
+        (click)="updatePaymentMethod()"
+      >
+        Add Card
+      </button>
+    </div>
+  </div>
+</ng-template>

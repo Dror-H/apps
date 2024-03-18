@@ -1,0 +1,15 @@
+<div>
+  <div class="parentContainer" style="display: block">
+    <canvas
+      #dashboardCard="base-chart"
+      baseChart
+      [id]="chartId"
+      height="115"
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    ></canvas>
+  </div>
+</div>

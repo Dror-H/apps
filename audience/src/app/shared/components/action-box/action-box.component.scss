@@ -1,0 +1,42 @@
+@import 'colors.variables';
+@import 'shadows.variables';
+@import 'border-radius.variables';
+@import 'buttons.variables';
+@import 'typography.variables';
+
+%action-box-container {
+  align-items: center;
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $action-box-shadow;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: min(5vh, 80px);
+  max-width: 410px;
+  padding: 1rem 2rem;
+  width: 100%;
+
+  @media screen and (min-width: 450px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.buttons-container {
+  $side-padding: 0.25rem;
+
+  &--fixed {
+    @extend %action-box-container;
+    bottom: 0;
+    left: 50%;
+    position: fixed;
+    transform: translateX(-50%);
+    width: calc(100% - #{$side-padding});
+    z-index: 201;
+  }
+
+  &--static {
+    @extend %action-box-container;
+    visibility: hidden;
+  }
+}

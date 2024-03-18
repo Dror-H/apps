@@ -1,0 +1,17 @@
+<nz-form-item>
+  <nz-form-label nzRequired
+    >Campaign groups
+    <ingo-explain tooltipId="app.campCreate.campaign.campaignGroup"></ingo-explain>
+  </nz-form-label>
+  <nz-form-control nzErrorTip="app.campCreate.campaign.campaignGroupError">
+    <nz-select
+      id="campaign-groups"
+      [formControl]="formControl"
+      nzPlaceHolder="Select Campaign Group"
+      [compareWith]="compareCampaignsGroups"
+      [nzOptionHeightPx]="38"
+      [nzOptions]="campaignGroupList$.asObservable() | async"
+    >
+    </nz-select>
+  </nz-form-control>
+</nz-form-item>

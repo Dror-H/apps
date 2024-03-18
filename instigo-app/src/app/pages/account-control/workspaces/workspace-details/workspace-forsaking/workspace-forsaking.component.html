@@ -1,0 +1,13 @@
+<nz-card class="ingo-card-nbm">
+  <button nz-button nzType="primary" nzDanger [disabled]="isWorkspaceOwner()" (click)="showLeaveWorkspaceModal()">
+    Leave Workspace
+  </button>
+
+  <nz-modal [(nzVisible)]="isLeavingModalVisible" nzTitle="Leave workspace" (nzOnCancel)="onCancel()">
+    <p>Are you sure you want to leave this workspace ?</p>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="onCancel()">Cancel</button>
+      <button nz-button nzType="primary" nzDanger (click)="leaveWorkspace()">Leave workspace</button>
+    </div>
+  </nz-modal>
+</nz-card>

@@ -1,0 +1,41 @@
+<form [formGroup]="demographicsForm">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label>
+          Include Custom Audience
+          <ingo-explain tooltipId="app.campCreate.audience.customAudience"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <app-custom-audience-selector
+            [customAudienceFormControl]="demographicsForm.controls.customAudiences['controls'].include"
+            [audienceList]="audienceSource$"
+            [shouldLoadMore]="shouldLoadMore"
+            (updateAudiences)="updateAudiences()"
+            (loadMore)="loadMoreCustomAudiences()"
+            [includeOrExclude]="'include'"
+          ></app-custom-audience-selector>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label>
+          Exclude Custom Audience
+          <ingo-explain tooltipId="app.campCreate.audience.customAudience"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <app-custom-audience-selector
+            [customAudienceFormControl]="demographicsForm.controls.customAudiences['controls'].exclude"
+            [audienceList]="audienceSource$"
+            [shouldLoadMore]="shouldLoadMore"
+            (updateAudiences)="updateAudiences()"
+            (loadMore)="loadMoreCustomAudiences()"
+            [includeOrExclude]="'exclude'"
+          >
+          </app-custom-audience-selector>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

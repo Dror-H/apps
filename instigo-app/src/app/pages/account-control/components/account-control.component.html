@@ -1,0 +1,16 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col nzSpan="24" [nzMd]="24">
+    <nz-page-header class="site-page-header">
+      <nz-page-header-title>{{ (breadcrumb$ | async)?.breadCrumb.title }}</nz-page-header-title>
+    </nz-page-header>
+  </div>
+</div>
+<!-- Main Content -->
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzXXl]="6" [nzMd]="7" [nzXs]="24">
+    <app-card-control></app-card-control>
+  </div>
+  <div nz-col [nzXXl]="18" [nzMd]="17" [nzXs]="24">
+    <router-outlet></router-outlet>
+  </div>
+</div>

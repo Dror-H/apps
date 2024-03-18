@@ -1,0 +1,18 @@
+<ng-container *ngIf="!notFetchable">
+  <div nz-row [nzGutter]="[24, 10]">
+    <div nz-col [nzSpan]="24" class="multi-inline-btn">
+      <button nz-button nzType="primary" class="btn-link btn-clear btn-bold mb-2" (click)="selectExistingMedia($event)">
+        <i class="fal fa-photo-video"></i>Browse Existing
+      </button>
+    </div>
+  </div>
+  <uppy-dashboard [uppy]="uppy" [props]="props"></uppy-dashboard>
+</ng-container>
+
+<nz-alert
+  *ngIf="notFetchable"
+  nzType="error"
+  nzCloseable
+  nzMessage="We are unable to fetch and display properly ad images for ads not created via Instigo."
+  (nzOnClose)="removeExistingFile()"
+></nz-alert>

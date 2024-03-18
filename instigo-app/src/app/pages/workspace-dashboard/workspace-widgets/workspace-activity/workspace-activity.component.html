@@ -1,0 +1,65 @@
+<nz-card
+  *ngIf="workspaceActivity$ | async as workspaceActivity; else skeleton"
+  [nzTitle]="title"
+  class="workspace-activity"
+>
+  <ng-container *ngFor="let activity of workspaceActivity; let i = index">
+    <div class="activity-info" [ngClass]="{ read: activity.read, deleted: activity.deleted }">
+      <div class="activity-meta">
+        <span class="activity-icon ant-avatar" [ngClass]="activity.type.type"
+          ><i class="fas fa-{{ activity.type.icon }}"></i
+        ></span>
+      </div>
+      <div class="activity-content">
+        <h4 class="activity-name">
+          <span>
+            <span class="activity-actor">{{ activity.fullMessage }}</span>
+          </span>
+        </h4>
+        <div class="activity-desc">
+          <span class="activity-provider"><i class="fa-fw ng-fa-icon fab fa-facebook-square"></i></span>
+          <span class="activity-time">{{ activity.relativeTime }}</span>
+        </div>
+      </div>
+      <div class="activity-actions">
+        <ng-container *ngIf="!activity.read">
+          <i
+            class="far fa-low-vision"
+            (click)="markActivityRead(activity)"
+            nz-tooltip
+            nzTooltipTitle="Mark As Read"
+            nzTooltipOverlayClassName="ingo-explain-card"
+            nzTooltipColor="#5f63f2"
+          ></i>
+        </ng-container>
+      </div>
+    </div>
+    <ng-template #activityMoreInfo>
+      <span class="main-info">{{ activity.actor }} {{ activity.message }} for "{{ activity.objectName }}"</span>
+      <span>
+        <span>Performed on {{ activity.platform }}</span>
+        <span>{{ activity.time }}</span>
+      </span>
+    </ng-template>
+  </ng-container>
+  <div class="activity-load-more" *ngIf="viewMoreBtn">
+    <ng-template #indicatorTemplate><i nz-icon nzType="loading"></i></ng-template>
+    <nz-spin [nzSpinning]="loadingMore" [nzIndicator]="indicatorTemplate">
+      <button (click)="loadActivity()" nz-button nzType="primary" class="btn-primary btn-clear btn-small btn-tiny">
+        Load 10 More
+      </button>
+    </nz-spin>
+  </div>
+</nz-card>
+
+<ng-template #title>
+  <h2>Activity</h2>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-card [nzTitle]="title" class="workspace-activity">
+    <div class="activity-info">
+      <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 30 }" [nzTitle]="false"></nz-skeleton>
+    </div>
+  </nz-card>
+</ng-template>

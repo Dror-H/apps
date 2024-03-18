@@ -1,0 +1,30 @@
+<ng-container *ngIf="drawerState$ | async as drawerState">
+  <nz-drawer
+    [nzClosable]="false"
+    [nzVisible]="drawerState.isVisible"
+    [nzWidth]="410"
+    nzPlacement="right"
+    (nzOnClose)="closeDrawer()"
+  >
+    <ng-container *nzDrawerContent>
+      <audi-details-overview
+        [rank]="drawerState.data?.rank"
+        [specRatio]="drawerState.data?.specRatio"
+      ></audi-details-overview>
+      <ng-container *ngFor="let targeting of drawerState.data?.inclusions; let i = index">
+        <audi-targeting-title
+          [title]="i === 0 ? 'Include people who match' : 'And must also match'"
+        ></audi-targeting-title>
+        <audi-segment *ngFor="let segment of targeting" [segment]="segment"></audi-segment>
+      </ng-container>
+      <ng-container *ngIf="drawerState.data?.exclusions?.length">
+        <audi-targeting-title title="Exclude people who match"></audi-targeting-title>
+        <audi-segment *ngFor="let segment of drawerState.data?.exclusions" [segment]="segment"></audi-segment>
+      </ng-container>
+      <ng-container *ngIf="drawerState.data?.userTags?.length">
+        <audi-targeting-title title="Tags"></audi-targeting-title>
+        <audi-details-user-tags [userTags]="drawerState.data?.userTags"></audi-details-user-tags>
+      </ng-container>
+    </ng-container>
+  </nz-drawer>
+</ng-container>

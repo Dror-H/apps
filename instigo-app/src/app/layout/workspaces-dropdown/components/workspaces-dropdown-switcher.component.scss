@@ -1,0 +1,19 @@
+.card-workspace {
+  top: 0;
+
+  &--active {
+    border: 2px solid #556ee6;
+    border-radius: 0.25rem;
+  }
+
+  &__body {
+    padding-bottom: 0;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(38, 38, 38, 0.2);
+    top: -3px;
+    transition: top 1s ease 0;
+    transition: all 0.3s ease-out;
+  }
+}

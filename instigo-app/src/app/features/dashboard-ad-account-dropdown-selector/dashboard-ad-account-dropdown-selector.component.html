@@ -1,0 +1,37 @@
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="ingo-adaccounts-dropdown">
+  <div class="ingo-adaccount-icon">
+    <i
+      [ngClass]="providerIcons[_value?.provider]"
+      [ngStyle]="{ color: providerColors[_value?.provider] }"
+      class="fa-1x fa-fw"
+    >
+    </i>
+  </div>
+  <div class="ingo-adaccount-selected">
+    {{ _value?.name }}
+  </div>
+  <div class="ingo-adaccount-dropdown-icon"></div>
+</a>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li
+      nz-menu-item
+      *ngFor="let adAccount of adAccounts"
+      [ngClass]="{ active: adAccount == _value }"
+      (click)="onInputChange(adAccount)"
+    >
+      <div class="ingo-dropdown-inner-icon">
+        <i
+          [ngClass]="providerIcons[adAccount.provider]"
+          [ngStyle]="{ color: providerColors[adAccount.provider] }"
+          class="fa-1x fa-fw"
+        >
+        </i>
+      </div>
+      <div class="ingo-dropdown-option">
+        {{ adAccount.name }}
+        <span>Business: {{ adAccount.businessName }}</span>
+      </div>
+    </li>
+  </ul>
+</nz-dropdown-menu>

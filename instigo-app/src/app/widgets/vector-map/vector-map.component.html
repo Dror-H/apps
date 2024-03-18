@@ -1,0 +1,23 @@
+<div class="ant-card-body" *ngIf="mapData$ | async as mapData; else spin">
+  <div nz-row [nzGutter]="25">
+    <div class="ingo-geo">
+      <google-chart
+        class="w-100"
+        [type]="chartType"
+        [data]="chartData"
+        [options]="chartOptions"
+        [width]="490"
+        [height]="350"
+        (ready)="onReady($event)"
+        (select)="onSelect($event)"
+      >
+      </google-chart>
+    </div>
+  </div>
+</div>
+
+<ng-template #spin>
+  <div class="spin">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>

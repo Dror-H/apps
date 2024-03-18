@@ -1,0 +1,29 @@
+<div class="ingo-newcamp-step">
+  <nz-collapse nzGhost [nzAccordion]="false">
+    <nz-collapse-panel [nzHeader]="accountDeletion" [nzShowArrow]="false">
+      <nz-card class="ingo-card-nbm">
+        <button nz-button nzType="primary" nzDanger (click)="showDeleteAccountModal()">Delete Account</button>
+      </nz-card>
+
+      <!-- Delete account Modal -->
+      <nz-modal [(nzVisible)]="isDeleteModalVisible" nzTitle="Delete account" (nzOnCancel)="handleCancel()">
+        <p>Are you sure you want to delete your account ?</p>
+        <p>Your account and your workspaces will be deleted.</p>
+
+        <div *nzModalFooter>
+          <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+          <button nz-button nzType="primary" nzDanger (click)="deleteAccount()">Delete account</button>
+        </div>
+      </nz-modal>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<ng-template #accountDeletion>
+  <div class="ant-card-head">
+    <div class="ant-card-head-wrapper">
+      <div class="ant-card-head-title">
+        <h2>Danger Zone</h2>
+      </div>
+    </div>
+  </div>
+</ng-template>

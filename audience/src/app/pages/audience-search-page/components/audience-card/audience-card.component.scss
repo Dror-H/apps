@@ -1,0 +1,26 @@
+@import 'typography.variables';
+@import 'colors.variables';
+@import 'border-radius.variables';
+@import 'placeholders';
+
+.card {
+  &-top {
+    padding: 0 0.5rem;
+  }
+
+  &-targeting {
+    @extend %invisible-scrollbar;
+
+    &:hover {
+      @extend %scrollbar-config;
+      scrollbar-color: $primary-color transparent;
+    }
+  }
+
+  &-show-more {
+    float: right;
+    font-size: $font-size-xs;
+    line-height: $line-height-xs;
+    padding: 0.5rem 0.5rem 0;
+  }
+}

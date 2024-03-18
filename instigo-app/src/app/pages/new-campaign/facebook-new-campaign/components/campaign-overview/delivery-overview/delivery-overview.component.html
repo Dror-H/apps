@@ -1,0 +1,30 @@
+<nz-card class="na-ov-wrapper ingo-card-np">
+  <div class="nc-summary-item">
+    <h5>Opt. for</h5>
+    <span class="nc-summary-counter">
+      <span>{{ deliverySettings.value | optimizedForPipe }}</span>
+    </span>
+  </div>
+  <div class="nc-summary-item">
+    <h5>Pay for</h5>
+    <span class="nc-summary-counter"
+      ><span>{{ deliverySettings.value.billingEvent | startCase }}</span></span
+    >
+  </div>
+  <div class="nc-summary-item">
+    <h5>Bidding</h5>
+    <span class="nc-summary-counter"
+      ><span>{{ deliverySettings.value.bidStrategy | biddingStrategyName }}</span></span
+    >
+  </div>
+  <div class="nc-summary-item" *ngIf="deliverySettings.value.costCap || deliverySettings.value.costCap > 0">
+    <h5>Cost Cap</h5>
+    <span class="nc-summary-counter"
+      ><span>{{ deliverySettings.value.costCap | currency: currencyInfo.Symbol }}</span></span
+    >
+  </div>
+  <div class="nc-summary-item" *ngIf="deliverySettings.value.acceleratedDelivery">
+    <h5>Accelerated Delivery</h5>
+    <span class="nc-summary-counter"><span>On</span></span>
+  </div>
+</nz-card>

@@ -1,0 +1,50 @@
+<div class="container-fluid py-4">
+  <app-data-table
+    *ngIf="tableData$ | async; else skeleton"
+    [tableConfiguration]="tableConfiguration"
+    [state]="tableState | async"
+    [tableData]="tableData$ | async"
+    (stateChange)="onTableStateChange($event)"
+  ></app-data-table>
+  <app-data-table-templates [state]="tableState | async"></app-data-table-templates>
+</div>
+<!-- 
+  TODO 
+  The syntax here is identical to the one in audiences and campaigns but search isnt working (also on staging, prior to the changes)
+-->
+
+<ng-template #searchTermTemplateAndSelect let-column="column" let-value="value" let-row="row">
+  <a class="selectable-table-item-wrap">
+    <span
+      class="selectable-table-item"
+      (click)="selectAdTemplate(row)"
+      ingoHighlight
+      [searchedWords]="(tableState | async).searchTerm"
+      [text]="value"
+      nz-tooltip
+      [nzTooltipTitle]="adTempNameTooltip"
+      nzTooltipPlacement="bottom"
+      nzTooltipOverlayClassName="ingo-explain-card campaign-name-tooltip"
+      nzTooltipColor="#5f63f2"
+      classToApply="ingo-highlight"
+    ></span>
+  </a>
+  <a
+    class="view-campaign-icon"
+    (click)="editSingleAdTemplate(row)"
+    nz-tooltip
+    nzTooltipTitle="Edit Ad Template"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="fas fa-edit"></i>
+  </a>
+  <ng-template #adTempNameTooltip>
+    {{ value }}
+    <span (click)="editSingleAdTemplate(row)">Edit Ad Template</span>
+  </ng-template>
+</ng-template>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton [columns]="tableConfiguration.columns"></app-data-table-skeleton>
+</ng-template>

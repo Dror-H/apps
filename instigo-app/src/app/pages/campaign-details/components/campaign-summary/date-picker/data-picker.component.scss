@@ -1,0 +1,9 @@
+.clear-end-date {
+  color: #6b6e8d;
+  cursor: pointer;
+  left: calc(65% - 25px);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99999;
+}

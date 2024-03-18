@@ -1,0 +1,72 @@
+<nz-card [nzTitle]="'app.campDetails.engagementMetrics.title' | translate" *ngIf="charts$ | async as charts">
+  <ng-container *ngIf="charts.type === 'finish'; else skeleton">
+    <ng-container *ngIf="charts.charts.length > 0; else empty">
+      <div nz-card-grid class="w-25" *ngFor="let chartItem of charts.charts">
+        <ng-container
+          [ngTemplateOutlet]="chartTemplate"
+          [ngTemplateOutletContext]="{ chartItem: chartItem }"
+          *ngIf="chartItem.labels.length > 0; else empty"
+        >
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</nz-card>
+<ng-template #chartTemplate let-chartItem="chartItem">
+  <div class="chart-metric multi-chart-metric">
+    <p>{{ chartItem.metric }}</p>
+    <h2>
+      <span class="min-width-50">
+        {{ chartItem.prefix }}{{ chartItem.total | number: '1.0-2':'en-US' }}{{ chartItem.suffix }}
+      </span>
+    </h2>
+    <span class="col-metrics-change">
+      <ng-container *ngIf="chartItem.change && chartItem.change !== '+'; else noChange">
+        <span *ngIf="chartItem.icon === 'up'">
+          <i class="far fa-chart-line fa-fw"></i>
+          {{ chartItem.change }}%
+        </span>
+        <span *ngIf="chartItem.icon === 'down'" [ngClass]="{ decrease: chartItem.icon === 'down' }">
+          <i class="far fa-chart-line-down fa-fw"></i>
+          {{ chartItem.change }}%
+        </span>
+        {{ 'app.campDetails.engagementMetrics.lastPeriod' | translate }}
+      </ng-container>
+    </span>
+  </div>
+  <div>
+    <div class="parentContainer ingo-chart-card-chart display-block">
+      <canvas
+        #dashboardCard="base-chart"
+        baseChart
+        height="193"
+        [id]="chartItem.type"
+        [datasets]="chartItem.datasets"
+        [labels]="chartItem.labels"
+        [options]="chartItem.options"
+        legend="true"
+        chartType="line"
+      ></canvas>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <app-empty-range></app-empty-range>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }" [nzTitle]="false" class="p-25"></nz-skeleton>
+</ng-template>
+
+<ng-template #noChange>
+  <span
+    class="no-change"
+    nz-tooltip
+    [nzTooltipTitle]="'app.campDetails.engagementMetrics.title' | translate"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    {{ 'app.campDetails.engagementMetrics.changeNotAvailable' | translate }}
+  </span>
+</ng-template>

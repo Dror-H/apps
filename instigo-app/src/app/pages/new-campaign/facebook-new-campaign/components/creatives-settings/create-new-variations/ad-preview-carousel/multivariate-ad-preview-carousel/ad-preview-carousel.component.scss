@@ -1,0 +1,17 @@
+[nz-carousel-content] {
+  min-height: 800px !important;
+  overflow: hidden;
+}
+
+.carousel-size {
+  height: 676px;
+  max-width: 700px;
+  overflow-y: auto;
+  @media all and (max-width: 1600px) {
+    max-width: 100%;
+  }
+}
+
+.button-width {
+  min-width: 100px;
+}

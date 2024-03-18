@@ -1,0 +1,109 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24" [nzXl]="25">
+    <nz-card [nzTitle]="'app.campDetails.campTarget.title' | translate" class="ingo-table-card campaign-view-targeting">
+      <nz-collapse nzAccordion nzGhost [nzBordered]="false" nzExpandIconPosition="right">
+        <nz-collapse-panel
+          *ngFor="let target of campaignTargeting"
+          [nzHeader]="targetHeading"
+          [nzExtra]="targetSize"
+          [nzShowArrow]="false"
+        >
+          <nz-descriptions nzBordered nzLayout="vertical" nzSize="small">
+            <!-- General -->
+            <nz-descriptions-item [nzSpan]="1" nzTitle="Age">{{ target.age }}</nz-descriptions-item>
+            <nz-descriptions-item [nzSpan]="1" nzTitle="Gender">{{ target.gender }}</nz-descriptions-item>
+            <nz-descriptions-item [nzSpan]="1" nzTitle="Speaking">{{ target.languages }}</nz-descriptions-item>
+
+            <!-- Included Locations -->
+            <nz-descriptions-item [nzSpan]="3" [nzTitle]="target.locationType">
+              <div class="target-group">
+                <span *ngFor="let location of target.includedLocations"
+                  ><span class="fw-600">{{ location.name }}:</span> {{ location.selected }}</span
+                >
+              </div>
+            </nz-descriptions-item>
+
+            <!-- Excluded Locations -->
+            <ng-container *ngIf="target.excludedLocations">
+              <nz-descriptions-item [nzSpan]="3" [nzTitle]="'But not ' + (target.locationType | lowercase)">
+                <div class="target-group">
+                  <span *ngFor="let location of target.excludedLocations"
+                    ><span class="fw-600">{{ location.name }}:</span> {{ location.selected }}</span
+                  >
+                </div>
+              </nz-descriptions-item>
+            </ng-container>
+
+            <!-- Included Custom Audiences -->
+            <ng-container *ngIf="target.includedCusAudiences">
+              <nz-descriptions-item [nzSpan]="3" nzTitle="Include custom audiences"
+                >{{ target.includedCusAudiences }}
+              </nz-descriptions-item>
+            </ng-container>
+
+            <!-- Excluded Custom Audiences -->
+            <ng-container *ngIf="target.excludedCusAudiences">
+              <nz-descriptions-item [nzSpan]="3" nzTitle="Exclude custom audiences"
+                >{{ target.excludedCusAudiences }}
+              </nz-descriptions-item>
+            </ng-container>
+
+            <!-- Placements -->
+            <ng-container *ngIf="target.placements">
+              <nz-descriptions-item [nzSpan]="3" nzTitle="Display ads on">{{ target.placements }}</nz-descriptions-item>
+            </ng-container>
+
+            <!-- Detailed Included -->
+            <ng-container *ngIf="target.detailed.included">
+              <nz-descriptions-item [nzSpan]="3" nzTitle="Include people who match">
+                <div class="target-group">
+                  <span *ngFor="let included of target.detailed.included"
+                    ><span class="fw-600">{{ included.name }}:</span> {{ included.selected }}</span
+                  >
+                </div>
+              </nz-descriptions-item>
+            </ng-container>
+
+            <!-- Detailed Narrowed -->
+            <ng-container *ngIf="target.detailed.narrow">
+              <nz-descriptions-item [nzSpan]="3" nzTitle="And also match" *ngFor="let narrow of target.detailed.narrow">
+                <div class="target-group">
+                  <span *ngFor="let narrowItem of narrow"
+                    ><span class="fw-600">{{ narrowItem.name }}:</span> {{ narrowItem.selected }}</span
+                  >
+                </div>
+              </nz-descriptions-item>
+            </ng-container>
+
+            <!-- Detailed Excluded -->
+            <ng-container *ngIf="target.detailed.excluded">
+              <nz-descriptions-item [nzSpan]="3" nzTitle="But exclude those who match">
+                <div class="target-group">
+                  <span *ngFor="let excluded of target.detailed.excluded"
+                    ><span class="fw-600">{{ excluded.name }}:</span> {{ excluded.selected }}</span
+                  >
+                </div>
+              </nz-descriptions-item>
+            </ng-container>
+          </nz-descriptions>
+
+          <button nz-button nzType="primary" class="btn btn-primary ml-25" (click)="editTargeting(target)">
+            Edit Targeting
+          </button>
+
+          <ng-template #targetHeading>
+            Ad Set <span>{{ target.name }}</span>
+          </ng-template>
+
+          <ng-template #targetSize>
+            {{ target.targetSize | number: '1.0-2':'en-US' }} <i class="fad fa-user-friends"></i>
+          </ng-template>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }" nzTitle="false" class="p-25"></nz-skeleton>
+</ng-template>

@@ -1,0 +1,37 @@
+<nz-card style="width: 100%" [nzTitle]="cardHeading" [nzExtra]="cardExtra" class="h-100">
+  <div class="engagement-overview-container">
+    <div nz-row [nzGutter]="25" class="engagement-overview-row" *ngFor="let chart of rowCharts">
+      <div nz-col [nzXXl]="10" [nzXs]="24">
+        <div class="engagement-{{ chart.trend }}ward">
+          <p>{{ chart.id | titlecase }}</p>
+          <h4>
+            {{ chart.total }}
+            <sub>
+              <i class="far fa-chart-line fa-fw" *ngIf="chart.trend === 'up'"></i>
+              <i class="far fa-chart-line-down fa-fw" *ngIf="chart.trend === 'down'"></i>
+              {{ chart.change }}
+            </sub>
+          </h4>
+        </div>
+      </div>
+      <div nz-col [nzXXl]="14" [nzXs]="24">
+        <div class="engagement-line-chart">
+          <ingo-widget-engagement-overview-chart
+            [model]="chart"
+            [chartId]="chart.id"
+          ></ingo-widget-engagement-overview-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-card>
+<ng-template #cardHeading>
+  <h2>Engagement Widget</h2>
+</ng-template>
+<ng-template #cardExtra>
+  <ul class="card-extra-actions" data-html2canvas-ignore="true">
+    <li *ngFor="let label of ranges" [ngClass]="{ active: label.label == activeRange }">
+      <a (click)="toggleRange(label.label)">{{ label.text }}</a>
+    </li>
+  </ul>
+</ng-template>

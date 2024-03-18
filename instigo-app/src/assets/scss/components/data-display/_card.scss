@@ -1,0 +1,254 @@
+.ant-card {
+  background: $card-bg;
+  border-radius: $card-border-radius;
+  color: $body-color;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  margin-bottom: 1.25rem;
+
+  &.h-100 {
+    height: 100%;
+
+    .ant-card-body {
+      padding-bottom: 0;
+    }
+  }
+
+  &.no-padding {
+    .ant-card-body {
+      margin-bottom: -20px;
+      padding: 0 !important;
+    }
+  }
+}
+
+.ant-card-bordered {
+  border: 1px solid $card-border-color;
+}
+
+.ant-card-head {
+  background: $card-head-bg;
+  border-bottom: 1px solid color(gray);
+  border-radius: $card-border-radius $card-border-radius 0 0;
+  color: $gray-dark;
+  font-size: 16px;
+  font-weight: $font-weight-semibold;
+  margin-bottom: -1px;
+  min-height: $card-head-min-height;
+  padding: 0 $card-spacer-y;
+  // border-bottom: 1px solid #f0f0f0;
+  // border-radius: 10px 10px 0 0;
+
+  .ant-card-head-title {
+    color: $gray-700;
+    display: inline-block;
+    flex: 1 1;
+    font-size: 18px;
+    line-height: 22px;
+    overflow: hidden;
+    padding: 20px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @media all and (max-width: 1200px) {
+      font-size: 16px;
+      padding: 16px 0;
+    }
+  }
+
+  .ant-tabs-nav {
+    border-bottom: 1px solid $card-border-color;
+  }
+
+  .ant-tabs {
+    margin-bottom: -17px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    @media all and (max-width: 1280px) {
+      font-size: 16px;
+    }
+
+    span {
+      color: color(gray, 40);
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      margin-left: 15px;
+    }
+  }
+}
+
+.ant-card-body {
+  padding: $card-spacer-y $card-spacer-x;
+}
+
+.ant-card-meta-description {
+  color: $gray-light;
+}
+
+.ant-card-type-inner {
+  .ant-card-head {
+    background: $gray-lightest;
+    padding: 0 $card-spacer-x;
+  }
+
+  .ant-card-body {
+    padding: $card-spacer-y $card-spacer-x;
+  }
+}
+
+.ant-card-grid {
+  border: 0;
+  border-radius: 0;
+  box-shadow: 1px 0 0 0 $card-border-color, 0 1px 0 0 $card-border-color, 1px 1px 0 0 $card-border-color,
+    1px 0 0 0 $card-border-color inset, 0 1px 0 0 $card-border-color inset;
+  padding: $card-spacer-y $card-spacer-x;
+  width: auto;
+}
+
+.ant-card-actions {
+  background: $card-action-bg;
+  border-top: 1px solid $card-border-color;
+
+  > li {
+    color: $body-color;
+    float: left;
+    margin: 15px 0;
+    text-align: center;
+
+    :not(:last-child) {
+      border-right: 1px solid $card-border-color;
+    }
+
+    > span {
+      .anticon {
+        font-size: 16px;
+        line-height: $line-height-base;
+      }
+
+      &:hover {
+        color: $brand-primary;
+      }
+    }
+  }
+}
+
+.ant-card-hoverable {
+  &:hover {
+    border-color: $card-border-color;
+    box-shadow: $card-hover-shadow;
+  }
+}
+
+.off-gutter-x {
+  margin-left: -$card-spacer-x;
+  margin-right: -$card-spacer-x;
+}
+
+.off-gutter-top {
+  margin-top: -$card-spacer-y;
+}
+
+.off-gutter-bottom {
+  margin-bottom: -$card-spacer-y;
+}
+
+// Card with NzRow > NzCols
+.card-row-cols {
+  .ant-card-body {
+    padding: 0 25px !important;
+
+    .ant-col > *:first-child {
+      padding: 25px 0 20px;
+    }
+  }
+}
+// Card Actions - General
+.ant-card-extra {
+  align-items: center;
+  display: flex;
+
+  .card-extra-dropdown {
+    margin-left: 15px !important;
+    order: 1;
+
+    i {
+      color: gray(40);
+    }
+  }
+}
+
+ul.card-extra-actions {
+  display: flex;
+  list-style: none;
+  margin: 0 !important;
+  padding: 0;
+
+  li {
+    color: color(gray, 50);
+    cursor: pointer;
+    font-size: 13px;
+    margin: 0 8px !important;
+    padding: 0;
+    position: relative;
+
+    a {
+      color: color(gray, 40);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    &:hover {
+      a {
+        color: color(purple);
+      }
+
+      &::before {
+        background: color(purple, 40);
+        bottom: -20px;
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+
+    &.active {
+      a {
+        color: color(purple);
+        font-weight: 600;
+      }
+
+      &::before {
+        background: color(purple);
+        bottom: -20px;
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+    @media all and (max-width: 1200px) {
+      font-size: 13px;
+
+      a {
+        font-size: 13px;
+      }
+
+      &.active::before {
+        bottom: -17px;
+      }
+    }
+  }
+}
+// Card Actions - Radio
+.card-extra-actions.radio {
+  display: flex;
+}

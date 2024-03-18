@@ -1,0 +1,87 @@
+<nz-card class="ws-card">
+  <div class="ws-single">
+    <div class="ws-head">
+      <a (click)="selectWorkspace(workspace)" class="ws-title"
+        ><div class="ws-icon sq bg-purple">
+          <span>{{ workspaceInitials }}</span>
+        </div>
+        <div class="ws-info">
+          <h6 class="title">{{ workspace.name }}</h6>
+          <span class="sub-text">Managed by {{ workspace.owner.fullName }}</span>
+        </div></a
+      >
+      <a
+        nz-dropdown
+        [nzDropdownMenu]="cardDropdown"
+        class="card-extra-dropdown"
+        [nzOverlayClassName]="'dropdown-arrow-right'"
+        [nzTrigger]="'click'"
+      >
+        <i class="fas fa-ellipsis-h"></i>
+      </a>
+      <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>
+            <div class="ingo-dropdown-option" (click)="selectedWorkspace(workspace)">Make Active</div>
+          </li>
+          <li nz-menu-item>
+            <a class="ingo-dropdown-option" [routerLink]="['/account-control/workspaces/details/', workspace.id]"
+              >Go to workspace details</a
+            >
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <div class="ws-details">
+      <p>Created on {{ workspaceDates.created }}</p>
+      <p>Updated on {{ workspaceDates.updated }}</p>
+    </div>
+    <div class="ws-additional">
+      <div class="ws-additional-details">
+        <div class="ws-count">
+          <span>{{ workspace.adAccounts?.length || '0' }}/15 Ad Accounts Limit</span>
+        </div>
+        <div class="ws-count">{{ adAccountsLimit }}%</div>
+      </div>
+      <div class="additional additional-pill additional-md">
+        <nz-progress
+          [nzPercent]="adAccountsLimit"
+          [nzShowInfo]="false"
+          [nzStrokeColor]="{
+            '0%': '#7854f7',
+            '85%': adAccountsLimit < 85 ? '#5f63f2' : '',
+            '100%': adAccountsLimit > 85 ? '#ff8400' : '#5f63f2'
+          }"
+        ></nz-progress>
+      </div>
+    </div>
+    <div class="ws-meta">
+      <nz-avatar-group class="ws-member">
+        <ng-container *ngFor="let member of workspace.members; let i = index">
+          <nz-avatar
+            [nzSize]="35"
+            [nzSrc]="member.pictureUrl"
+            nzIcon="user"
+            *ngIf="i < 4"
+            nz-tooltip
+            [nzTooltipTitle]="member.fullName"
+          ></nz-avatar>
+        </ng-container>
+        <nz-avatar
+          [nzSize]="35"
+          [nzText]="'+' + (workspace.members?.length - 4)"
+          class="extra-members"
+          *ngIf="workspace.members?.length > 4"
+          nz-tooltip
+          [nzTooltipTitle]="extraMembers"
+        ></nz-avatar>
+      </nz-avatar-group>
+      <span class="ws-active-badge" *ngIf="isCurrentWorkspace"><span>Active</span></span>
+    </div>
+  </div>
+</nz-card>
+<ng-template #extraMembers>
+  <ul>
+    <li *ngFor="let member of workspace.members | slice: 0:3">- {{ member.fullName }}</li>
+  </ul>
+</ng-template>

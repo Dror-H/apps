@@ -1,0 +1,18 @@
+<nz-card [nzTitle]="SocialCardsHeading" class="h-100 w-100">
+  <div nz-row [nzGutter]="25">
+    <div nz-col [nzXXl]="8" [nzMd]="4" [nzXs]="8" *ngFor="let card of socialCards" class="ingo-social-icon-wrapper">
+      <div class="ingo-social-icon" [ngStyle]="{ background: card.bgColor }">
+        <i
+          class="ng-fa-icon fa-1x fa-fw"
+          [ngClass]="socialIcons[card.platform]"
+          [ngStyle]="{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }"
+        ></i>
+      </div>
+      <h2>{{ card.title }}</h2>
+      <p>{{ card.subTitle }}</p>
+    </div>
+  </div>
+</nz-card>
+<ng-template #SocialCardsHeading>
+  <h2>Social Overview</h2>
+</ng-template>

@@ -1,0 +1,96 @@
+<nz-card class="ws-card ws-dashboard-card" *ngIf="workspaceData | async as workspace; else skeleton">
+  <div class="ws-single">
+    <div class="ws-head">
+      <div class="ws-title">
+        <div class="ws-icon sq bg-purple">
+          <span>{{ workspace.initials }}</span>
+        </div>
+        <div class="ws-info">
+          <h6 class="title">{{ workspace.name }}</h6>
+          <span class="sub-text">Managed by {{ workspace.managedBy }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="ws-details">
+      <p>
+        Created on <span class="span-highlight">{{ workspace.created }}</span>
+      </p>
+      <p>
+        Updated on <span class="span-highlight">{{ workspace.updated }}</span>
+      </p>
+      <p>
+        Subscription:
+        <span class="overview-subscription"
+          ><span class="overview-subscription-type" [routerLink]="['/account-control/subscription']">{{
+            workspace.subscription.type | titlecase
+          }}</span
+          ><a [routerLink]="['/account-control/subscription']"><i class="fas fa-cog"></i></a
+        ></span>
+      </p>
+      <ng-template #subscriptionInfo>
+        <ng-container *ngIf="workspace.subscription.type === 'free'; else notFreeSubscription">
+          <span class="main-info"
+            >This workspace is active with the <span class="span-highlight">Free</span> subscription.<br />Some limits
+            may apply.</span
+          >
+          <span>
+            <span>This subscription does not require a renewal</span>
+          </span>
+        </ng-container>
+        <ng-template #notFreeSubscription>
+          <span class="main-info"
+            >This workspace is active with the
+            <span class="span-highlight">{{ workspace.subscription.type | titlecase }}</span> subscription.</span
+          >
+          <span>
+            <span
+              >First subscribed on <span class="span-highlight">{{ workspace.subscription.activeSince }}</span></span
+            >
+            <span
+              >Renews on <span class="span-highlight">{{ workspace.subscription.renewsOn }}</span></span
+            >
+          </span>
+        </ng-template>
+      </ng-template>
+    </div>
+    <div class="ws-additional">
+      <div class="ws-additional-details">
+        <div class="ws-count">
+          <span>{{ workspace.adAccountsCount || '0' }}/15 Ad Accounts Limit</span>
+        </div>
+        <div class="ws-count">{{ workspace.adAccountsLimit }}%</div>
+      </div>
+      <div class="additional additional-pill additional-md">
+        <nz-progress
+          [nzPercent]="workspace.adAccountsLimit"
+          [nzShowInfo]="false"
+          [nzStrokeColor]="{
+            '0%': '#7854f7',
+            '85%': workspace.adAccountsLimit < 85 ? '#5f63f2' : '',
+            '100%': workspace.adAccountsLimit > 85 ? '#ff8400' : '#5f63f2'
+          }"
+        ></nz-progress>
+      </div>
+    </div>
+    <div class="ws-meta">
+      <span class="ws-active-badge" *ngIf="workspace.isActive"><span>Active</span></span>
+    </div>
+  </div>
+</nz-card>
+
+<ng-template #skeleton>
+  <nz-card class="ws-card ws-dashboard-card">
+    <div class="ws-single">
+      <div class="ws-head">
+        <div class="ws-title">
+          <div class="ws-icon sq bg-purple">
+            <span><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 1 }" [nzTitle]="false"></nz-skeleton></span>
+          </div>
+        </div>
+      </div>
+      <div class="ws-details">
+        <p><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 5 }" [nzTitle]="false"></nz-skeleton></p>
+      </div>
+    </div>
+  </nz-card>
+</ng-template>

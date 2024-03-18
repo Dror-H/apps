@@ -1,0 +1,21 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="targetingForm" class="ingo-add-edit-form">
+    <ingo-linkedin-language-selector formControlName="locale"></ingo-linkedin-language-selector>
+
+    <app-linkedin-saved-audience-targeting
+      [audienceTypeForm]="targetingForm.controls.targetingCriteria"
+    ></app-linkedin-saved-audience-targeting>
+
+    <nz-divider class="mx--25"></nz-divider>
+
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10"
+      [disabled]="!(targetingForm.status === 'VALID')"
+      (click)="setStep.emit(3)"
+    >
+      Continue
+    </button>
+  </form>
+</nz-card>

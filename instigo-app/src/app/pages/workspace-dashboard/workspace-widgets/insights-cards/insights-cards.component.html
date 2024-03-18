@@ -1,0 +1,102 @@
+<nz-card nzTitle="Overall Overview" [nzExtra]="chartExtra">
+  <ng-container *ngIf="mainChart$ | async as chart; else skeleton">
+    <div nz-row [nzGutter]="25" *ngIf="chart.chartLabels?.length > 0; else empty" class="ingo-charts-view">
+      <div nz-col [nzSpan]="24">
+        <div
+          nz-card-grid
+          class="chart-metric w-25"
+          *ngFor="let metric of chart.chartData; let i = index"
+          (click)="updateMetricVisibility(i, metric.label)"
+          [ngClass]="{ active: !mainChartMetrics[i].hidden }"
+        >
+          <i
+            class="far cursor-pointer"
+            [ngClass]="{ 'fa-toggle-on': !mainChartMetrics[i].hidden, 'fa-toggle-off': mainChartMetrics[i].hidden }"
+          ></i>
+          <p>
+            {{ metric.label }}
+          </p>
+          <h2>
+            <span class="min-width-50">
+              <ng-container *ngIf="!metric.special && metric.yAxisID !== 'percentage'; else specialNumber">{{
+                metric.total | number: '1.0-2':'en-US'
+              }}</ng-container>
+              <ng-template #specialNumber>
+                <ng-container *ngIf="metric.special === 'bigNumber'">{{
+                  metric.total || 0 | shortNumber
+                }}</ng-container>
+                <ng-container *ngIf="metric.special === 'currency'">{{
+                  metric.total || 0 | currency: (defaultCurrency$ | async)
+                }}</ng-container>
+                <ng-container *ngIf="metric.yAxisID === 'percentage'"
+                  >{{ metric.total | number: '1.0-2':'en-US' }}%</ng-container
+                >
+              </ng-template>
+            </span>
+          </h2>
+          <span class="col-metrics-change">
+            <ng-container *ngIf="metric.change !== '+'; else noChange">
+              <span *ngIf="metric.icon === 'up'">
+                <i class="far fa-chart-line fa-fw"></i>
+                {{ metric.change }}%
+              </span>
+              <span *ngIf="metric.icon === 'down'" [ngClass]="{ decrease: metric.icon === 'down' }">
+                <i class="far fa-chart-line-down fa-fw"></i>
+                {{ metric.change }}%
+              </span>
+              vs. last period
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="24" id="chart-content">
+        <div class="parentContainer display-block">
+          <canvas
+            baseChart
+            #baseChart="base-chart"
+            [id]="'chartId'"
+            height="110"
+            [datasets]="chart.chartData"
+            [labels]="chart.chartLabels"
+            [options]="mainChartOptions"
+            [chartType]="'bar'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</nz-card>
+
+<ng-template #empty>
+  <app-empty-range></app-empty-range>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 16 }" [nzTitle]="false" class="mb-20"></nz-skeleton>
+</ng-template>
+
+<ng-template #chartExtra>
+  <div class="chart-groupby-input">
+    Grouping data by
+    <nz-input-number
+      [(ngModel)]="groupDataset"
+      [nzMin]="1"
+      [nzMax]="maxGroupBy"
+      [nzStep]="1"
+      (ngModelChange)="updateData()"
+      [ngStyle]="{ opacity: isCardCharts ? '0.5' : '1' }"
+    ></nz-input-number>
+    days
+  </div>
+</ng-template>
+
+<ng-template #noChange>
+  <span
+    class="no-change"
+    ingoTooltip
+    nzTooltipTitle="Change analysis is available only when a time preset is selected as the dates-range"
+    nzTooltipOverlayClassName="ingo-explain-card"
+  >
+    Change not available
+  </span>
+</ng-template>

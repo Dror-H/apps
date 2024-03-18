@@ -1,0 +1,17 @@
+<div class="buttons-container--fixed">
+  <button nz-button nzType="text" [disabled]="disabled" (click)="clickEvent.emit('clear')">Clear Selection</button>
+  <button
+    #nextBtn
+    nz-button
+    [nzLoading]="loading"
+    [disabled]="disabled"
+    nzType="primary"
+    (click)="clickEvent.emit('next')"
+  >
+    Next
+  </button>
+</div>
+
+<div class="buttons-container--static">
+  <button nz-button nzType="primary">Next</button>
+</div>

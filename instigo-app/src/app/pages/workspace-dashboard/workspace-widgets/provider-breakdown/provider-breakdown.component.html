@@ -1,0 +1,35 @@
+<nz-card *ngIf="workspaceStats$ | async as workspaceStats" [nzTitle]="title">
+  <div *ifWithLoading="workspaceStats.type">
+    <div class="parentContainer" style="display: block">
+      <canvas
+        baseChart
+        [data]="
+          [
+            workspaceStats.value?.adAccountsProviderBreakdown?.linkedin,
+            workspaceStats.value?.adAccountsProviderBreakdown?.facebook
+          ] || [] | values
+        "
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [legend]="pieChartLegend"
+        [colors]="pieChartColors"
+      >
+      </canvas>
+    </div>
+    <div class="provider-breakdown-legend d-flex justify-content-center">
+      <div class="breakdown-legend-single" *ngFor="let item of pieLegendData$ | async">
+        <div class="legend-label">
+          <span class="legend-label-dot" [ngStyle]="{ background: item.color ? item.color : '#a6a6a6' }"></span>
+          {{ item.value }}
+        </div>
+        <span>{{ item.label | titlecase }}</span>
+      </div>
+    </div>
+  </div>
+</nz-card>
+<ng-template #title>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="mb-0">Ad Accounts Provider Breakdown</h2>
+  </div>
+</ng-template>

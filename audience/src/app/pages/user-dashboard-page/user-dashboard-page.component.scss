@@ -1,0 +1,33 @@
+@use 'components/header.variables' as header;
+
+.brand {
+  &-container {
+    height: header.$header-height;
+    left: 50%;
+    position: fixed;
+    top: 0;
+    transform: translateX(-50%);
+    width: 200px;
+    z-index: 21;
+  }
+
+  &-image {
+    width: 115px;
+  }
+}
+
+.dashboard {
+  &-affix {
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    &-affix {
+      display: block;
+    }
+
+    &-static {
+      display: none;
+    }
+  }
+}

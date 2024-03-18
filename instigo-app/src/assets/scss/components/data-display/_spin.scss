@@ -1,0 +1,23 @@
+.ant-spin-nested-loading > div > .ant-spin .ant-spin-text {
+  color: color(purple);
+  font-size: 16px;
+  font-weight: 500;
+  padding-top: 7px;
+}
+
+.ant-spin-dot-item {
+  background-color: color(purple);
+}
+
+.audience-summary .ant-spin {
+  color: #5f63f2;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+
+  i {
+    font-size: 14px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}

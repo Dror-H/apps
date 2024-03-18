@@ -1,0 +1,47 @@
+<a
+  nz-dropdown
+  nzTrigger="click"
+  [nzDropdownMenu]="popNotifications"
+  [(nzVisible)]="isNotificationsVisible"
+  [nzPlacement]="'bottomRight'"
+  [nzOverlayClassName]="'dropdown-arrow-right notification-popover'"
+  nz-tooltip
+  nzTooltipPlacement="bottom"
+  nzTooltipTitle="Notifications"
+>
+  <nz-badge [nzDot]="isNewNotification">
+    <i class="far fa-bell"></i>
+  </nz-badge>
+</a>
+<nz-dropdown-menu #popNotifications="nzDropdownMenu">
+  <div nz-menu class="primary-dropdown">
+    <div class="dropdown-head">
+      <span>Notifications</span>
+      <span (click)="markNotificationsRead()" class="notifications-mark-all">Mark all as read</span>
+    </div>
+    <div class="dropdown-body">
+      <nz-list
+        class="ingo-notifications-fold ant-list-item-links"
+        [nzDataSource]="notifications"
+        [nzRenderItem]="item"
+        [nzItemLayout]="'horizontal'"
+      >
+        <ng-template #item let-item>
+          <nz-list-item>
+            <a [routerLink]="item.route">
+              <div class="notification-icon {{ item.type }}">
+                <i class="fas {{ iconsTypes[item.type] }}"></i>
+              </div>
+              <div class="notification-content">
+                <div class="notification-text">
+                  {{ item.title }}
+                </div>
+                <div class="notification-time">{{ item.createdAt | date }}</div>
+              </div>
+            </a>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </div>
+  </div>
+</nz-dropdown-menu>

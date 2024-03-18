@@ -1,0 +1,37 @@
+.ng-select.ng-select-single .ng-select-container {
+  height: $input-height !important;
+}
+
+.ng-select .ng-select-container {
+  border: $input-border-width solid $input-border-color !important;
+}
+
+.ng-dropdown-panel {
+  border: none !important;
+  box-shadow: $box-shadow;
+  z-index: 99 !important;
+}
+
+.ng-select {
+  &.ng-select-focused {
+    &:not(.ng-select-opened) > .ng-select-container {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  background-color: $primary;
+  color: $white;
+}
+
+.ng-select {
+  .ng-select-container {
+    background-color: $input-bg !important;
+    color: $input-color !important;
+
+    input {
+      color: $input-color !important;
+    }
+  }
+}

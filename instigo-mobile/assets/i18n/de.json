@@ -1,0 +1,39 @@
+{
+  "login": {
+    "signIn": "Anmelden",
+    "username": "Benuzer name",
+    "password": "Passwort",
+    "requiredError": "Das Feld darf nicht leer sein!",
+    "minLength": "Min. Zeichen: ",
+    "emailError": "Ungültige E-Mail-Adresse!",
+    "loginError": "Benutzername oder Passwort ungültig!"
+  },
+  "settings": {
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "activity": "Aktivität",
+    "darkMode": "Dunkelmodus",
+    "chooseLanguage": "Sprach whälen",
+    "logout": "Abmelden",
+    "user": {
+      "last_login": "Letzte Anmeldung",
+      "member_since": "Mitglied seit"
+    },
+    "language": {
+      "title": "Sprachauswahl",
+      "description": "Wählen Sie eine der folgenden Sprachen aus",
+      "en": "Englisch",
+      "de": "Deutsch",
+      "cancel": "Abbrechen"
+    }
+  },
+  "global": {
+    "loading": "Laden...",
+    "processing": "Verarbeitung von Daten...",
+    "error": "Serverfehler, wir untersuchen..."
+  },
+  "home": {
+    "accountInfo": "Kontoinformationen",
+    "manage": "VERWALTEN"
+  }
+}

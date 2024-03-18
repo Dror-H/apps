@@ -1,0 +1,6 @@
+<nz-input-group nzBorderless class="ingo-inline-dates">
+  <span class="icon"><i class="fal fa-hourglass-end fa-fw"></i></span>
+  <input class="camp-date" nz-input #endPickerInner (change)="onPickerChange($event, endPicker)" />
+  <i class="fas fa-times clear-end-date" (click)="clearEndDate()"></i>
+  <input nz-input type="time" [(ngModel)]="endTime" ingoTimeInput />
+</nz-input-group>

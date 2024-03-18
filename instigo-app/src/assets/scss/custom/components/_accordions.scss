@@ -1,0 +1,47 @@
+// Accordions
+
+.accordion {
+  .card {
+    box-shadow: none;
+    margin-bottom: 15px;
+  }
+
+  .card-header {
+    border-radius: 7px !important;
+    padding: 5px;
+  }
+}
+
+.custom-accordion {
+  .accordion-list {
+    align-items: center;
+    background-color: $gray-300;
+    color: $body-color;
+    display: flex;
+    font-weight: $font-weight-semibold;
+    justify-content: space-between;
+
+    &.collapsed {
+      i.accor-plus-icon {
+        &::before {
+          content: '\F0415';
+        }
+      }
+    }
+
+    .accor-plus-icon {
+      background-color: $card-bg;
+      border-radius: 50%;
+      display: inline-block;
+      font-size: 16px;
+      height: 24px;
+      line-height: 22px;
+      text-align: center;
+      width: 24px;
+    }
+  }
+
+  .card-body {
+    color: $text-muted;
+  }
+}

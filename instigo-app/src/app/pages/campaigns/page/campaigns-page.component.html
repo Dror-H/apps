@@ -1,0 +1,67 @@
+<div nz-row [nzGutter]="25">
+  <div nz-col nzSpan="24">
+    <nz-page-header class="site-page-header">
+      <nz-page-header-title> Campaigns</nz-page-header-title>
+      <nz-page-header-extra>
+        <form [formGroup]="campaignsDatesForm">
+          <ingo-date-range-picker formControlName="dateRange"></ingo-date-range-picker>
+        </form>
+        <button nz-button nzType="primary" class="btn-raised btn-white btn-small" [routerLink]="['/new-campaign']">
+          <span>Create New Campaign</span>
+          <i class="far fa-plus ml-10"></i>
+        </button>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+</div>
+<div nz-row [nzGutter]="24" class="ingo-tabs-view">
+  <div nz-col [nzSpan]="24">
+    <nz-tabset [nzSelectedIndex]="activeTab$ | async" [nzTabBarExtraContent]="tabsFilters">
+      <nz-tab [nzTitle]="campaignsTitle" (nzClick)="activeTab$.next(0)">
+        <app-campaigns-view *ngIf="(activeTab$ | async) === 0"></app-campaigns-view>
+      </nz-tab>
+      <nz-tab [nzTitle]="adsetsTitle" (nzClick)="activeTab$.next(1)">
+        <app-adsets-view *ngIf="(activeTab$ | async) === 1"></app-adsets-view>
+      </nz-tab>
+      <nz-tab [nzTitle]="adsTitle" (nzClick)="activeTab$.next(2)">
+        <app-ads-view *ngIf="(activeTab$ | async) === 2"></app-ads-view>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+<ng-template #campaignsTitle>
+  <i class="fad fa-stream"></i>
+  Campaigns
+  <span *ngIf="(selectedCampaignsLength$ | async) > 0" (click)="deselectCampaigns($event)" class="table-selected-badge">
+    {{ selectedCampaignsLength$ | async }}
+    <i class="ng-fa-icon fas fa-times-circle fa-1x"></i>
+  </span>
+</ng-template>
+<ng-template #adsetsTitle>
+  <i class="fad fa-stream"></i>
+  Ad Sets
+  <span *ngIf="(selectedAdSetsLength$ | async) > 0" (click)="deselectAdSets($event)" class="table-selected-badge">
+    {{ selectedAdSetsLength$ | async }} <i class="ng-fa-icon fas fa-times-circle fa-1x"></i>
+  </span>
+</ng-template>
+<ng-template #adsTitle>
+  <i class="fad fa-stream"></i>
+  Ads
+</ng-template>
+<ng-template #tabsFilters>
+  <div class="ingo-tabs-view-filters">
+    <span>Filter by</span>
+    <app-filter-by-provider
+      [providers]="(filters$ | async).providers"
+      (selectedProviders)="updateFilterState({ providers: $event })"
+    ></app-filter-by-provider>
+    <app-filter-by-adaccount
+      [adAccounts]="(filters$ | async).adAccounts"
+      (selectedAdAccounts)="updateFilterState({ adAccounts: $event })"
+    ></app-filter-by-adaccount>
+    <app-filter-by-status
+      [statusList]="(filters$ | async).status"
+      (selectedStatus)="updateFilterState({ status: $event })"
+    ></app-filter-by-status>
+  </div>
+</ng-template>

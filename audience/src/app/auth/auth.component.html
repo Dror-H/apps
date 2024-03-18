@@ -1,0 +1,18 @@
+<div class="auth">
+  <h1 class="auth-title" nz-typography>{{ authActionContent[authAction].title }}</h1>
+  <div class="divider--xxs"></div>
+  <h5 nz-typography nzType="secondary">{{ authActionContent[authAction].description }}</h5>
+  <div class="divider--lg"></div>
+  <button
+    class="auth-btn"
+    nz-button
+    nzType="default"
+    [nzLoading]="isLoadingAuth$ | async"
+    (click)="executeAuthAction()"
+  >
+    <h3 nz-typography class="auth-btn-text">
+      <i *ngIf="authAction === 'signin'" class="auth-btn-icon fb-icon ng-fa-icon fab fa-facebook-f fa-lg"></i>
+      {{ authActionContent[authAction].actionText }}
+    </h3>
+  </button>
+</div>

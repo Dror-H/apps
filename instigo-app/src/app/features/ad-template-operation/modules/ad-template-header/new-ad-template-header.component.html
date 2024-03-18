@@ -1,0 +1,18 @@
+<nz-radio-group class="ingo-radio-group radio-group-2" [ngModel]="_value">
+  <div
+    nz-radio-button
+    *ngFor="let provider of availableProvider"
+    [nzValue]="provider.value"
+    (click)="onInputChange({ provider: provider.value, icon: provider.icon })"
+  >
+    <span class="icon">
+      <i class="{{ provider.icon }}"></i>
+    </span>
+    <span class="title">
+      <span>{{ provider.name | titlecase }}</span>
+    </span>
+    <span class="selected-icon">
+      <i class="fas fa-check-circle"></i>
+    </span>
+  </div>
+</nz-radio-group>

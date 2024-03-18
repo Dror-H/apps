@@ -1,0 +1,12 @@
+<div class="limited-width-container--sm">
+  <div>
+    <h3 nz-typography>Set Custom Ratios</h3>
+    <nz-switch [nzDisabled]="true" [(ngModel)]="ratiosEnabled"></nz-switch>
+  </div>
+  <div class="divider--xs"></div>
+  <div [@openClose]="ratiosEnabled" class="ratios-container">
+    <div class="divider--xs"></div>
+    <audi-custom-ratio [ratios]="ratios" [ratiosEnabled]="ratiosEnabled"></audi-custom-ratio>
+    <div class="divider--xs"></div>
+  </div>
+</div>

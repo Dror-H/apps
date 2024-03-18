@@ -1,0 +1,73 @@
+<div class="row" @slideUp>
+  <div class="col-12">
+    <h1>
+      {{ 'app.onboarding.createWorkspaceTitle' | translate }}
+    </h1>
+    <h6>
+      {{ 'app.onboarding.createWorkspaceSubMessage' | translate }}
+    </h6>
+
+    <form class="form-signin" [formGroup]="createWorkspaceForm" (ngSubmit)="submitForm()">
+      <div class="form-label-group">
+        <input
+          formControlName="workspace"
+          type="text"
+          id="inputWorkspace"
+          class="form-control shadow-sm"
+          placeholder="{{ 'app.onboarding.workspaceName' | translate }}"
+          required
+        />
+        <label for="inputWorkspace"> {{ 'app.onboarding.workspaceName' | translate }} </label>
+      </div>
+      <ng-container
+        [ngTemplateOutlet]="errorHandler"
+        [ngTemplateOutletContext]="{ controlName: 'workspace', controlAlias: 'Workspace' }"
+      ></ng-container>
+
+      <!-- TEMPORARY REMOVED REQUIRED CARD INFO -->
+      <!-- <nz-divider></nz-divider>
+
+       <h1>
+        {{ 'app.onboarding.subscription' | translate }}
+      </h1>
+      <h6>
+        {{ 'app.onboarding.trialPeriodInfo' | translate }}
+      </h6>
+
+      <div
+        [ngClass]="{
+          'invalid-input': createWorkspaceForm.controls['cardData'].errors?.invalidCard,
+          'valid-input': !createWorkspaceForm.controls['cardData'].errors
+        }"
+        class="form-label-group stripe-card-container form-control shadow-sm d-flex align-items-center"
+      >
+        <input formControlName="cardData" type="text" hidden />
+        <ngx-stripe-card
+          (change)="onStripeChange($event)"
+          class="flex-grow-1"
+          [options]="stripeCardElementOptions"
+        ></ngx-stripe-card>
+      </div>
+       <small class="text-danger">{{ createWorkspaceForm.controls['cardData'].errors?.invalidCard }}</small>
+       <ng-container
+        [ngTemplateOutlet]="errorHandler"
+        [ngTemplateOutletContext]="{ controlName: 'cardData', controlAlias: 'Card number' }"
+      ></ng-container>  -->
+
+      <button class="btn btn-lg btn-block btn-square shadow-sm custom-submit-btn" type="submit">
+        {{ 'app.steps.continue' | translate }}
+      </button>
+    </form>
+  </div>
+</div>
+
+<ng-template #errorHandler let-controlName="controlName" let-controlAlias="controlAlias">
+  <div class="errors-container" *ngIf="createWorkspaceForm.controls[controlName] as control">
+    <ng-container *ngIf="(!control.pristine || control.touched || control.dirty) && control.errors as errors">
+      <small *ngIf="errors.required" class="text-danger">{{ controlAlias }} is required</small>
+      <small *ngIf="errors.minlength" class="text-danger">
+        {{ controlAlias }} must be longer than {{ errors.minlength.requiredLength }} characters
+      </small>
+    </ng-container>
+  </div>
+</ng-template>

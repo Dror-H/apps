@@ -1,0 +1,16 @@
+<div *ngIf="segment?.path?.length" class="segment__inner">
+  <h6 nz-typography nzType="secondary" class="segment__breadcrumbs" [title]="segment.path | toBreadcrumbs">
+    <ng-container *ngFor="let path of segment.path; let i = index">
+      <span [class]="i === 0 ? (path | getColorByTargeting: 'class') : ''">{{ path }}</span>
+      <span *ngIf="i < segment.path.length - 1" class="segment__breadcrumbs-divider">></span>
+    </ng-container>
+  </h6>
+  <div class="divider--xxs"></div>
+  <div nz-row nzJustify="space-between" class="segment__matches-container">
+    <h4 [title]="segment.name" nz-typography class="segment-name">{{ segment.name }}</h4>
+    <nz-tag [nzColor]="segment.type | getColorByTargeting: 'nzColor'">{{
+      segment.audienceSize ? (segment.audienceSize | shortNumber) : '?'
+    }}</nz-tag>
+  </div>
+</div>
+<nz-divider class="custom-divider--sm"></nz-divider>

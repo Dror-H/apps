@@ -1,0 +1,5 @@
+@use 'variables';
+
+.ant-modal-body {
+  border-radius: variables.$border-radius-lg;
+}

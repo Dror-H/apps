@@ -1,0 +1,33 @@
+<div class="workspace-dropdown" nz-dropdown nzTrigger="click" [nzDropdownMenu]="workspacesDropdown">
+  <div class="workspaces-dropdown-icon" [ngClass]="{ 'is-admin': currentWorkspace.owner.id === currentUser.id }">
+    <i class="fas fa-leaf fa-fw"></i>
+  </div>
+  <div class="workspaces-dropdown-selected">
+    <span class="workspace-dropdown-label">{{ currentWorkspace?.name }}</span>
+    <span>{{ currentWorkspace.owner.id === currentUser.id ? 'Admin' : 'Member' }}</span>
+  </div>
+</div>
+<nz-dropdown-menu #workspacesDropdown="nzDropdownMenu">
+  <ul nz-menu>
+    <li
+      nz-menu-item
+      *ngFor="let item of workspace"
+      (click)="selectedWorkspace(item)"
+      [ngClass]="{ active: currentWorkspace?.name === item.name }"
+    >
+      <div class="ingo-dropdown-inner-icon">
+        <i class="fas fa-leaf fa-fw"></i>
+      </div>
+      <div class="ingo-dropdown-option">
+        {{ item.name }}
+        <span>{{ item.owner.id === currentUser.id ? 'Admin' : 'Member' }}</span>
+      </div>
+    </li>
+    <li nz-menu-item [routerLink]="'/account-control/workspaces'">
+      <div class="ingo-dropdown-inner-icon">
+        <i class="fas fa-leaf fa-fw"></i>
+      </div>
+      <div class="ingo-dropdown-option">See All</div>
+    </li>
+  </ul>
+</nz-dropdown-menu>

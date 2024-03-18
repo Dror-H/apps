@@ -1,0 +1,38 @@
+@use 'colors.variables' as colors;
+@use 'typography.variables' as typography;
+@use 'padding.variables' as padding;
+
+.auth {
+  text-align: center;
+
+  &-title {
+    font-size: typography.$font-size-xl;
+  }
+
+  &-btn {
+    border-color: colors.$primary;
+    height: auto;
+    min-height: unset !important;
+    padding: padding.$padding-md padding.$padding-xl;
+
+    &-text {
+      color: colors.$primary;
+    }
+
+    &-icon {
+      color: colors.$primary;
+      font-size: typography.$font-size-md;
+      margin-right: 1rem;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: colors.$primary;
+
+      .auth-btn-icon,
+      .auth-btn-text {
+        color: colors.$white;
+      }
+    }
+  }
+}

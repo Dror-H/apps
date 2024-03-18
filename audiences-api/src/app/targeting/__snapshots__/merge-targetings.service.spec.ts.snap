@@ -1,0 +1,512 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MergeTargetings Test suite deduplicateIncludesAndExclusion should remove all duplicates 1`] = `
+Object {
+  "age_max": 65,
+  "age_min": 18,
+  "exclusions": Object {
+    "interests": Array [],
+  },
+  "flexible_spec": Array [
+    Object {
+      "interests": Array [
+        Object {
+          "audience_size_lower_bound": 0,
+          "audience_size_upper_bound": 0,
+          "description": "double locations = [flexible_spec[2]interests[0], flexible_spec[2]interests[1]]",
+          "id": "1",
+          "name": "",
+          "path": Array [
+            "test",
+          ],
+          "topic": "test",
+        },
+        Object {
+          "audience_size_lower_bound": 0,
+          "audience_size_upper_bound": 0,
+          "description": "test",
+          "id": "2",
+          "name": "",
+          "path": Array [
+            "test",
+          ],
+          "topic": "test",
+        },
+      ],
+      "work_employers": Array [
+        Object {
+          "audience_size_lower_bound": 0,
+          "audience_size_upper_bound": 0,
+          "description": "test",
+          "id": "3",
+          "name": "",
+          "path": Array [
+            "test",
+          ],
+          "topic": "test",
+        },
+      ],
+    },
+    Object {
+      "interests": Array [],
+      "work_employers": Array [
+        Object {
+          "audience_size_lower_bound": 0,
+          "audience_size_upper_bound": 0,
+          "description": "test",
+          "id": "4",
+          "name": "",
+          "path": Array [
+            "test",
+          ],
+          "topic": "test",
+        },
+      ],
+      "work_positions": Array [],
+    },
+    Object {
+      "education_statuses": Array [],
+      "interests": Array [],
+      "work_employers": Array [],
+      "work_positions": Array [],
+    },
+  ],
+  "geo_locations": Object {
+    "cities": Array [],
+    "countries": Array [],
+    "location_types": Array [],
+    "neighborhoods": Array [],
+    "places": Array [],
+    "regions": Array [],
+  },
+  "locales": Array [],
+  "targeting_optimization": "none",
+}
+`;
+
+exports[`MergeTargetings Test suite deduplicateIncludesAndExclusion should remove duplicates and null values 1`] = `
+Array [
+  Object {
+    "family_statuses": Array [],
+    "interests": Array [
+      Object {
+        "audience_size_lower_bound": 0,
+        "audience_size_upper_bound": 0,
+        "description": "double location = exclusion.interests[1]",
+        "id": "1",
+        "name": "",
+        "path": Array [
+          "test",
+        ],
+        "topic": "test",
+      },
+    ],
+  },
+  Object {
+    "family_statuses": Array [],
+    "interests": Array [],
+  },
+]
+`;
+
+exports[`MergeTargetings Test suite deduplicateIncludesAndExclusion should remove duplicates and null values from exclusion 1`] = `
+Object {
+  "exclusions": Object {
+    "family_statuses": Array [],
+    "interests": Array [],
+  },
+  "flexible_spec": Array [
+    Object {
+      "family_statuses": Array [],
+      "interests": Array [
+        Object {
+          "audience_size_lower_bound": 0,
+          "audience_size_upper_bound": 0,
+          "description": "double location = exclusion.interests[1]",
+          "id": "1",
+          "name": "",
+          "path": Array [
+            "test",
+          ],
+          "topic": "test",
+        },
+      ],
+    },
+    Object {
+      "interests": Array [
+        Object {
+          "audience_size_lower_bound": 0,
+          "audience_size_upper_bound": 0,
+          "description": "double location = exclusion.interests[1]",
+          "id": "2",
+          "name": "",
+          "path": Array [
+            "test",
+          ],
+          "topic": "test",
+        },
+      ],
+      "work_employers": Array [],
+    },
+  ],
+}
+`;
+
+exports[`MergeTargetings Test suite deduplicateIncludesAndExclusion should remove duplicates and number type segments 1`] = `
+Array [
+  Object {
+    "interests": Array [
+      Object {
+        "audience_size_lower_bound": 0,
+        "audience_size_upper_bound": 0,
+        "description": "double locations = [flexible_spec[2]interests[0], flexible_spec[2]interests[1]]",
+        "id": "1",
+        "name": "",
+        "path": Array [
+          "test",
+        ],
+        "topic": "test",
+      },
+      Object {
+        "audience_size_lower_bound": 0,
+        "audience_size_upper_bound": 0,
+        "description": "test",
+        "id": "2",
+        "name": "",
+        "path": Array [
+          "test",
+        ],
+        "topic": "test",
+      },
+    ],
+    "work_employers": Array [
+      Object {
+        "audience_size_lower_bound": 0,
+        "audience_size_upper_bound": 0,
+        "description": "test",
+        "id": "3",
+        "name": "",
+        "path": Array [
+          "test",
+        ],
+        "topic": "test",
+      },
+    ],
+  },
+  Object {
+    "interests": Array [],
+    "work_employers": Array [
+      Object {
+        "audience_size_lower_bound": 0,
+        "audience_size_upper_bound": 0,
+        "description": "test",
+        "id": "4",
+        "name": "",
+        "path": Array [
+          "test",
+        ],
+        "topic": "test",
+      },
+    ],
+    "work_positions": Array [],
+  },
+  Object {
+    "education_statuses": Array [],
+    "interests": Array [],
+    "work_employers": Array [],
+    "work_positions": Array [],
+  },
+]
+`;
+
+exports[`MergeTargetings Test suite should merge locations 1`] = `
+Object {
+  "cities": Array [
+    Object {
+      "country": "BE",
+      "distance_unit": "mile",
+      "key": "171230",
+      "name": "Antwerp",
+      "radius": 10,
+      "region": "Flemish Region",
+      "region_id": "4136",
+    },
+    Object {
+      "country": "UA",
+      "distance_unit": "mile",
+      "key": "2367397",
+      "name": "Dnipro",
+      "radius": 10,
+      "region": "Dnipropetrovsk Oblast",
+      "region_id": "3781",
+    },
+    Object {
+      "country": "UA",
+      "distance_unit": "mile",
+      "key": "2384095",
+      "name": "Odessa",
+      "radius": 10,
+      "region": "Odessa Oblast",
+      "region_id": "3794",
+    },
+    Object {
+      "country": "CH",
+      "distance_unit": "mile",
+      "key": "313044",
+      "name": "Zürich",
+      "radius": 10,
+      "region": "Zürich",
+      "region_id": "603",
+    },
+    Object {
+      "country": "DE",
+      "distance_unit": "mile",
+      "key": "542609",
+      "name": "Berlin",
+      "region": "Berlin",
+      "region_id": "840",
+    },
+    Object {
+      "country": "DE",
+      "distance_unit": "mile",
+      "key": "550095",
+      "name": "Düsseldorf",
+      "radius": 10,
+      "region": "Nordrhein-Westfalen",
+      "region_id": "831",
+    },
+    Object {
+      "country": "DE",
+      "distance_unit": "mile",
+      "key": "554021",
+      "name": "Frankfurt",
+      "radius": 10,
+      "region": "Hessen",
+      "region_id": "829",
+    },
+    Object {
+      "country": "DE",
+      "distance_unit": "mile",
+      "key": "579270",
+      "name": "Munich",
+      "radius": 10,
+      "region": "Bayern",
+      "region_id": "826",
+    },
+    Object {
+      "country": "FR",
+      "distance_unit": "mile",
+      "key": "771540",
+      "name": "Marseille",
+      "radius": 10,
+      "region": "Provence-Alpes-Côte d'Azur",
+      "region_id": "1087",
+    },
+    Object {
+      "country": "FR",
+      "distance_unit": "mile",
+      "key": "777934",
+      "name": "Paris",
+      "radius": 10,
+      "region": "Île-de-France",
+      "region_id": "1078",
+    },
+    Object {
+      "country": "GB",
+      "distance_unit": "mile",
+      "key": "812057",
+      "name": "London",
+      "radius": 10,
+      "region": "England",
+      "region_id": "4079",
+    },
+    Object {
+      "country": "US",
+      "distance_unit": "mile",
+      "key": "2420379",
+      "name": "Los Angeles",
+      "region": "California",
+      "region_id": "3847",
+    },
+    Object {
+      "country": "US",
+      "distance_unit": "mile",
+      "key": "2421836",
+      "name": "San Francisco",
+      "region": "California",
+      "region_id": "3847",
+    },
+    Object {
+      "country": "US",
+      "distance_unit": "mile",
+      "key": "2490299",
+      "name": "New York",
+      "region": "New York",
+      "region_id": "3875",
+    },
+    Object {
+      "country": "GB",
+      "distance_unit": "mile",
+      "key": "803904",
+      "name": "Birmingham",
+      "radius": 50,
+      "region": "England",
+      "region_id": "4079",
+    },
+  ],
+  "countries": Array [
+    "US",
+    "IE",
+    "CA",
+    "AU",
+    "IT",
+    "NL",
+    "NZ",
+    "NO",
+    "ES",
+    "CH",
+    "GB",
+    "DK",
+    "BE",
+    "AT",
+    "PT",
+    "IS",
+    "FR",
+    "DE",
+    "MC",
+    "LU",
+  ],
+  "location_types": Array [
+    "home",
+    "recent",
+  ],
+  "places": Array [
+    Object {
+      "country": "US",
+      "distance_unit": "kilometer",
+      "key": "155403677865323",
+      "latitude": 38.123625,
+      "longitude": -122.217148,
+      "name": "BAY AREA",
+      "primary_city_id": 2422640,
+      "radius": 2,
+      "region_id": 3847,
+    },
+  ],
+  "regions": Array [
+    Object {
+      "country": "GB",
+      "key": "4079",
+      "name": "England",
+    },
+    Object {
+      "country": "GB",
+      "key": "4081",
+      "name": "Scotland",
+    },
+    Object {
+      "country": "HU",
+      "key": "1625",
+      "name": "Budapest",
+    },
+    Object {
+      "country": "RU",
+      "key": "3146",
+      "name": "Moscow",
+    },
+    Object {
+      "country": "US",
+      "key": "3849",
+      "name": "Connecticut",
+    },
+    Object {
+      "country": "US",
+      "key": "3862",
+      "name": "Maine",
+    },
+    Object {
+      "country": "US",
+      "key": "3864",
+      "name": "Massachusetts",
+    },
+    Object {
+      "country": "US",
+      "key": "3872",
+      "name": "New Hampshire",
+    },
+    Object {
+      "country": "US",
+      "key": "3875",
+      "name": "New York",
+    },
+    Object {
+      "country": "US",
+      "key": "3882",
+      "name": "Rhode Island",
+    },
+    Object {
+      "country": "US",
+      "key": "3888",
+      "name": "Vermont",
+    },
+  ],
+}
+`;
+
+exports[`MergeTargetings Test suite should merge specs 1`] = `
+Array [
+  Object {
+    "college_years": Array [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026,
+    ],
+    "education_majors": Array [
+      Object {
+        "id": "106335129403847",
+        "name": "Business management",
+      },
+    ],
+    "education_schools": Array [
+      Object {
+        "id": "475750562498596",
+        "name": "Study in UK",
+      },
+    ],
+    "education_statuses": Array [
+      4,
+      5,
+      2,
+      100,
+    ],
+    "interests": Array [
+      Object {
+        "id": "6002926675372",
+        "name": "Scholarship",
+      },
+      Object {
+        "id": "6002964301046",
+        "name": "Business school",
+      },
+      Object {
+        "id": "6003057317756",
+        "name": "Business education",
+      },
+    ],
+  },
+  Object {
+    "interests": Array [
+      Object {
+        "id": "6003748928462",
+        "name": "Destroyer",
+      },
+      Object {
+        "id": "6004000198906",
+        "name": "Professional development",
+      },
+    ],
+  },
+]
+`;

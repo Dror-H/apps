@@ -1,0 +1,104 @@
+<form nz-form [formGroup]="audienceForm">
+  <ingo-location-selector-container
+    [providerId]="adAccount.value.providerId"
+    [provider]="provider"
+    [rules]="rulesValue"
+    (getReach)="getReachEventFromChild($event)"
+  ></ingo-location-selector-container>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <form [formGroup]="demographicsForm">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="10">
+        <nz-form-item>
+          <nz-form-label>
+            Gender
+            <ingo-explain tooltipId="app.campCreate.audience.gender"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-radio-group class="ingo-radio-group radio-group-3 no-icon" formControlName="gender">
+              <div nz-radio-button nzValue="0">
+                <span class="title"><span>All</span></span>
+              </div>
+              <div nz-radio-button nzValue="1">
+                <span class="title"><span>Male</span></span>
+              </div>
+              <div nz-radio-button nzValue="2">
+                <span class="title"><span>Female</span></span>
+              </div>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-form-item>
+          <nz-form-label>Age</nz-form-label>
+          <nz-form-control nzErrorTip="Values allowed between 13 and 65">
+            <input nz-input type="number" min="13" max="65" value="18" formControlName="fromAge" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="1" style="margin-right: -5px !important">
+        <div class="ingo-lead-arrow" style="margin-top: 0 !important"><i class="far fa-long-arrow-right"></i></div>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-form-item>
+          <nz-form-label>
+            <span style="visibility: hidden">.</span>
+            <ingo-explain tooltipId="app.campCreate.audience.age"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="Values allowed between 13 and 65">
+            <input nz-input type="number" value="65" min="13" max="65" formControlName="toAge" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <nz-alert
+        *ngIf="demographicsForm?.errors?.higherThanToAge"
+        nzType="error"
+        nzMessage="Min age should be lower than Max age"
+      ></nz-alert>
+    </div>
+  </form>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <ingo-fb-language-selector [formControl]="demographicsForm.controls.locales"></ingo-fb-language-selector>
+
+  <nz-divider class="mx--25"></nz-divider>
+  <ingo-facebook-detailed-targeting
+    (targetingCriteria)="onTargetChange()"
+    *ngIf="adAccount.value != null && audienceForm.value.provider === supportedProviders.FACEBOOK"
+    [adAccountProviderId]="adAccount.value.providerId"
+    [provider]="provider"
+    [include]="includeDetailsTargeting"
+    [exclude]="excludeDetailsTargeting"
+  >
+  </ingo-facebook-detailed-targeting>
+  <nz-divider class="mx--25"></nz-divider>
+  <form [formGroup]="demographicsForm">
+    <ingo-custom-audience-container
+      [demographicsForm]="demographicsForm"
+      [adAccount]="adAccount.value"
+    ></ingo-custom-audience-container>
+    <div nz-row [nzGutter]="24" *ngIf="showDetailedTargeting">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label
+            >Detailed Targeting Expansion
+            <ingo-explain tooltipId="app.campCreate.audience.targetingExpand"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-switch
+              formControlName="detailedTargeting"
+              [nzCheckedChildren]="checkedTemplate"
+              [nzUnCheckedChildren]="unCheckedTemplate"
+            ></nz-switch>
+            <ng-template #checkedTemplate><i class="fas fa-check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i class="far fa-power-off"></i></ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</form>

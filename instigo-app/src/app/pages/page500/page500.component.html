@@ -1,0 +1,18 @@
+<div nz-row nzJustify="center" nzAlign="middle" class="height-100 mt-10">
+  <nz-empty
+    nzNotFoundImage="https://instigo.ams3.cdn.digitaloceanspaces.com/public/general_assets/error500grafic.png"
+    [nzNotFoundContent]="contentTpl"
+    [nzNotFoundFooter]="footerTpl"
+    nz-col
+  >
+    <ng-template #contentTpl>
+      <span>{{ 'app.error_codes.default_title' | translate }}</span>
+      <p>{{ error_message | async }}</p>
+    </ng-template>
+    <ng-template #footerTpl>
+      <button nz-button nzType="primary" [routerLink]="['/']" routerLinkActive="router-link-active">
+        Back to Dashboard
+      </button>
+    </ng-template>
+  </nz-empty>
+</div>

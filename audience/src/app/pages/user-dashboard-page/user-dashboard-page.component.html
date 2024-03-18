@@ -1,0 +1,27 @@
+<div class="brand-container" nz-row nzAlign="middle" nzJustify="center">
+  <a nz-col routerLink="audience-search">
+    <img alt="instigo logo" class="brand-image" src="assets/svg/instigo-brand.svg" />
+  </a>
+</div>
+
+<div nz-row [nzGutter]="24" nzJustify="center">
+  <div nz-col [nzXXl]="6" [nzMd]="7" [nzXs]="24">
+    <nz-affix [nzOffsetTop]="80" class="dashboard-affix">
+      <ng-container *ngTemplateOutlet="dashboardCard"></ng-container>
+    </nz-affix>
+    <div class="dashboard-static">
+      <ng-container *ngTemplateOutlet="dashboardCard"></ng-container>
+    </div>
+  </div>
+  <div nz-col [nzXXl]="10" [nzMd]="17" [nzXs]="24">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<ng-template #dashboardCard>
+  <ingo-user-dashboard-control-card
+    [user]="user"
+    [listItems]="listItems"
+    (logout)="logout()"
+  ></ingo-user-dashboard-control-card>
+</ng-template>

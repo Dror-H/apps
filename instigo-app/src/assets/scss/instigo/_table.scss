@@ -1,0 +1,54 @@
+@mixin sorting-caret($content, $right-alignment) {
+  content: $content;
+  font-family: 'Line Awesome Free';
+  font-size: 20px;
+  opacity: 0.3;
+  position: absolute;
+  right: $right-alignment;
+  top: 10px;
+}
+
+.table {
+  .sortable-header {
+    position: relative;
+
+    &::before {
+      @include sorting-caret('\f30c', 9px);
+    }
+
+    &::after {
+      @include sorting-caret('\f309', 0);
+    }
+  }
+
+  .asc {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  .desc {
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.table-footer {
+  &__pagination {
+    .page-item.active .page-link {
+      background-color: #2a3042;
+    }
+  }
+}
+
+.disabled-table {
+  cursor: not-allowed !important;
+  background: #dddddd;
+  pointer-events: none;
+  color: #999999 !important;
+
+  a {
+    color: #999999 !important;
+  }
+}

@@ -1,0 +1,88 @@
+<div class="ingo-quicknav" [ngClass]="{ active: isActive }">
+  <nz-input-group nzSize="large" [nzPrefix]="prefixIcon">
+    <input
+      [placeholder]="'app.general.quickNav' | translate"
+      (focus)="toggleActive()"
+      (blur)="toggleActive()"
+      nz-input
+      [(ngModel)]="selectedQuickNavItem"
+      (ngModelChange)="searchTerm($event)"
+      [nzAutocomplete]="quickNavContent"
+      (click)="redirectToWorkspaceWhenNoSub()"
+    />
+
+    <nz-tag
+      *ngIf="!(isSubscriptionActive | async)"
+      nz-tooltip
+      nzTooltipPlacement="right"
+      [nzTooltipTitle]="proTagContent"
+      nzTooltipOverlayClassName="pro-tip"
+      class="mt-5 pro-tag-text"
+      >Pro</nz-tag
+    >
+    <ng-template #proTagContent>
+      This feature is only available with an active subscription.
+      <ng-container *ngIf="(user | async)?.id === (workspace | async).owner.id; else proTagMember">
+        <button nz-button nzType="primary" class="btn-primary btn-clear" (click)="upgradeSub()">Upgrade</button>
+      </ng-container>
+    </ng-template>
+    <ng-template #proTagMember>
+      <p class="mb-0 mt-10">A subscription can be only activated by the workspace owner.</p>
+    </ng-template>
+  </nz-input-group>
+  <ng-template #prefixIcon>
+    <i class="fal fa-compass" *ngIf="!selectedQuickNavItem"></i>
+    <i class="fal fa-times cursor-pointer-on" *ngIf="selectedQuickNavItem" (click)="resetInput()"></i>
+  </ng-template>
+  <nz-autocomplete
+    #quickNavContent
+    [nzWidth]="400"
+    [nzOverlayStyle]="{ 'margin-top': '18px' }"
+    nzOverlayClassName="ingo-quicknav-wrapper"
+  >
+    <nz-auto-optgroup *ngFor="let group of items" [nzLabel]="groupTitle">
+      <ng-template #groupTitle>
+        <span
+          >{{ group.label }}
+          <a class="quicknav-more" href="{{ group.morePath }}" target="_blank" *ngIf="group.more.length > 0">{{
+            group.more
+          }}</a>
+        </span>
+      </ng-template>
+      <nz-auto-option
+        *ngFor="let option of group.children"
+        [nzLabel]="option.label"
+        [nzValue]="option.label"
+        (click)="onSelect(option)"
+        [nzDisabled]="!(isSubscriptionActive | async)"
+      >
+        <span
+          nz-tooltip
+          [nzTooltipTitle]="quickNavItemTooltip"
+          [nzTooltipPlacement]="'right'"
+          [nzTooltipOverlayStyle]="{}"
+          *ngIf="option.status; else noTooltipItem"
+        >
+          <i *ngIf="option.iconType == 'nzIcon'" nz-icon nzType="option.icon" theme="option.iconTheme"></i>
+          <i
+            *ngIf="option.iconType == 'fontawesome'"
+            [ngClass]="[option.iconTheme, 'fa-fw fa-' + option.icon, 'anticon', 'ingo-fa']"
+          ></i>
+          {{ option.label }}
+        </span>
+        <ng-template #quickNavItemTooltip>
+          <i class="fad fa-circle"></i>
+          <span>{{ option.status }}</span>
+        </ng-template>
+        <ng-template #noTooltipItem>
+          <i *ngIf="option.iconType == 'nzIcon'" nz-icon nzType="option.icon" theme="option.iconTheme"></i>
+          <i
+            *ngIf="option.iconType == 'fontawesome'"
+            [ngClass]="[option.iconTheme, 'fa-fw fa-' + option.icon, 'anticon', 'ingo-fa']"
+          ></i>
+          {{ option.label }}
+        </ng-template>
+      </nz-auto-option>
+    </nz-auto-optgroup>
+  </nz-autocomplete>
+</div>

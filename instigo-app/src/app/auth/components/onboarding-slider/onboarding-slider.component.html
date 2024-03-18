@@ -1,0 +1,17 @@
+<ngb-carousel #onboardingCarousel [className]="'carousel-fade'" interval="5000" [showNavigationArrows]="navArrows">
+  <ng-template ngbSlide *ngFor="let slide of slides">
+    <div class="onboarding-slider-image">
+      <div [inlineSVG]="slide.image"></div>
+    </div>
+    <div class="onboarding-dots dots-{{ slide.id }}">
+      <img alt="dots" src="./assets/images/auth/dots.svg" />
+    </div>
+    <div class="carousel-caption">
+      <h4>{{ slide.title }}</h4>
+    </div>
+  </ng-template>
+</ngb-carousel>
+<div class="onboarding-slider-controls">
+  <button (click)="getPrev()" class="onboarding-control"><i class="far fa-chevron-left"></i></button>
+  <button (click)="moveNext()" class="onboarding-control"><i class="far fa-chevron-right"></i></button>
+</div>

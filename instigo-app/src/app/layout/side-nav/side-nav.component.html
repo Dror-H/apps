@@ -1,0 +1,206 @@
+<!-- Siderbar Header -->
+<div class="side-nav-header">
+  <div class="logo logo-dark">
+    <a routerLink="/dashboard/workspace">
+      <img class="logo-fold" src="assets/images/logo/logo-fold.svg" alt="Logo" *ngIf="colorScheme == 'light'" />
+      <img class="logo-fold" src="assets/images/logo/logo-fold-white.svg" alt="Logo" *ngIf="colorScheme !== 'light'" />
+    </a>
+  </div>
+  <ingo-workspace-dropdown></ingo-workspace-dropdown>
+</div>
+
+<div class="side-nav-body" *ngIf="user | async as user">
+  <ul class="ingo-nav" nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ng-container *ngFor="let item of menuItems">
+      <li class="ingo-nav-separator" *ngIf="item.type === 'title'">
+        <span>{{ item.title }}</span>
+      </li>
+      <li
+        nz-menu-item
+        nz-tooltip
+        nzTooltipPlacement="right"
+        nzSelected
+        [nzTooltipTitle]="isCollapsed ? item.title : ''"
+        *ngIf="item.submenu.length === 0 && !item.type && !item.comingSoon"
+        [routerLink]="(isSubscriptionActive | async) ? item.path : null"
+        [queryParamsHandling]="item.path ? '' : 'merge'"
+        [routerLinkActive]="item.path ? 'active' : ''"
+        (click)="handleCallback(item.callback)"
+        [attr.test-id]="getTestId(item.title)"
+        class="mt-0"
+        [ngClass]="{ 'has-create-btn': item.createPath, 'ingo-soon': !(isSubscriptionActive | async) }"
+      >
+        <i *ngIf="item.iconType == 'nzIcon'" nz-icon nzType="item.icon" theme="item.iconTheme"></i>
+        <i *ngIf="item.iconType == 'fontawesome'" [ngClass]="[item.iconTheme, item.icon, 'anticon', 'ingo-fa']"></i>
+        <span>
+          <a
+            *ngIf="item.callback"
+            [class.disabled]="item?.disable ? true : null"
+            class="side-nav-link-ref {{ slugify(item.title) }}"
+          >
+            {{ item.title }}
+          </a>
+          <a
+            *ngIf="!item.callback"
+            [attr.test-id]="getTestId(item.title)"
+            [routerLinkActive]="item.path ? 'active' : ''"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [class.disabled]="item?.disable ? true : null"
+            class="side-nav-link-ref {{ slugify(item.title) }}"
+          >
+            {{ item.title }}
+          </a>
+        </span>
+        <a
+          *ngIf="item.createPath && (isSubscriptionActive | async)"
+          class="plus-btn"
+          (click)="plusButton($event, item.createPath)"
+        >
+          <i *ngIf="item.iconType == 'fontawesome'" [ngClass]="[item.iconTheme, 'fa-plus', 'anticon', 'ingo-fa']"></i>
+        </a>
+        <nz-tag
+          *ngIf="!(isSubscriptionActive | async)"
+          nz-tooltip
+          nzTooltipPlacement="right"
+          [nzTooltipTitle]="proTagContent"
+          nzTooltipOverlayClassName="pro-tip"
+          >Pro</nz-tag
+        >
+      </li>
+      <li
+        nz-menu-item
+        ingoTooltip
+        *ngIf="item.submenu.length === 0 && !item.type && item.comingSoon"
+        class="mt-0 ingo-soon"
+      >
+        <i *ngIf="item.iconType == 'nzIcon'" nz-icon nzType="item.icon" theme="item.iconTheme"></i>
+        <i *ngIf="item.iconType == 'fontawesome'" [ngClass]="[item.iconTheme, item.icon, 'anticon', 'ingo-fa']"></i>
+        <span
+          ><a class="side-nav-link-ref {{ slugify(item.title) }}">{{ item.title }}</a></span
+        >
+      </li>
+      <li
+        nz-submenu
+        *ngIf="item.submenu.length > 0"
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span title class="submenu-title">
+          <i *ngIf="item.iconType == 'nzIcon'" nz-icon nzType="item.icon" theme="item.iconTheme"></i>
+          <i *ngIf="item.iconType == 'fontawesome'" [ngClass]="[item.iconTheme, item.icon, 'anticon', 'ingo-fa']"></i>
+          <span>
+            {{ item.title }}
+          </span>
+          <span class="menu-dropdown-icon">
+            <i class="fas fa-angle-down"></i>
+          </span>
+        </span>
+        <ul>
+          <li
+            class="sub-menu-height"
+            *ngFor="let subItem of item.submenu"
+            [routerLink]="subItem.path"
+            [routerLinkActive]="subItem.path ? 'active' : ''"
+          >
+            <span>
+              <a
+                [attr.test-id]="getTestId(item.title)"
+                href="javascript: void(0);"
+                [routerLinkActive]="subItem.path ? 'active' : ''"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [class.disabled]="subItem?.disable ? true : null"
+                class="side-nav-link-ref {{ slugify(subItem.title) }}"
+              >
+                {{ subItem.title }}
+              </a>
+            </span>
+            <nz-tag
+              *ngIf="!(isSubscriptionActive | async)"
+              nz-tooltip
+              nzTooltipPlacement="right"
+              [nzTooltipTitle]="proTagContent"
+              nzTooltipOverlayClassName="pro-tip"
+              >Pro</nz-tag
+            >
+          </li>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
+  <!-- Sidebar Footer -->
+  <div class="ingo-nav-footer">
+    <ul class="ingo-nav ingo-nav-buttons" nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <ng-template ngFor let-item [ngForOf]="menuButtons">
+        <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzSelected *ngIf="item.submenu.length === 0">
+          <i *ngIf="item.iconType == 'nzIcon'" nz-icon nzType="item.icon" theme="item.iconTheme"></i>
+          <i *ngIf="item.iconType == 'fontawesome'" [ngClass]="[item.iconTheme, item.icon, 'anticon', 'ingo-fa']"></i>
+          <span>
+            <a
+              [href]="item.path"
+              [class.disabled]="item?.disable ? true : null"
+              class="side-nav-link-ref {{ slugify(item.title) }}"
+              target="_blank"
+            >
+              {{ item.title }}
+            </a>
+          </span>
+        </li>
+      </ng-template>
+    </ul>
+    <ul class="ingo-nav ingo-nav-user" nz-menu nzTheme="light" nzMode="vertical" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu [nzTitle]="navUserButton" nzMenuClassName="user-fold-menu">
+        <ul>
+          <li nz-menu-item class="sidebar-user-menu-head">
+            <nz-avatar
+              [nzIcon]="'user'"
+              nzSize="default"
+              nzSrc="{{ user.pictureUrl || '../../../assets/icons/avatar.png' }}"
+            ></nz-avatar>
+            <div class="nav-user-title">
+              <span>{{ user?.fullName }}</span>
+              <span class="nav-user-role">{{ user?.email }}</span>
+            </div>
+          </li>
+          <li nz-menu-item>
+            <i class="fal fa-id-badge fa-fw"></i>
+            <a class="dropdown-item" [routerLink]="'/account-control'">Edit Profile</a>
+          </li>
+          <li nz-menu-item>
+            <i class="fal fa-seedling fa-fw"></i>
+            <a class="dropdown-item" [routerLink]="'/account-control/subscription'">Subscription Settings</a>
+          </li>
+          <li nz-menu-item>
+            <i class="fal fa-fingerprint fa-fw"></i>
+            <a class="dropdown-item" [routerLink]="'/account-control/account-security'">Account Security</a>
+          </li>
+          <li nz-menu-item>
+            <i class="fal fa-leaf fa-fw"></i>
+            <a class="dropdown-item" [routerLink]="'/account-control/workspaces'">Workspaces</a>
+          </li>
+          <li nz-menu-item class="sidebar-user-menu-logout">
+            <i class="fal fa-sign-out-alt fa-fw"></i>
+            <a class="dropdown-item" href="javascript: void(0);" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ng-template #navUserButton>
+      <div class="nav-user">
+        <nz-avatar [nzIcon]="'user'" [nzSrc]="user?.pictureUrl || '../../../assets/icons/avatar.png'"></nz-avatar>
+        <div class="nav-user-title">
+          <span>{{ user.fullName }}</span>
+          <span class="nav-user-role" *ngFor="let role of user.roles">{{ role | titlecase }}</span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #proTagContent>
+      This feature is only available with an active subscription.
+      <ng-container *ngIf="user.id === (workspace | async).owner.id; else proTagMember">
+        <button nz-button nzType="primary" class="btn-primary btn-clear" (click)="upgradeSub()">Upgrade</button>
+      </ng-container>
+    </ng-template>
+    <ng-template #proTagMember>
+      <p class="mb-0 mt-10">A subscription can be only activated by the workspace owner.</p>
+    </ng-template>
+  </div>
+</div>

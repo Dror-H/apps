@@ -1,0 +1,122 @@
+<nz-card
+  [nzTitle]="'app.campDetails.breakdownTable.breakdownAnalysis' | translate"
+  class="ingo-table-card ingo-table-capital"
+  [nzExtra]="formTemplate"
+>
+  <ng-container *ngIf="!(isLoading$ | async); else skeleton">
+    <ng-container *ngIf="tableData.length > 0; else empty">
+      <nz-table
+        nzBordered
+        [nzData]="tableData"
+        [nzVirtualItemSize]="56"
+        [nzFrontPagination]="false"
+        [nzOuterBordered]="false"
+        [nzShowPagination]="false"
+        [nzScroll]="{ y: tableMaxHeight }"
+      >
+        <thead>
+          <tr>
+            <th *ngFor="let column of breakdownsTableConfig" [nzWidth]="column.width + 'px'">{{ column.label }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template nz-virtual-scroll let-data>
+            <tr>
+              <td *ngFor="let column of breakdownsTableConfig" [ngClass]="{ 'has-flag': data[column.prop].prefix }">
+                <ng-container
+                  [ngTemplateOutlet]="printCell"
+                  [ngTemplateOutletContext]="{ column: column, value: data[column.prop] }"
+                ></ng-container>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </ng-container>
+</nz-card>
+
+<ng-template #formTemplate>
+  <form [formGroup]="breakdownFormGroup" class="ingo-has-inline-select" *ngIf="tableData.length > 0">
+    {{ 'app.campDetails.breakdownTable.breakdownAnalysis' | translate }}
+    <nz-select
+      nzPlaceHolder="Breakdowns"
+      formControlName="breakdown"
+      nz-tooltip
+      nzTooltipTitle="Change the selected breakdown"
+      nzTooltipOverlayClassName="ingo-explain-card"
+      nzTooltipColor="#5f63f2"
+      [nzDropdownMatchSelectWidth]="false"
+      [nzOptionHeightPx]="38"
+    >
+      <nz-option
+        *ngFor="let breakdown of breakdownOptions | values"
+        [nzValue]="breakdown.value"
+        [nzLabel]="breakdown.label"
+      ></nz-option>
+    </nz-select>
+    {{ 'app.campDetails.breakdownTable.with' | translate }}
+    <nz-select
+      nzPlaceHolder="Breakdowns"
+      formControlName="action"
+      nz-tooltip
+      nzTooltipTitle="Change the selected conversion action"
+      nzTooltipOverlayClassName="ingo-explain-card"
+      nzTooltipColor="#5f63f2"
+      [nzDropdownMatchSelectWidth]="false"
+      [nzOptionHeightPx]="38"
+    >
+      <nz-option
+        *ngFor="let conversion of conversionOptions | values"
+        [nzValue]="conversion.value"
+        [nzLabel]="conversion.label"
+      ></nz-option>
+    </nz-select>
+    {{ 'app.campDetails.breakdownTable.asConv' | translate }}
+  </form>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }" [nzTitle]="false" class="p-25"></nz-skeleton>
+</ng-template>
+
+<ng-template #printCell let-column="column" let-value="value">
+  <ng-container
+    *ngIf="column.type === 'currency'"
+    [ngTemplateOutlet]="printCurrency"
+    [ngTemplateOutletContext]="{ value: value }"
+  ></ng-container>
+  <ng-container
+    *ngIf="column.type === 'percentage'"
+    [ngTemplateOutlet]="printPercentage"
+    [ngTemplateOutletContext]="{ value: value }"
+  ></ng-container>
+  <ng-container
+    *ngIf="column.type === 'number'"
+    [ngTemplateOutlet]="printNumber"
+    [ngTemplateOutletContext]="{ value: value }"
+  ></ng-container>
+  <ng-container *ngIf="!column.type" [ngTemplateOutlet]="regularCell" [ngTemplateOutletContext]="{ value: value }">
+  </ng-container>
+</ng-template>
+
+<ng-template #printCurrency let-value="value">
+  {{ (value | isNumber) ? (value | currency: accountCurrency:'symbol') : '-' }}
+</ng-template>
+
+<ng-template #printPercentage let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-2') + ' %' : '-' }}
+</ng-template>
+
+<ng-template #printNumber let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-2') : '-' }}
+</ng-template>
+
+<ng-template #regularCell let-value="value">
+  <span *ngIf="value | isObject">{{ value.prefix }}</span>
+  {{ (value | isObject) ? value.value : value }}
+</ng-template>
+
+<ng-template #empty>
+  <nz-empty></nz-empty>
+</ng-template>

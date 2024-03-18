@@ -1,0 +1,126 @@
+<audi-keywords-suggestions
+  (suggestionSelected)="onSelectedKeywordSuggestion($event)"
+  (refreshSuggestions)="refreshAIKeywordsSuggestions()"
+  [keywordsSuggestions]="keywordsSuggestions$ | async"
+  [isLoading]="isLoadingKeywordsSuggestions$ | async"
+  *ngIf="environment.features.keywordsSuggestions && selectedKeywords?.length"
+></audi-keywords-suggestions>
+<div class="divider--xs"></div>
+<div class="limited-width-container--sm search-container">
+  <div nz-row>
+    <div
+      *ngIf="isLoadingAudiences$ | async; else searchIcon"
+      nz-row
+      nzJustify="center"
+      class="search-icon-container search-icon-container__spinner"
+    >
+      <nz-spin></nz-spin>
+    </div>
+
+    <nz-select
+      #searchSelect
+      nz-col
+      nzFlex="auto"
+      nzMode="tags"
+      nzPlaceHolder="Insert multiple keywords"
+      nzDropdownClassName="search-dropdown"
+      nzServerSearch
+      nzAllowClear
+      nzNotFoundContent="No suggestions found or value already included"
+      [nzOptionHeightPx]="52"
+      [nzBorderless]="true"
+      [nzOptionOverflowSize]="5"
+      [(ngModel)]="selectedKeywords"
+      (nzOnSearch)="onSearch($event)"
+      (ngModelChange)="onSubmit($event)"
+      [nzRemoveIcon]="closeIcon"
+      [nzClearIcon]="closeIcon"
+      [nzMaxTagCount]="10"
+    >
+      <ng-container *ngIf="!searchValue && !this.selectedKeywords.length">
+        <nz-option
+          *ngFor="let historyValue of searchHistory$ | async"
+          nzCustomContent
+          [nzValue]="historyValue"
+          [nzLabel]="historyValue"
+          [nzHide]="isSelected(historyValue)"
+        >
+          <ng-container
+            [ngTemplateOutlet]="option"
+            [ngTemplateOutletContext]="{ $implicit: historyValue, isHistory: true }"
+          ></ng-container>
+        </nz-option>
+      </ng-container>
+      <!-- hack for not showing selected items on no search value -->
+      <nz-option
+        *ngFor="let keyword of selectedKeywords"
+        nzCustomContent
+        [nzValue]="keyword"
+        [nzLabel]="keyword"
+        [nzHide]="isSelected(keyword)"
+      >
+        <ng-container [ngTemplateOutlet]="option" [ngTemplateOutletContext]="{ $implicit: keyword }"></ng-container>
+      </nz-option>
+      <ng-container>
+        <nz-option
+          *ngFor="let suggestion of suggestions$ | async"
+          nzCustomContent
+          [nzValue]="suggestion"
+          [nzLabel]="suggestion"
+          [nzHide]="isSelected(suggestion)"
+        >
+          <ng-container
+            [ngTemplateOutlet]="option"
+            [ngTemplateOutletContext]="{ $implicit: suggestion }"
+          ></ng-container>
+        </nz-option>
+      </ng-container>
+
+      <!-- searchValue intentionally set to ngIf --- spinner is showing on first repaint -->
+      <nz-option *ngIf="!!searchValue" [nzHide]="!(isLoadingSuggestions$ | async)" nzCustomContent nzDisabled>
+        <div class="option-spinner">
+          <nz-spin></nz-spin>
+        </div>
+      </nz-option>
+    </nz-select>
+  </div>
+</div>
+
+<div class="divider--xs"></div>
+<ng-template #loadingMessagesRef>
+  <ingo-loading-messages
+    *ngIf="isLoadingAudiences$ | async"
+    [messages]="loadingMessages.data"
+    [msBetweenMessages]="loadingMessages.msBetweenMessages"
+    [stop]="!(isLoadingAudiences$ | async)"
+  ></ingo-loading-messages>
+</ng-template>
+
+<ng-template #option let-value let-isHistory="isHistory">
+  <div class="search-option-container" nz-row nzJustify="space-between" nzAlign="middle">
+    <div class="search-option-label-container">
+      <h4 nz-typography nzEllipsis nz-col class="search-option-label">
+        <i *ngIf="isHistory" nz-icon nzType="clock-circle" nzTheme="outline" class="search-option-history-icon"></i
+        >{{ value }}
+      </h4>
+    </div>
+    <h5 *ngIf="isHistory" nz-col class="search-option-remove" (click)="removeSearchHistoryValue(value, $event)">
+      Remove
+    </h5>
+  </div>
+</ng-template>
+
+<ng-template #searchIcon>
+  <div
+    class="search-icon-container cursor-pointer"
+    nz-row
+    nzJustify="center"
+    (click)="onSubmit(searchSelect.listOfValue)"
+  >
+    <img class="search-icon-container__icon" src="assets/icons/search.icon.svg" alt="search" />
+  </div>
+</ng-template>
+
+<ng-template #closeIcon>
+  <img class="close-icon" src="assets/icons/close.icon.svg" alt="close" />
+</ng-template>

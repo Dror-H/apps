@@ -1,0 +1,471 @@
+<div nz-row [nzGutter]="24" nz-form [formGroup]="campEditForm">
+  <!-- Campaign Summary -->
+  <div nz-col [nzSpan]="24" [nzXXl]="12">
+    <nz-card
+      [nzTitle]="'app.campDetails.campSummary.title' | translate"
+      class="ingo-table-card ingo-inline-description"
+    >
+      <ng-container *ngIf="summarizedCampaign as campaign; else skeleton">
+        <nz-descriptions nzBordered>
+          <!-- Account Name | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.adAccount' | translate" [nzSpan]="3">
+            {{ campaign?.adAccount?.name }}
+            <i
+              class="fad fa-clipboard cell-copy"
+              (click)="copyCellContent(campaign?.providerId)"
+              nz-tooltip
+              [nzTooltipTitle]="'app.campDetails.campSummary.copyId' | translate"
+              nzTooltipOverlayClassName="ingo-explain-card"
+              nzTooltipColor="#5f63f2"
+            ></i>
+          </nz-descriptions-item>
+
+          <!-- Campaign Name | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.campName' | translate" [nzSpan]="3">
+            <ng-container *ngIf="editableFields.name; else printCampName">
+              <input
+                formControlName="name"
+                nz-input
+                autofocus
+                nzBorderless
+                (keyup.enter)="submitEdit('name')"
+                [placeholder]="campaign.name"
+                [ngClass]="{ active: editableFields.name }"
+              />
+              <i
+                (click)="submitEdit('name')"
+                class="edit-btn fas fa-check"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.saveEdit' | translate"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i>
+            </ng-container>
+            <ng-template #printCampName>
+              <span class="summary-ellipsis">{{ campaign?.name }}</span>
+              <i
+                (click)="toggleEdit('name')"
+                class="edit-btn fas fa-pencil-alt"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i
+            ></ng-template>
+          </nz-descriptions-item>
+
+          <!-- Date Created | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.created' | translate" [nzSpan]="3">
+            {{ campaign['created'] }}
+          </nz-descriptions-item>
+
+          <!-- Date Updated | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.lastUpdated' | translate" [nzSpan]="3">
+            {{ campaign['updated'] }}
+          </nz-descriptions-item>
+
+          <!-- Campaign Status | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.campStatus' | translate" [nzSpan]="3">
+            <nz-switch
+              nzSize="small"
+              [ngModel]="campaign?.status === 'ACTIVE'"
+              [ngModelOptions]="{ standalone: true }"
+              [nzLoading]="campaignStatusLoading"
+              (click)="changeStatus()"
+              [nzControl]="true"
+            ></nz-switch>
+          </nz-descriptions-item>
+
+          <!-- Start Date | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.campStart' | translate" [nzSpan]="3">
+            {{ campaign?.startTime }}
+          </nz-descriptions-item>
+
+          <!-- End Date | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.campEnds' | translate" [nzSpan]="3">
+            <ng-container *ngIf="editableFields.stopTime; else printStopTime">
+              <div nz-row [nzGutter]="24">
+                <div nz-col [nzSpan]="20">
+                  <ingo-date-picker
+                    [isSelectedDateEmittable$]="isSelectedEndDateEmittable$"
+                    [adAccount]="summarizedCampaign.adAccount"
+                    (dateTimeEmitter)="editStopTime($event)"
+                  ></ingo-date-picker>
+                </div>
+                <div nz-col [nzSpan]="4">
+                  <i
+                    (click)="submitStopTime()"
+                    class="edit-btn edit-date-btn fas fa-check"
+                    nz-tooltip
+                    [nzTooltipTitle]="'app.campDetails.campUpdate.saveEdit' | translate"
+                    nzTooltipOverlayClassName="ingo-explain-card"
+                    nzTooltipColor="#5f63f2"
+                  ></i>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #printStopTime>
+              <span class="summary-ellipsis">{{ campaign?.stopTime }}</span>
+              <i
+                (click)="toggleEdit('stopTime')"
+                class="edit-btn fas fa-pencil-alt"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i
+            ></ng-template>
+          </nz-descriptions-item>
+
+          <!-- Special Categories | Facebook -->
+          <nz-descriptions-item
+            [nzTitle]="'app.campDetails.campSummary.specialCategories' | translate"
+            [nzSpan]="3"
+            *ngIf="campaign.provider === 'facebook'"
+          >
+            {{ campaign?.specialCats | titlecase }}
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </ng-container>
+    </nz-card>
+  </div>
+
+  <!-- Delivery & Budget Summary -->
+  <div nz-col [nzSpan]="24" [nzXXl]="12">
+    <nz-card
+      [nzTitle]="'app.campDetails.campSummary.deliverySummary' | translate"
+      class="ingo-table-card ingo-inline-description"
+    >
+      <ng-container *ngIf="summarizedCampaign as campaign; else skeleton">
+        <nz-descriptions nzBordered>
+          <!-- Campaign Objective | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.objective' | translate" [nzSpan]="3">
+            {{ campaign?.objective?.replace('_', ' ') | titlecase }}
+          </nz-descriptions-item>
+
+          <!-- Campaign Budget | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.budget' | translate" [nzSpan]="3">
+            <ng-container *ngIf="editableFields.budget; else printCampBudget">
+              <input
+                nz-tooltip
+                [nzTooltipTitle]="
+                  'The minimum ' +
+                  campaign?.budgetType +
+                  ' budget for this campaign is ' +
+                  currencyInfo.Symbol +
+                  minBudget
+                "
+                [nzTooltipTrigger]="isUnderMinBudget ? 'focus' : null"
+                [nzTooltipVisible]="isUnderMinBudget"
+                [nzTooltipMouseEnterDelay]="2"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#f5325b"
+                formControlName="budget"
+                nz-input
+                autofocus
+                nzBorderless
+                currencyMask
+                (keyup.enter)="submitEdit('budget')"
+                [placeholder]="campaign.budget | currency: campaign?.adAccount.currency"
+                [ngClass]="{ active: editableFields.budget }"
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currencyInfo.Symbol + '',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: true,
+                  min: 0,
+                  max: currencyInfo.SubunitLimit
+                }"
+              />
+              <i
+                [ngClass]="{ disabled: isUnderMinBudget }"
+                (click)="!isUnderMinBudget ? submitEdit('budget') : null"
+                class="edit-btn fas fa-check"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.saveEdit' | translate"
+                [nzTooltipTrigger]="!isUnderMinBudget ? 'hover' : null"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i>
+            </ng-container>
+            <ng-template #printCampBudget>
+              <ng-container *ngIf="campaign?.budget | isArray; else printBudget">
+                By Ad Set
+                <i
+                  class="fad fa-eye ml-3 cursor-pointer"
+                  [nzPopoverTitle]="'app.campDetails.campSummary.budgetAdSet' | translate"
+                  [nzPopoverContent]="viewBudget"
+                  [nzPopoverTrigger]="'click'"
+                  nzPopoverPlacement="bottom"
+                  nzPopoverOverlayClassName="camp-details-popover popover-list"
+                  nz-popover
+                ></i>
+                <ng-template #viewBudget>
+                  <nz-list nzBordered>
+                    <nz-list-item *ngFor="let item of campaign.budget">
+                      <span nz-typography>{{ item.name }}</span
+                      >{{ item.value ? (item.value.toFixed(2) | currency: campaign?.adAccount.currency) : 'Unknown' }}
+                      {{ item.type | titlecase }}
+                    </nz-list-item>
+                  </nz-list>
+                </ng-template>
+              </ng-container>
+            </ng-template>
+          </nz-descriptions-item>
+
+          <!-- Budget Remaining | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.budgetRemaining' | translate" [nzSpan]="3">
+            <ng-container
+              *ngIf="
+                (campaign?.budgetRemaining | isArray) && campaign?.provider === 'facebook';
+                else printBudgetRemaining
+              "
+            >
+              By Ad Set
+              <i
+                class="fad fa-eye ml-3 cursor-pointer"
+                [nzPopoverTitle]="'app.campDetails.campSummary.budgetRemainingByAdSet' | translate"
+                [nzPopoverContent]="viewBudgetRemaining"
+                [nzPopoverTrigger]="'click'"
+                nzPopoverPlacement="bottom"
+                nzPopoverOverlayClassName="camp-details-popover popover-list"
+                nz-popover
+              ></i>
+              <ng-template #viewBudgetRemaining>
+                <nz-list nzBordered>
+                  <nz-list-item *ngFor="let item of campaign.budgetRemaining">
+                    <span nz-typography>{{ item.name }}</span
+                    >{{ item.value ? (item.value.toFixed(2) | currency: campaign?.adAccount.currency) : 'Unknown' }}
+                  </nz-list-item>
+                </nz-list>
+              </ng-template>
+            </ng-container>
+          </nz-descriptions-item>
+
+          <!-- Bidding Strategy | Facebook/LinkedIn -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.bidding' | translate" [nzSpan]="3">
+            {{ campaign?.bidStrategy | titlecase }}
+
+            <i
+              (click)="openEditDeliverySettingsModal()"
+              class="edit-btn fas fa-pencil-alt"
+              nz-tooltip
+              [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+              nzTooltipOverlayClassName="ingo-explain-card"
+              nzTooltipColor="#5f63f2"
+              *ngIf="campaign.provider === 'facebook'"
+            ></i>
+          </nz-descriptions-item>
+
+          <!-- Buying Type | LinkedIn -->
+          <nz-descriptions-item
+            [nzTitle]="'app.campDetails.campSummary.buyingType' | translate"
+            [nzSpan]="3"
+            *ngIf="campaign.provider === 'facebook'"
+          >
+            {{ campaign?.buyingType | titlecase }}
+          </nz-descriptions-item>
+
+          <!-- Bidding Amount | LinkedIn -->
+          <nz-descriptions-item
+            [nzTitle]="'app.campDetails.campSummary.bidAmount' | translate"
+            [nzSpan]="3"
+            *ngIf="campaign.provider === 'linkedin'"
+          >
+            {{ campaign?.bidAmount | currency: campaign?.adAccount.currency }}
+          </nz-descriptions-item>
+
+          <!-- Spend Cap | Facebook -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.spendCap' | translate" [nzSpan]="3">
+            <ng-container *ngIf="editableFields.spendCap; else printSpendCap">
+              <input
+                nz-tooltip
+                [nzTooltipTitle]="'The minimum spend cap for this campaign is ' + currencyInfo.Symbol + minSpendCap"
+                [nzTooltipTrigger]="isUnderMinSpendCap ? 'focus' : null"
+                [nzTooltipVisible]="isUnderMinSpendCap"
+                [nzTooltipMouseEnterDelay]="2"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#f5325b"
+                formControlName="spendCap"
+                nz-input
+                autofocus
+                nzBorderless
+                currencyMask
+                (keyup.enter)="submitEdit('spendCap')"
+                [placeholder]="
+                  campaign.spendCap ? (campaign.spendCap | currency: campaign?.adAccount.currency) : '0.00'
+                "
+                [ngClass]="{ active: editableFields.spendCap }"
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currencyInfo.Symbol + '',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: true,
+                  min: 0,
+                  max: 922337203685478
+                }"
+              />
+              <i
+                *ngIf="campaign.spendCap"
+                (click)="removeSpendCap()"
+                class="edit-btn fas fa-trash-alt"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.remSpendCap' | translate"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i>
+              <i
+                [ngClass]="{ disabled: isUnderMinSpendCap }"
+                (click)="!isUnderMinSpendCap ? submitEdit('spendCap') : null"
+                class="edit-btn fas fa-check"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.saveEdit' | translate"
+                [nzTooltipTrigger]="!isUnderMinSpendCap ? 'hover' : null"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i>
+            </ng-container>
+            <ng-template #printSpendCap>
+              {{
+                campaign?.spendCap
+                  ? (campaign.spendCap | currency: campaign?.adAccount.currency)
+                  : ('app.campDetails.campSummary.notSet' | translate | titlecase)
+              }}
+              <i
+                (click)="toggleEdit('spendCap')"
+                class="edit-btn fas fa-pencil-alt"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i>
+            </ng-template>
+          </nz-descriptions-item>
+
+          <!-- Billing Event | Facebook -->
+          <nz-descriptions-item [nzTitle]="'app.campDetails.campSummary.payFor' | translate" [nzSpan]="3">
+            <ng-container *ngIf="campaign?.billingEvent | isArray; else printBillingEvent">
+              Vary
+              <i
+                class="fad fa-eye ml-3 cursor-pointer"
+                [nzPopoverTitle]="'app.campDetails.campSummary.payForAdSet' | translate"
+                [nzPopoverContent]="viewBillingEvent"
+                [nzPopoverTrigger]="'click'"
+                nzPopoverPlacement="bottom"
+                nzPopoverOverlayClassName="camp-details-popover popover-list"
+                nz-popover
+              ></i>
+              <ng-template #viewBillingEvent>
+                <nz-list nzBordered>
+                  <nz-list-item *ngFor="let item of campaign.billingEvent">
+                    <span nz-typography>{{ item.name }}</span
+                    >{{ item.value ? (item.value.replace('_', ' ') | titlecase) : 'Unknown' }}
+                  </nz-list-item>
+                </nz-list>
+              </ng-template>
+            </ng-container>
+          </nz-descriptions-item>
+
+          <!-- Dayparting | Facebook -->
+          <nz-descriptions-item
+            [nzTitle]="'app.campDetails.campSummary.dayparting' | translate"
+            [nzSpan]="3"
+            *ngIf="campaign.provider === 'facebook'"
+          >
+            <ng-container *ngIf="campaign?.dayParting | isArray; else printDayParting">
+              Vary
+              <i
+                class="fad fa-eye camp-details-popover-icon ml-3 cursor-pointer"
+                [nzPopoverTitle]="'app.campDetails.campSummary.dayparting' | translate"
+                [nzPopoverContent]="viewDayparting"
+                [nzPopoverTrigger]="'click'"
+                nzPopoverPlacement="bottom"
+                nzPopoverOverlayClassName="camp-details-popover popover-list on-off-list"
+                nz-popover
+              ></i>
+              <ng-template #viewDayparting>
+                <nz-list nzBordered>
+                  <nz-list-item *ngFor="let item of campaign.dayParting" [ngClass]="{ on: item.value == 'On' }">
+                    <span nz-typography>{{ item.name }}</span
+                    >{{ item.value }}
+                  </nz-list-item>
+                </nz-list>
+              </ng-template>
+            </ng-container>
+            <ng-template #printDayParting>
+              <span class="summary-ellipsis">{{ campaign?.dayParting }}</span>
+              <i
+                *ngIf="campaign.budgetType === 'lifetime'"
+                (click)="editAdSetSchedule()"
+                class="edit-btn fas fa-pencil-alt"
+                nz-tooltip
+                [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+                nzTooltipOverlayClassName="ingo-explain-card"
+                nzTooltipColor="#5f63f2"
+              ></i
+            ></ng-template>
+          </nz-descriptions-item>
+        </nz-descriptions>
+
+        <ng-template #printBudget>
+          <ng-container *ngIf="campaign.budget; else printNoBudget">
+            {{ campaign?.budget.toFixed(2) | currency: campaign?.adAccount.currency }} /
+            {{ campaign?.budgetType | titlecase }}
+            <i
+              *ngIf="campaign.budget"
+              (click)="toggleEdit('budget')"
+              class="edit-btn fas fa-pencil-alt"
+              nz-tooltip
+              [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+              nzTooltipOverlayClassName="ingo-explain-card"
+              nzTooltipColor="#5f63f2"
+            ></i>
+          </ng-container>
+        </ng-template>
+
+        <ng-template #printNoBudget> Not Set </ng-template>
+
+        <ng-template #printBillingEvent>
+          {{ campaign?.billingEvent | titlecase }}
+          <i
+            (click)="openEditDeliverySettingsModal()"
+            class="edit-btn fas fa-pencil-alt"
+            nz-tooltip
+            [nzTooltipTitle]="'app.campDetails.campUpdate.editField' | translate"
+            nzTooltipOverlayClassName="ingo-explain-card"
+            nzTooltipColor="#5f63f2"
+            *ngIf="campaign.provider === 'facebook'"
+          ></i>
+        </ng-template>
+        <ng-template #printBudgetRemaining>
+          <ng-container *ngIf="campaign.provider === 'facebook'; else printLinkedInBudgetRemaining">
+            {{ campaign?.budgetRemaining | currency: campaign?.adAccount.currency }}
+            <ng-container *ngIf="campaign?.budgetType === 'daily'">
+              {{ 'app.campDetails.campSummary.today' | translate }}
+            </ng-container>
+          </ng-container>
+        </ng-template>
+        <ng-template #printLinkedInBudgetRemaining>
+          {{ linkedinRemainingBudget | currency: campaign?.adAccount.currency }}
+          <ng-container *ngIf="campaign?.budgetType === 'daily'">
+            {{ 'app.campDetails.campSummary.today' | translate }}
+          </ng-container>
+        </ng-template>
+      </ng-container>
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }" nzTitle="false" class="p-25"> </nz-skeleton>
+</ng-template>

@@ -1,0 +1,20 @@
+<h2 nz-typography class="match-percentage">
+  {{ rank ?? 0 }}%
+  <nz-tag [nzColor]="rank | getColorByMatch">Match</nz-tag>
+</h2>
+<div nz-row nzJustify="space-between">
+  <h6
+    *ngFor="let targetingType of targetingTypes"
+    nzFlex="0 0 auto"
+    nz-typography
+    nz-col
+    [nzSpan]="8"
+    [class]="['title', targetingType | getColorByTargeting: 'class']"
+  >
+    {{ targetingType | titlecase }}
+    <span nz-typography [class]="['targeting-percentage', targetingType | getColorByTargeting: 'class']"
+      >{{ specRatio?.[targetingType] ?? 0 }}%</span
+    >
+  </h6>
+</div>
+<nz-divider class="custom-divider--sm"></nz-divider>

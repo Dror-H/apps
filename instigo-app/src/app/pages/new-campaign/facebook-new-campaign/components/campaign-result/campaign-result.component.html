@@ -1,0 +1,45 @@
+<nz-card class="ingo-card-nbm-24 mt-25">
+  <nz-result [nzTitle]="result.title | translate" [nzStatus]="result.type" [nzSubTitle]="subTitle">
+    <div nz-result-extra>
+      <button *ngIf="result.type === 'error'" nz-button nzType="primary" class="btn-secondary" (click)="retry.emit()">
+        {{ 'app.campCreate.campaign.retry' | translate }}
+      </button>
+      <button nz-button nzType="primary" [routerLink]="['/campaigns']" *ngIf="result.type === 'success'">
+        {{ 'app.campCreate.campaign.campSeeCampaigns' | translate }}
+      </button>
+
+      <button nz-button nzType="primary" [routerLink]="['/campaign-draft']" *ngIf="result.type === 'error'">
+        {{ 'app.campCreate.campaign.campSeeDrafts' | translate }}
+      </button>
+
+      <button nz-button nzType="secondary" class="btn-outline btn-primary" (click)="startOver.emit()">
+        {{ 'app.campCreate.campaign.campStartOver' | translate }}
+      </button>
+    </div>
+
+    <ng-template #subTitle>
+      <div
+        *ngIf="result.type === 'success'"
+        class="ant-result-subtitle"
+        [innerHtml]="
+          result.descriptionId
+            | translate: { value: result.campaign.settings.name, provider: result.campaign.settings.provider }
+        "
+      ></div>
+      <div
+        *ngIf="result.type === 'error'"
+        class="ant-result-subtitle"
+        [innerHtml]="
+          result.descriptionId
+            | translate
+              : {
+                  campaignName: result.campaign.settings.name,
+                  step: result.error?.stepFailure || 'Unknown',
+                  errorTitle: result.error.response?.trace?.title || 'Unknown',
+                  errorMsg: result.error.response?.trace?.description || 'Unknown'
+                }
+        "
+      ></div>
+    </ng-template>
+  </nz-result>
+</nz-card>

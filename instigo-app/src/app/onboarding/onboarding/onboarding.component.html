@@ -1,0 +1,65 @@
+<header id="page-topbar">
+  <div class="onboarding-flow-header disable-text-selection">
+    <div class="col-md-7">
+      <img alt="logo" src="./assets/images/logo.svg" />
+    </div>
+    <div class="col-md-5">
+      <a class="auth-header-href" (click)="abortOnboarding()">Abort onboarding</a>
+    </div>
+  </div>
+</header>
+<div class="container-fluid onboarding-wrapper">
+  <div class="row h-100">
+    <div class="col-md-7 col-12 onboarding-left-side">
+      <div class="row">
+        <div *ngIf="isInvitedMember; else wizardOnboarding" class="col-12">
+          <div class="onboarding-form-wrapper mx-auto">
+            <app-invited-member-data-verification></app-invited-member-data-verification>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-12 onboarding-right-side">
+      <div class="onboarding-graphic">
+        <img src="./assets/images/onboardingLayout.png" alt="onboarding" />
+        <div class="onboarding-flow-dots dots-none">
+          <div [inlineSVG]="'./assets/images/auth/dots.svg'"></div>
+        </div>
+        <div class="onboarding-flow-dots">
+          <div [inlineSVG]="'./assets/images/auth/dots.svg'"></div>
+        </div>
+        <h1>{{ 'app.onboarding.leftSideHeading' | translate }}</h1>
+        <h6>{{ 'app.onboarding.leftSideSubHeading' | translate }}</h6>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #wizardOnboarding>
+  <div class="onboarding-nav-wrapper">
+    <ul ngbNav [(activeId)]="activeStep" #nav="ngbNav" class="onboarding-nav">
+      <li class="nav-item passed-step">
+        <a class="nav-link disabled"> {{ 'app.onboarding.firstStep' | translate }} </a>
+        <i class="ng-fa-icon fas fa-check-circle fa-1x passed-step-icon"></i>
+      </li>
+      <li [ngbNavItem]="1" [disabled]="true" [ngClass]="{ 'passed-step': activeStep > 1 }">
+        <a ngbNavLink> {{ 'app.onboarding.dataValidation' | translate }} </a>
+        <i *ngIf="activeStep > 1" class="ng-fa-icon fas fa-check-circle fa-1x passed-step-icon"></i>
+        <ng-template ngbNavContent><app-data-verification></app-data-verification></ng-template>
+      </li>
+      <li [ngbNavItem]="2" [disabled]="true" [ngClass]="{ 'passed-step': activeStep > 2 }">
+        <a ngbNavLink> {{ 'app.onboarding.createWorkspace' | translate }}</a>
+        <i *ngIf="activeStep > 2" class="ng-fa-icon fas fa-check-circle fa-1x passed-step-icon"></i>
+        <ng-template ngbNavContent><app-create-workspace></app-create-workspace></ng-template>
+      </li>
+      <li [ngbNavItem]="3" [disabled]="true" [ngClass]="{ 'passed-step': laststepchecked$ | async }">
+        <a ngbNavLink>{{ 'app.onboarding.connectApps' | translate }}</a>
+        <i *ngIf="laststepchecked$ | async" class="ng-fa-icon fas fa-check-circle fa-1x passed-step-icon"></i>
+        <ng-template ngbNavContent><app-connect-apps></app-connect-apps></ng-template>
+      </li>
+    </ul>
+  </div>
+  <div class="onboarding-form-wrapper mx-auto">
+    <h4 class="onboarding-step-counter">STEP {{ activeStep + 1 }}/4</h4>
+    <div [ngbNavOutlet]="nav"></div>
+  </div>
+</ng-template>

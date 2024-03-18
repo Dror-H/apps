@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscription Test suite should create customer 1`] = `
+Object {
+  "id": "cus_KGjEQgjxBxlXpa",
+  "name": "Bogdan Lupu",
+  "object": "customer",
+}
+`;
+
+exports[`Subscription Test suite should find customer 1`] = `
+Object {
+  "id": "cus_KGjEQgjxBxlXpa",
+  "name": "Bogdan Lupu",
+  "object": "customer",
+}
+`;
+
+exports[`Subscription Test suite should get subscription data 1`] = `
+Object {
+  "active": true,
+  "billingCycle": "monthly",
+  "cancelAtPeriodEnd": false,
+  "color": "#7ed321",
+  "id": "sub_1Jf7BWKlYpB2IMP7vWM2pUOh",
+  "label": "Active",
+  "latestInvoice": "in_1Jf7BWKlYpB2IMP708aJ6Eyd",
+  "nextPayment": "01/10/2021",
+  "planCost": 19,
+  "price": "price_1JewjrKlYpB2IMP7GTT1OKMv",
+  "quantity": 1,
+  "spendCap": 1,
+  "status": "0",
+  "used": 100,
+}
+`;
+
+exports[`Subscription Test suite should return Trial Expired subscription 1`] = `
+Object {
+  "active": false,
+  "billingCycle": "monthly",
+  "cancelAtPeriodEnd": undefined,
+  "color": "#474b6d",
+  "id": undefined,
+  "label": "Trial Expired",
+  "latestInvoice": undefined,
+  "nextPayment": "28/07/2022",
+  "planCost": 19,
+  "price": undefined,
+  "quantity": 1,
+  "spendCap": 1,
+  "status": "4",
+  "used": 100,
+}
+`;
+
+exports[`Subscription Test suite should return Trial subscription 1`] = `
+Object {
+  "active": true,
+  "billingCycle": "monthly",
+  "cancelAtPeriodEnd": undefined,
+  "color": "#5f63f2",
+  "id": undefined,
+  "label": "Trial",
+  "latestInvoice": undefined,
+  "nextPayment": "28/07/2022",
+  "planCost": 19,
+  "price": undefined,
+  "quantity": 1,
+  "spendCap": 1,
+  "status": "1",
+  "used": 100,
+}
+`;

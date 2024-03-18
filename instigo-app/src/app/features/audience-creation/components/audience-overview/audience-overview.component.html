@@ -1,0 +1,37 @@
+<nz-card>
+  <form [formGroup]="audienceForm">
+    <div class="list-audience-explain">
+      <h2>Confirm</h2>
+      <p>
+        <b>{{ audienceForm.controls.name.value }}</b> will be created on
+        <b>{{ audienceForm.controls.adAccount.value.name }}</b>
+      </p>
+    </div>
+  </form>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <div class="container-fluid py-4">
+    <app-data-table
+      *ngIf="providersList?.tableData"
+      [tableConfiguration]="providersList?.tableConfiguration"
+      [state]="providersList?.tableState"
+      [tableData]="providersList?.tableData"
+      (stateChange)="onTableStateChange(audienceForm.controls.provider.value, $event)"
+    ></app-data-table>
+    <app-data-table-templates
+      [config]="providersList?.config"
+      (columnUpdated)="onColumnChange(audienceForm.controls.provider.value, $event)"
+      [state]="providersList?.tableState"
+    ></app-data-table-templates>
+  </div>
+
+  <div nz-row class="mt-10">
+    <button nz-button nzType="primary" class="btn-primary mr-10" (click)="createAudience.emit()">
+      <span>Create</span>
+    </button>
+    <button nz-button nzType="primary" class="btn-light btn-bold" (click)="setStep.emit(1)">
+      <span>Previous</span>
+    </button>
+  </div>
+</nz-card>

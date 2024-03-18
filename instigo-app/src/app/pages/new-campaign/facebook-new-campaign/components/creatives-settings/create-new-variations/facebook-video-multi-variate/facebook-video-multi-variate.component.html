@@ -1,0 +1,293 @@
+<form class="multivariate-ads-form" [formGroup]="multivariateVideoForm">
+  <ingo-ad-template-social-selector
+    [adAccountId]="adAccount.id"
+    [socialForm]="multivariateVideoForm.controls.social"
+    [campaignObjective]="campaignObjective"
+  ></ingo-ad-template-social-selector>
+
+  <div nz-row [nzGutter]="24" *ngIf="campaignObjective === 'EVENT_RESPONSES'">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label>
+          Upcoming Events
+          <ingo-explain tooltipId="app.campCreate.creative.events"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <ingo-event-selector
+            [formControl]="multivariateVideoForm.controls.eventId"
+            [provider]="provider"
+            [promotePageControl]="multivariateVideoForm.controls.social['controls'].promotePage"
+            class="ingo-add-edit-form"
+          ></ingo-event-selector>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24" *ngIf="campaignObjective !== 'EVENT_RESPONSES' && campaignObjective !== 'PAGE_LIKES'">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Headline
+          <ingo-explain tooltipId="app.campCreate.creative.adHeadline"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control
+          *ngFor="let item of multivariateVideoForm.controls.headline['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateVideoForm.controls.headline?.errors?.unique }"
+        >
+          <app-headline-form [formControl]="multivariateVideoForm.controls.headline['controls'][i]"></app-headline-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning multivariate-headline-top-35"
+            (click)="removeControl(multivariateVideoForm.controls.headline, i)"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateVideoForm.controls.headline?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'headline' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label>
+          Ad Text (Optional)
+          <ingo-explain tooltipId="app.campCreate.creative.adText"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control
+          *ngFor="let item of multivariateVideoForm.controls.message['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateVideoForm.controls.message?.errors?.unique }"
+        >
+          <app-message-form [formControl]="multivariateVideoForm.controls.message['controls'][i]"></app-message-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+            (click)="removeControl(multivariateVideoForm.controls.message, i)"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateVideoForm.controls.message?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'message' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div
+    nz-row
+    [nzGutter]="24"
+    *ngIf="
+      campaignObjective !== 'LEAD_GENERATION' &&
+      campaignObjective !== 'EVENT_RESPONSES' &&
+      campaignObjective !== 'PAGE_LIKES'
+    "
+  >
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Ad Link
+          <ingo-explain tooltipId="app.campCreate.creative.adLink"></ingo-explain>
+        </nz-form-label>
+        <ng-container *ngFor="let item of multivariateVideoForm.controls.linkDestination['controls']; index as i">
+          <nz-form-control [ngClass]="{ 'arr-unique': multivariateVideoForm.controls.linkDestination?.errors?.unique }">
+            <app-link-form
+              [formControl]="multivariateVideoForm.controls.linkDestination['controls'][i]"
+            ></app-link-form>
+            <button
+              *ngIf="i > 0"
+              nz-button
+              nzType="primary"
+              class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+              (click)="removeControl(multivariateVideoForm.controls.linkDestination, i)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </nz-form-control>
+          <ingo-url-builder-trigger [url]="item"></ingo-url-builder-trigger>
+        </ng-container>
+        <ng-container *ngIf="multivariateVideoForm.controls.linkDestination?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'linkDestination' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div
+    nz-row
+    [nzGutter]="24"
+    *ngIf="
+      campaignObjective !== 'EVENT_RESPONSES' &&
+      campaignObjective !== 'LEAD_GENERATION' &&
+      campaignObjective !== 'PAGE_LIKES'
+    "
+  >
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label>
+          Ad Link Description (Optional)
+          <ingo-explain tooltipId="app.campCreate.creative.adLinkDesc"></ingo-explain>
+        </nz-form-label>
+
+        <nz-form-control
+          *ngFor="let item of multivariateVideoForm.controls.linkDescription['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateVideoForm.controls.linkDescription?.errors?.unique }"
+        >
+          <app-link-description-form
+            [formControl]="multivariateVideoForm.controls.linkDescription['controls'][i]"
+          ></app-link-description-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+            (click)="removeControl(multivariateVideoForm.controls.linkDescription, i)"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateVideoForm.controls.linkDescription?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'linkDescription' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div
+      nz-col
+      [nzSpan]="12"
+      *ngIf="
+        campaignObjective !== 'EVENT_RESPONSES' &&
+        campaignObjective !== 'LEAD_GENERATION' &&
+        campaignObjective !== 'PAGE_LIKES'
+      "
+    >
+      <nz-form-item>
+        <nz-form-label>
+          Short URL (Optional)
+          <ingo-explain tooltipId="app.campCreate.creative.adLinkDisplay"></ingo-explain>
+        </nz-form-label>
+
+        <nz-form-control
+          *ngFor="let item of multivariateVideoForm.controls.linkCaption['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateVideoForm.controls.linkCaption?.errors?.unique }"
+        >
+          <app-link-caption-form
+            [formControl]="multivariateVideoForm.controls.linkCaption['controls'][i]"
+          ></app-link-caption-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+            (click)="removeControl(multivariateVideoForm.controls.linkCaption, i)"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateVideoForm.controls.linkCaption?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'linkCaption' }"></ng-container>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12" *ngIf="campaignObjective !== 'PAGE_LIKES' && campaignObjective !== 'EVENT_RESPONSES'">
+      <nz-form-item>
+        <nz-form-label>
+          Call to Action
+          {{ campaignObjective === 'LEAD_GENERATION' ? '' : '(Optional)' }}
+          <ingo-explain tooltipId="app.campCreate.creative.cta"></ingo-explain>
+        </nz-form-label>
+
+        <nz-form-control
+          *ngFor="let item of multivariateVideoForm.controls.callToAction['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateVideoForm.controls.callToAction?.errors?.unique }"
+        >
+          <app-call-to-action-form
+            [formControl]="multivariateVideoForm.controls.callToAction['controls'][i]"
+            [selectedObjective]="campaignObjective"
+            [provider]="provider"
+          ></app-call-to-action-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+            (click)="removeControl(multivariateVideoForm.controls.callToAction, i)"
+            [ngStyle]="{ right: '30px' }"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateVideoForm.controls.callToAction?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'callToAction' }"></ng-container>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="24" *ngIf="campaignObjective === 'LEAD_GENERATION'">
+      <ingo-leadgen-form
+        [formControl]="multivariateVideoForm.controls.leadgenFormId"
+        [provider]="provider"
+        [promotePageControl]="multivariateVideoForm.controls.social['controls'].promotePage"
+        [adAccountProviderId]="adAccount.providerId"
+        class="ingo-add-edit-form"
+      ></ingo-leadgen-form>
+    </div>
+  </div>
+
+  <div nz-col [nzSpan]="24">
+    <nz-form-item>
+      <nz-form-label>
+        Ad Video
+
+        <ingo-explain tooltipId="app.campCreate.creative.adMedia"></ingo-explain>
+      </nz-form-label>
+      <nz-form-control>
+        <ingo-media-video-uppy formControlName="video" [adAccount]="adAccount"></ingo-media-video-uppy>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <!-- Ad Media -->
+  <div nz-col [nzSpan]="24">
+    <nz-form-item>
+      <nz-form-label>
+        Video Thumbnail
+
+        <ingo-explain tooltipId="app.campCreate.creative.adMedia"></ingo-explain>
+      </nz-form-label>
+      <nz-form-control>
+        <ingo-media-image-uppy formControlName="thumbnail"></ingo-media-image-uppy>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</form>
+
+<ng-template #addButton let-name="name">
+  <div nz-row nzJustify="end" class="w-100 mt-10">
+    <button nz-button nzType="primary" class="btn-primary btn-clear btn-tiny btn-h-30" (click)="addControl(name)">
+      + Add
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #uniqueValues>
+  <div class="arr-unique unique-notice">
+    <i class="fas fa-exclamation-triangle fa-fw"></i> All values must be unique
+  </div>
+</ng-template>

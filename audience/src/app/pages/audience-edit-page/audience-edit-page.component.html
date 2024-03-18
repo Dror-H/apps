@@ -1,0 +1,102 @@
+<ng-container ingoPendingChanges>
+  <div class="divider--xl"></div>
+  <nz-affix class="brand-affix">
+    <div class="brand-container" nz-row nzAlign="middle" nzJustify="center">
+      <a nz-col routerLink="audience-search">
+        <img alt="instigo logo" class="brand-image" src="assets/svg/instigo-brand.svg" />
+      </a>
+    </div>
+  </nz-affix>
+  <div (click)="toggleOverview(false)" [ngClass]="{ inview: isOverviewActive }" class="sticky-overview-overlay"></div>
+  <form [formGroup]="audienceForm" class="ingo-add-edit-form">
+    <nz-card>
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="10" nz-col>
+          <nz-form-item>
+            <nz-form-label>Audience Name</nz-form-label>
+            <nz-form-control>
+              <input formControlName="name" nz-input placeholder="Audience Name" />
+              <span
+                *ngIf="audienceForm.controls.name.errors && !audienceForm.controls.name.pristine"
+                class="text-danger mt-5 d-block"
+              >
+                Min. length of 4 letters is required
+              </span>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <ingo-facebook-saved-audience-targeting
+        [audienceForm]="audienceForm"
+        [rules]="rules"
+      ></ingo-facebook-saved-audience-targeting>
+      <ingo-select-tags [config]="selectTagsConfig" formControlName="userTags"></ingo-select-tags>
+      <div class="divider--sm"></div>
+      <div nz-row nzJustify="end">
+        <button
+          (click)="goBack()"
+          class="margin-right btn-outline btn-light"
+          nz-button
+          nz-col
+          nzType="default"
+          type="button"
+        >
+          <span>{{ isAudienceSaved ? 'Search New Audience' : 'Back' }}</span>
+        </button>
+        <div *ngIf="user?.isAdmin" class="tooltip-pos margin-right">
+          <ingo-explain
+            *ngIf="audienceForm.controls.reach.errors?.incorrectReach"
+            [tooltipType]="'danger'"
+            tooltipId="app.audience.segmentError"
+          ></ingo-explain>
+          <button
+            (click)="triggerSaveAudience()"
+            [disabled]="isAudienceSaved || audienceForm.status === 'INVALID'"
+            [ngClass]="{ 'save-button--saved': isAudienceSaved }"
+            [nzLoading]="isSavingAudience$ | async"
+            nz-button
+            nz-col
+            nzType="primary"
+          >
+            <span>{{ isAudienceSaved ? 'Audience Saved' : 'Save Audience' }}</span>
+          </button>
+        </div>
+
+        <div class="tooltip-pos">
+          <ingo-explain
+            *ngIf="audienceForm.controls.reach.errors?.incorrectReach"
+            [tooltipType]="'danger'"
+            tooltipId="app.audience.segmentError"
+          ></ingo-explain>
+          <button
+            (click)="triggerExportAudience()"
+            [disabled]="(isAudienceExported && isAudienceSaved) || audienceForm.status === 'INVALID'"
+            [ngClass]="{ 'save-button--saved': isAudienceExported && isAudienceSaved }"
+            [nzLoading]="isSavingAudience$ | async"
+            nz-button
+            nz-col
+            nzType="primary"
+          >
+            <span>{{
+              isAudienceExported && isAudienceSaved ? 'Audience Exported' : 'Export To Facebook Ads Manager'
+            }}</span>
+          </button>
+        </div>
+      </div>
+    </nz-card>
+    <div
+      (click)="toggleOverview(true)"
+      [ngClass]="{ inview: isOverviewActive }"
+      [nzXl]="6"
+      class="sticky-overview sticky-audience-summary"
+      nz-col
+      nzSpan="8"
+    >
+      <ingo-audience-summary
+        [sticky]="true"
+        [audienceForm]="audienceForm"
+        [isOverviewActive]="isOverviewActive"
+      ></ingo-audience-summary>
+    </div>
+  </form>
+</ng-container>

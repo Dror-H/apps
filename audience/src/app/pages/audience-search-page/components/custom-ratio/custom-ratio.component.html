@@ -1,0 +1,11 @@
+<div class="sliders-container" nz-row [nzGutter]="{ xs: 0, lg: 48 }">
+  <div [nzXs]="24" [nzLg]="8" nz-col *ngFor="let ratio of ratios; let i = index">
+    <nz-slider
+      [class]="'slider-' + ratio.name.toLowerCase()"
+      [(ngModel)]="ratio.value"
+      [nzDisabled]="!ratiosEnabled"
+      (ngModelChange)="handleRatioChange($event, i)"
+      [nzMarks]="ratio.marks"
+    ></nz-slider>
+  </div>
+</div>

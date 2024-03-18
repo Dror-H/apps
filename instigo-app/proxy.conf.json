@@ -1,0 +1,11 @@
+{
+  "/server": {
+    "target": "https://api.instigo.io",
+    "secure": false,
+    "pathRewrite": {
+      "^/server": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "error"
+  }
+}

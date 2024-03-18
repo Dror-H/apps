@@ -1,0 +1,133 @@
+<nz-card [nzTitle]="'app.campDetails.campTable.campAds' | translate" class="ingo-table-card ingo-table-capital">
+  <ng-container *ngIf="allAds$ | async as allAds; else skeleton">
+    <ng-container *ngIf="allAds.length > 0; else empty">
+      <!-- TODO place option to change attribution window -->
+      <nz-table
+        #adsTable
+        nzBordered
+        [nzData]="allAds"
+        nzTableLayout="fixed"
+        [nzOuterBordered]="false"
+        [nzScroll]="{ x: '100%' }"
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr>
+            <th *ngFor="let column of adsTableConfig" [nzWidth]="column.width + 'px'">{{ column.label }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let data of adsTable.data">
+            <tr>
+              <ng-container *ngFor="let column of adsTableConfig">
+                <td *ngIf="!column.firstCol; else firstColumn">
+                  <ng-container
+                    [ngTemplateOutlet]="column.type === 'status' ? printStatus : printCell"
+                    [ngTemplateOutletContext]="{
+                      column: column,
+                      item: data,
+                      type: 'ad_sets',
+                      value: data[column.prop]
+                    }"
+                  ></ng-container>
+                </td>
+                <ng-template #firstColumn>
+                  <td>
+                    <ng-container
+                      [ngTemplateOutlet]="column.type === 'status' ? printStatus : printCell"
+                      [ngTemplateOutletContext]="{ column: column, value: data[column.prop] }"
+                    ></ng-container>
+                  </td>
+                </ng-template>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </ng-container>
+</nz-card>
+
+<ng-template #printCell let-column="column" let-value="value">
+  <ng-container
+    *ngIf="column.type === 'status'"
+    [ngTemplateOutlet]="printStatus"
+    [ngTemplateOutletContext]="{ status: value }"
+  ></ng-container>
+  <ng-container
+    *ngIf="column.type === 'currency'"
+    [ngTemplateOutlet]="printCurrency"
+    [ngTemplateOutletContext]="{ value: value }"
+  ></ng-container>
+  <ng-container
+    *ngIf="column.type === 'percentage'"
+    [ngTemplateOutlet]="printPercentage"
+    [ngTemplateOutletContext]="{ value: value }"
+  ></ng-container>
+  <ng-container
+    *ngIf="column.type === 'number'"
+    [ngTemplateOutlet]="printNumber"
+    [ngTemplateOutletContext]="{ value: value }"
+  ></ng-container>
+  <ng-container
+    *ngIf="!column.type"
+    [ngTemplateOutlet]="column.truncate ? truncatedCell : regularCell"
+    [ngTemplateOutletContext]="{ value: value, truncate: column.truncate }"
+  ></ng-container>
+</ng-template>
+
+<ng-template #printStatus let-value="value" let-item="item" let-type="type">
+  <nz-switch
+    nzSize="small"
+    [ngModel]="value === 'ACTIVE'"
+    [nzLoading]="item?.loading"
+    (click)="changeStatus(item, type)"
+    [nzControl]="true"
+  ></nz-switch>
+</ng-template>
+
+<ng-template #printCurrency let-value="value">
+  {{
+    (value | isNumber)
+      ? (value | currency: accountCurrency:'symbol')
+      : (value | isString) && value.length > 0
+      ? value
+      : '-'
+  }}
+  <div
+    class="ingo-explain"
+    nz-tooltip
+    [nzTooltipTitle]="'app.campDetails.campTable.optimizationBudget' | translate"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+    *ngIf="value === 'CBO'"
+  >
+    <i class="fas fa-info-circle"></i>
+  </div>
+</ng-template>
+
+<ng-template #printPercentage let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-2') + ' %' : '-' }}
+</ng-template>
+
+<ng-template #printNumber let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-2') : '-' }}
+</ng-template>
+
+<ng-template #truncatedCell let-value="value" let-truncate="truncate">
+  <span nzTooltipTitle="{{ value }}" nzTooltipPlacement="right" nz-tooltip>
+    {{ value.length > truncate ? (value | slice: 0:truncate) + '...' : value }}
+  </span>
+</ng-template>
+
+<ng-template #regularCell let-value="value">
+  {{ value }}
+</ng-template>
+
+<ng-template #empty>
+  <app-empty-range></app-empty-range>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 4 }" [nzTitle]="false" style="padding: 25px"></nz-skeleton>
+</ng-template>

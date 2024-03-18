@@ -1,0 +1,105 @@
+server {
+    listen      8080;
+    listen      [::]:8080;
+    server_name app-instigo.io;
+    root        /usr/share/nginx/html;
+    client_max_body_size 1024M;
+
+    # security
+    # security headers
+    # add_header X-Frame-Options         "SAMEORIGIN" always;
+    # add_header X-XSS-Protection        "1; mode=block" always;
+    # add_header X-Content-Type-Options  "nosniff" always;
+    # add_header Referrer-Policy         "no-referrer-when-downgrade" always;
+    # add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+
+    # . files
+    location ~ /\.(?!well-known) {
+        deny all;
+    }
+
+    # index.html fallback
+    location / {
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html =404;
+    }
+
+    # reverse proxy
+    location /server {
+        proxy_pass ${BACKEND_HOST};
+        rewrite ^/server/(.*) /$1 break;
+
+        proxy_ssl_server_name on;
+
+        # Proxy configuration
+        #proxy_http_version                 1.1;
+        #proxy_cache_bypass                 $http_upgrade;
+
+        # Proxy headers
+        proxy_set_header Upgrade           $http_upgrade;
+        proxy_set_header Connection        "upgrade";
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host  $host;
+        proxy_set_header X-Forwarded-Port  $server_port;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass_header Set-Cookie;
+        proxy_pass_header P3P;
+
+        # Proxy timeouts
+        proxy_connect_timeout              300s;
+        proxy_send_timeout                 300s;
+        proxy_read_timeout                 300s;
+        #proxy_redirect off;
+    }
+
+    # additional config
+
+    # favicon.ico
+    location = /favicon.ico {
+        log_not_found off;
+        access_log    off;
+    }
+
+    # robots.txt
+    location = /robots.txt {
+        log_not_found off;
+        access_log    off;
+    }
+
+    # assets, media
+    location ~* \.(?:css(\.map)?|js(\.map)?|jpe?g|png|gif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ {
+        expires    7d;
+        access_log on;
+    }
+
+    location ~* (ngsw.json)$ {
+      add_header 'Service-Worker-Allowed' '/';
+      add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+      expires off;
+      proxy_no_cache 1;
+    }
+
+    location ~* (ngsw-worker.js)$ {
+      add_header 'Service-Worker-Allowed' '/';
+      add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+      expires off;
+      proxy_no_cache 1;
+    }
+
+
+    # svg, fonts
+    location ~* \.(?:svgz?|ttf|ttc|otf|eot|woff2?)$ {
+        add_header Access-Control-Allow-Origin "*";
+        expires    7d;
+        access_log off;
+    }
+
+    # gzip
+    gzip            on;
+    gzip_vary       on;
+    gzip_proxied    any;
+    gzip_comp_level 6;
+    gzip_types      text/plain text/css text/xml application/json application/javascript application/rss+xml application/atom+xml image/svg+xml;
+}

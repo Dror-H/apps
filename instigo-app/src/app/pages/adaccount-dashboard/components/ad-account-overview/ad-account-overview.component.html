@@ -1,0 +1,156 @@
+<div nz-row [nzGutter]="24" class="ingo-charts-view">
+  <div nz-col [nzSpan]="24" id="main-chart">
+    <nz-card nzTitle="Account Overview" [nzExtra]="chartExtra">
+      <ingo-main-chart-widget
+        [adAccountInsights$]="adAccountInsights$"
+        [chartType$]="chartType$"
+      ></ingo-main-chart-widget>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="24" id="multi-chart">
+    <nz-card nzTitle="Interactions" [nzExtra]="rangeSelector">
+      <div nz-card-grid hidden></div>
+      <ingo-multi-charts [adAccountInsights$]="adAccountInsights$"></ingo-multi-charts>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="8" [nzXl]="8" id="pie-chart" class="ingo-grid-full">
+    <nz-card nzTitle="Metric Breakdowns" [nzExtra]="pieChartOptionsExtra" class="device-breakdown-card">
+      <ingo-widget-device-breakdown
+        *ifWithLoading="(pieChartSubject$ | async).type"
+        [pieChartSubject$]="pieChartSubject$"
+      ></ingo-widget-device-breakdown>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="16" [nzXl]="16" id="map-chart" class="ingo-grid-full">
+    <nz-card [nzTitle]="'Geo Distribution ' + mapTitle" [nzExtra]="metricsMap" class="geo-breakdown-card">
+      <div class="geo-breakdown-content" *ifWithLoading="(tableData$ | async).type">
+        <ingo-widget-vector-map-table [metricType]="mapTitle" [tableData$]="tableData$"></ingo-widget-vector-map-table>
+        <ingo-widget-vector-map [mapData$]="mapData$"></ingo-widget-vector-map>
+      </div>
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #chartExtra>
+  <ng-container [ngTemplateOutlet]="rangeSelector"></ng-container>
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="cardDropdown"
+    class="card-extra-dropdown"
+    [nzOverlayClassName]="'dropdown-arrow-right'"
+    [nzTrigger]="'click'"
+  >
+    <i class="fas fa-ellipsis-h"></i>
+  </a>
+
+  <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <ng-container *ngFor="let item of dropdownItems">
+        <li nz-menu-item *ngIf="item.submenu.length === 0 && item.show" (click)="item.click()">
+          <div class="ingo-dropdown-inner-icon">
+            <i class="{{ item.icon }} fa-fw"></i>
+          </div>
+          <div class="ingo-dropdown-option">{{ item.label }}</div>
+        </li>
+        <li nz-submenu *ngIf="item.submenu.length > 0">
+          <div title class="ingo-dropdown-inner-icon">
+            <i class="{{ item.icon }} fa-fw"></i>
+          </div>
+          <div title class="ingo-dropdown-option">
+            {{ item.label }}
+          </div>
+          <ul>
+            <li nz-menu-item *ngFor="let subItem of item.submenu" (click)="subItem.click()">
+              <div class="ingo-dropdown-inner-icon">
+                <i class="{{ subItem.icon }} fa-fw"></i>
+              </div>
+              <div class="ingo-dropdown-option">
+                {{ subItem.label }}
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #rangeSelector>
+  <ul class="card-extra-actions" data-html2canvas-ignore="true">
+    <li
+      *ngFor="let preset of internalDatePresets"
+      [ngClass]="{ active: isActiveRange(preset.value, value, selectedTimeInterval$ | async) }"
+    >
+      <a (click)="changeRange(preset)">{{ preset.label }}</a>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #metricsMap>
+  <ng-container [ngTemplateOutlet]="rangeSelector"></ng-container>
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="menu"
+    class="card-extra-dropdown"
+    [nzOverlayClassName]="'dropdown-arrow-right'"
+    [nzTrigger]="'click'"
+  >
+    <i class="fas fa-ellipsis-h"></i>
+  </a>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <ng-container *ngFor="let option of metricOptions">
+        <li nz-menu-item (click)="option.action()">
+          <div title class="ingo-dropdown-option">
+            {{ option.label }}
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #pieChartOptionsExtra>
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="cardDropdown"
+    class="card-extra-dropdown"
+    [nzOverlayClassName]="'dropdown-arrow-right'"
+    [nzTrigger]="'click'"
+    data-html2canvas-ignore="true"
+  >
+    <i class="fas fa-ellipsis-h"></i>
+  </a>
+
+  <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <ng-container *ngFor="let item of pieChartOptions">
+        <li nz-menu-item *ngIf="item.submenu.length === 0 && item.show">
+          <div class="ingo-dropdown-inner-icon">
+            <i class="{{ item.icon }} fa-fw"></i>
+          </div>
+          <div class="ingo-dropdown-option">{{ item.label }}</div>
+        </li>
+        <li nz-submenu *ngIf="item.submenu.length > 0">
+          <div title class="ingo-dropdown-inner-icon">
+            <i class="{{ item.icon }} fa-fw"></i>
+          </div>
+          <div title class="ingo-dropdown-option">
+            {{ item.label }}
+          </div>
+          <ul>
+            <li nz-menu-item *ngFor="let subItem of item.submenu" (click)="subItem.click()">
+              <div class="ingo-dropdown-inner-icon">
+                <i class="{{ subItem.icon }} fa-fw"></i>
+              </div>
+              <div class="ingo-dropdown-option">
+                {{ subItem.label }}
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>

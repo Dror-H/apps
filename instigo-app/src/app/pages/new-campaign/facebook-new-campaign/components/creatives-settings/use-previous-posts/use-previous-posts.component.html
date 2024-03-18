@@ -1,0 +1,160 @@
+<ingo-post-type-selector
+  [formControl]="campaignCreatives.controls.existingPost['controls'].postType"
+></ingo-post-type-selector>
+
+<div nz-row [nzGutter]="24">
+  <div nz-col nzSpan="24">
+    <nz-collapse nzGhost>
+      <nz-collapse-panel
+        [nzActive]="campaignCreatives.value.existingPost.postType === 0 && isSelectionOpen"
+        [nzDisabled]="false"
+        [nzShowArrow]="false"
+        class="mb-0"
+      >
+        <nz-divider class="mx--25"></nz-divider>
+        <ingo-select-existing-post
+          [existingPost]="newExistingPostForm"
+          [adAccount]="adAccountValue"
+          [campaignObjective]="campaignObjective"
+          (selectedPostEmitter)="confirmPostSelection($event)"
+          [formControl]="campaignCreatives.controls.existingPost['controls'].postSource"
+        ></ingo-select-existing-post>
+      </nz-collapse-panel>
+    </nz-collapse>
+
+    <div *ngIf="newExistingPostForm && !isSelectionOpen" class="selected-post-wrap">
+      <nz-collapse nzGhost>
+        <nz-collapse-panel
+          [nzHeader]="selectedPostHead"
+          [nzExtra]="selectedPostExtra"
+          [nzDisabled]="false"
+          [nzShowArrow]="false"
+          class="mb-0"
+        >
+          <p class="pre-wrap">{{ newExistingPostForm.value.message }}</p>
+        </nz-collapse-panel>
+      </nz-collapse>
+
+      <ng-template #selectedPostHead>
+        Selected Facebook Post / ID: {{ newExistingPostForm.value.providerId }}
+      </ng-template>
+
+      <ng-template #selectedPostExtra>
+        <button
+          nz-button
+          nzType="primary"
+          class="btn-primary btn-clear"
+          (click)="$event.stopPropagation(); isSelectionOpen = true"
+        >
+          Change
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isSelectionOpen && newExistingPostForm">
+  <div nz-row nzGutter="24" *ngIf="canSelectedPostBeUsedInAds">
+    <div nz-col [nzSpan]="24">
+      <nz-divider class="mx--25"></nz-divider>
+      <form nz-form class="ingo-add-edit-form mt-25">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>
+                Instagram Account (Optional)
+                <ingo-explain
+                  [tooltipId]="igSelectorTooltipClass"
+                  [tooltipType]="!newExistingPostForm.value.isInstagramEligible && 'danger'"
+                ></ingo-explain>
+              </nz-form-label>
+              <nz-form-control>
+                <ingo-instagram-account-selector
+                  [isEligible]="newExistingPostForm.value.isInstagramEligible"
+                  [instagramAccounts]="instagramAccounts"
+                  [formControl]="newExistingPostForm.controls.instagramAccount"
+                ></ingo-instagram-account-selector>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+      <ingo-selected-post-preview
+        [existingPostForm]="newExistingPostForm"
+        [adSetFormat]="adSetFormat"
+      ></ingo-selected-post-preview>
+    </div>
+  </div>
+  <ng-container *ngIf="!canSelectedPostBeUsedInAds" class="mt-25">
+    <nz-divider class="mx--25"></nz-divider>
+    <form nz-form class="ingo-add-edit-form mt-25" [formGroup]="newExistingPostForm">
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>
+              Ad Link
+              <ingo-explain tooltipId="app.campCreate.creative.adLink"></ingo-explain>
+            </nz-form-label>
+            <nz-form-control>
+              <app-link-form [formControl]="newExistingPostForm.controls.linkDestination"></app-link-form>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label>
+              Call to Action (Optional)
+              <ingo-explain tooltipId="app.campCreate.creative.cta"></ingo-explain>
+            </nz-form-label>
+            <nz-form-control>
+              <app-call-to-action-form
+                [formControl]="newExistingPostForm.controls.callToAction"
+                [provider]="adAccountValue.provider"
+              ></app-call-to-action-form>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label>
+              Instagram Account (Optional)
+              <ingo-explain
+                [tooltipId]="igSelectorTooltipClass"
+                [tooltipType]="!newExistingPostForm.value.isInstagramEligible && 'danger'"
+              ></ingo-explain>
+            </nz-form-label>
+            <nz-form-control>
+              <ingo-instagram-account-selector
+                [isEligible]="newExistingPostForm.value.isInstagramEligible"
+                [instagramAccounts]="instagramAccounts"
+                [formControl]="newExistingPostForm.controls.social['controls'].instagramAccount"
+              ></ingo-instagram-account-selector>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label>
+              Headline
+              <ingo-explain tooltipId="app.campCreate.creative.adHeadline"></ingo-explain>
+            </nz-form-label>
+            <nz-form-control>
+              <app-headline-form [formControl]="newExistingPostForm.controls.headline"></app-headline-form>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="24">
+          <ingo-selected-post-preview
+            [existingPostForm]="newExistingPostForm"
+            [adSetFormat]="adSetFormat"
+          ></ingo-selected-post-preview>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</div>
+<nz-divider class="mx--25"></nz-divider>
+<ng-content></ng-content>

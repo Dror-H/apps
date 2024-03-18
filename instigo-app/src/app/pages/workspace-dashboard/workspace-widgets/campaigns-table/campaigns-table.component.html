@@ -1,0 +1,77 @@
+<nz-card [nzTitle]="cardHeading" class="ingo-table-card ingo-table-capital" [nzExtra]="cardExtra">
+  <div *ngIf="campaigns$ | async as campaigns">
+    <app-data-table
+      *ngIf="campaigns.type === 'finish'; else skeleton"
+      [tableConfiguration]="tableConfiguration"
+      [state]="tableState$ | async"
+      [tableData]="campaigns.value?.data || []"
+      (stateChange)="tableState$.next($event)"
+    ></app-data-table>
+  </div>
+</nz-card>
+<app-data-table-templates [state]="tableState$.value"></app-data-table-templates>
+
+<ng-template #searchTermTemplateAndSelect let-column="column" let-value="value" let-row="row">
+  <a
+    class="selectable-table-item"
+    [routerLink]="['/campaign-details', row.id]"
+    [queryParams]="{ provider: row.provider }"
+    ingoHighlight
+    [searchedWords]="(tableState$ | async).searchTerm"
+    [text]="value?.length > 32 ? (value | slice: 0:32) + '...' : value"
+    nz-tooltip
+    [nzTooltipTitle]="value"
+    nzTooltipPlacement="bottom"
+    nzTooltipOverlayClassName="ingo-explain-card campaign-name-tooltip"
+    nzTooltipColor="#5f63f2"
+    classToApply="ingo-highlight"
+  ></a>
+  <a
+    class="view-campaign-icon"
+    [routerLink]="['/campaign-details', row.id]"
+    [queryParams]="{ provider: row.provider }"
+    nz-tooltip
+    nzTooltipTitle="View Campaign Analytics"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="fas fa-chart-bar"></i>
+  </a>
+</ng-template>
+
+<ng-template #cardHeading>
+  <div class="card-table-header">
+    <h2>Latest Campaigns</h2>
+    <div class="table-search">
+      <a nz-tooltip [nzTooltipTitle]="'Search'" [nzTooltipColor]="'#5f63f2'" (click)="toggleSearch()">
+        <i class="far fa-search"></i>
+      </a>
+      <nz-input-group [nzSuffix]="suffixIconSearch" [ngClass]="{ 'search-open': isSearchOpen$ | async }">
+        <input
+          type="text"
+          #searchTerm
+          nz-input
+          placeholder="Search Campaign"
+          (keyup)="searchTerm$.next(searchTerm.value)"
+        />
+      </nz-input-group>
+      <ng-template #suffixIconSearch> </ng-template>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #cardExtra>
+  <button nz-button nzType="primary" class="btn-primary btn-clear btn-tiny btn-small" (click)="viewAll()">
+    View All
+  </button>
+</ng-template>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton
+    [columns]="tableConfiguration.columns"
+    [isScroll]="tableConfiguration.scrollbarH"
+    [isSelectable]="false"
+    [isCustomizable]="false"
+    [isSearchable]="false"
+  ></app-data-table-skeleton>
+</ng-template>

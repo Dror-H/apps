@@ -1,0 +1,42 @@
+.mt-0 {
+  margin-top: 0;
+}
+
+.sub-menu-height {
+  height: 40px;
+}
+
+a.plus-btn {
+  opacity: 0;
+  position: absolute;
+  right: 60px;
+  top: 5px;
+  transition: all 0.25s ease;
+  z-index: 500;
+
+  &:hover {
+    background: #011effb9 !important;
+  }
+  @media all and (max-width: 1280px) {
+    right: 45px;
+    top: 0;
+  }
+}
+
+.has-create-btn:hover a.plus-btn {
+  opacity: 1;
+}
+
+:host ::ng-deep {
+  .ant-tag {
+    background: #f0f5ff40;
+    border: 0 none;
+    color: #fff;
+    font-size: 11px;
+    line-height: 19px;
+    margin: 0;
+    padding: 0 7px;
+    position: absolute;
+    right: 10%;
+  }
+}

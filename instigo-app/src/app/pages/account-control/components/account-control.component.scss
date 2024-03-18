@@ -1,0 +1,29 @@
+.user-details {
+  .card-title {
+    margin-bottom: 20px;
+
+    .user-avatar {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+
+  .account-routes {
+    .btn {
+      display: block;
+      text-align: left;
+
+      &:hover {
+        background-color: #f8f9fa;
+        color: #16181b;
+      }
+    }
+  }
+}
+
+.account-routes {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}

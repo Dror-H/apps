@@ -1,0 +1,31 @@
+<ng-container *ngIf="pieChartSubject$ | async as pieChartSubject">
+  <div class="device-breakdown">
+    <p>
+      <span>{{ total | shortNumber }}</span>
+      Total {{ pieChartSubject.metric }}
+    </p>
+    <div class="parentContainer display-block">
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend"
+        [colors]="pieChartColors"
+      >
+      </canvas>
+    </div>
+    <div class="device-breakdown-legend d-flex justify-content-center">
+      <div class="breakdown-legend-single" *ngFor="let item of legendData">
+        <div class="legend-label">
+          <span class="legend-label-dot" [ngStyle]="{ background: item.colour ? item.colour : '#a6a6a6' }"></span>
+          {{ item.label }}
+        </div>
+        <span>{{ item.value | shortNumber }}</span>
+        <sub>{{ item.value / total | percent }}</sub>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,5 @@
+:host > .ant-row > .ant-col {
+  @media all and (max-width: 991px) {
+    width: 100%;
+  }
+}

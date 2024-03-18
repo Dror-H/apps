@@ -1,0 +1,126 @@
+<span class="mt-neg-20"></span>
+<nz-divider class="mx--25" *ngIf="hasConnections"></nz-divider>
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="12" [nzXl]="8">
+    <nz-form-item class="mb-0">
+      <nz-form-label nzFor="facebook-connections"
+        >Facebook Connections
+        <ingo-explain tooltipId="app.campCreate.audience.fbConnections"></ingo-explain>
+      </nz-form-label>
+      <nz-form-control>
+        <nz-switch
+          id="facebook-connections"
+          [ngModel]="hasConnections"
+          (ngModelChange)="toggleConnections($event)"
+          [nzCheckedChildren]="checkedTemplate"
+          [nzUnCheckedChildren]="unCheckedTemplate"
+        ></nz-switch>
+        <ng-template #checkedTemplate><i class="fas fa-check"></i></ng-template>
+        <ng-template #unCheckedTemplate><i class="far fa-power-off"></i></ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24">
+    <form [formGroup]="connectionForm" *ngIf="hasConnections" class="mt-25">
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label>Followers of</nz-form-label>
+            <nz-form-control>
+              <ingo-promote-page-dropdown
+                [promotePages]="connectedPromotePages"
+                (onSelectionEvent)="onAddConnected($event)"
+              ></ingo-promote-page-dropdown>
+              <div nz-row [nzGutter]="24" *ngIf="connected.value.length > 0" class="summary-list summary-group mb-0">
+                <div nz-col [nzSpan]="24">
+                  <nz-card>
+                    <div class="summary-group-wrap">
+                      <div class="summary-group-title">
+                        <h4>Selected Pages</h4>
+                      </div>
+                      <div class="summary-group-inner">
+                        <div class="summary-group-item" *ngFor="let page of connected.value; index as i">
+                          <h5>{{ page.name }}</h5>
+                          <span class="summary-group-action"
+                            ><a (click)="onRemovePageFromConnected(page, i)"><i class="far fa-trash-alt"></i></a
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </nz-card>
+                </div>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label>Friends of followers of</nz-form-label>
+            <nz-form-control>
+              <ingo-promote-page-dropdown
+                [promotePages]="promotePages"
+                (onSelectionEvent)="onAddFriendsConnected($event)"
+              ></ingo-promote-page-dropdown>
+              <div
+                nz-row
+                [nzGutter]="24"
+                *ngIf="friendsConnected.value.length > 0"
+                class="summary-list summary-group mb-0"
+              >
+                <div nz-col [nzSpan]="24">
+                  <nz-card>
+                    <div class="summary-group-wrap">
+                      <div class="summary-group-title">
+                        <h4>Selected Pages</h4>
+                      </div>
+                      <div class="summary-group-inner">
+                        <div class="summary-group-item" *ngFor="let page of friendsConnected.value; index as i">
+                          <h5>{{ page.name }}</h5>
+                          <span class="summary-group-action"
+                            ><a (click)="onRemovePageFromFriendsConnected(page, i)"><i class="far fa-trash-alt"></i></a
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </nz-card>
+                </div>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label>Exclude followers of</nz-form-label>
+            <nz-form-control>
+              <ingo-promote-page-dropdown
+                [promotePages]="excludedPromotePages"
+                (onSelectionEvent)="onAddExcluded($event)"
+              ></ingo-promote-page-dropdown>
+              <div nz-row [nzGutter]="24" *ngIf="excluded.value.length > 0" class="summary-list summary-group mb-0">
+                <div nz-col [nzSpan]="24">
+                  <nz-card>
+                    <div class="summary-group-wrap">
+                      <div class="summary-group-title">
+                        <h4>Selected Pages</h4>
+                      </div>
+                      <div class="summary-group-inner">
+                        <div class="summary-group-item" *ngFor="let page of excluded.value; index as i">
+                          <h5>{{ page.name }}</h5>
+                          <span class="summary-group-action"
+                            ><a (click)="onRemovePageFromExcluded(page, i)"><i class="far fa-trash-alt"></i></a
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </nz-card>
+                </div>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

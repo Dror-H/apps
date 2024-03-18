@@ -1,0 +1,111 @@
+<div nz-row [nzGutter]="24" [formGroup]="campaignQueryForm">
+  <div nz-col [nzSpan]="24">
+    <nz-page-header class="site-page-header">
+      <nz-page-header-title>View Campaign</nz-page-header-title>
+      <nz-page-header-extra>
+        <ingo-date-range-picker formControlName="dateRange"></ingo-date-range-picker>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+  <nz-col nzFlex="auto" class="ingo-add-edit-form">
+    <ingo-campaign-details-search formControlName="campaign" [selectedSearchItem]="(selectedCampaign$ | async).value">
+    </ingo-campaign-details-search>
+  </nz-col>
+</div>
+
+<div nz-row [nzGutter]="24" class="ingo-tabs-view">
+  <div nz-col [nzSpan]="24">
+    <nz-tabset [nzSelectedIndex]="activeTab">
+      <nz-tab [nzTitle]="campaignDetails" (nzClick)="activeTab = 0">
+        <div nz-row [nzGutter]="24" class="ingo-charts-view">
+          <ng-container *ngIf="provider === 'facebook'">
+            <div nz-col [nzSpan]="24" id="summary">
+              <ingo-campaign-summary [selectedCampaign$]="selectedCampaign$" [campaignAdSets$]="campaignAdSets$">
+              </ingo-campaign-summary>
+            </div>
+            <div nz-col [nzSpan]="24" id="adsets">
+              <ingo-campaign-adsets-table
+                [selectedCampaign$]="selectedCampaign$"
+                [campaignAdSets$]="campaignAdSets$"
+              ></ingo-campaign-adsets-table>
+            </div>
+            <div nz-col [nzSpan]="24" id="targeting">
+              <ingo-campaign-targeting
+                [selectedCampaign$]="selectedCampaign$"
+                [campaignAdSets$]="campaignAdSets$"
+              ></ingo-campaign-targeting>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="provider === 'linkedin'">
+            <div nz-col [nzSpan]="24" id="summary">
+              <ingo-campaign-summary
+                [selectedCampaign$]="selectedCampaign$"
+                [campaignAdSets$]="campaignAdSets$"
+                [linkedinSpendToday]="linkedinSpendToday"
+              >
+              </ingo-campaign-summary>
+            </div>
+            <div nz-col [nzSpan]="24" id="ads">
+              <ingo-campaign-ads-table [campaignAds$]="campaignAds$"></ingo-campaign-ads-table>
+            </div>
+          </ng-container>
+        </div>
+      </nz-tab>
+      <nz-tab [nzTitle]="campaignInsights" (nzClick)="activeTab = 1">
+        <div nz-row [nzGutter]="24" class="ingo-charts-view">
+          <ng-container *ngIf="provider === 'facebook'">
+            <div nz-col [nzSpan]="24" id="main-chart">
+              <app-overview [selectedCampaign$]="selectedCampaign$"></app-overview>
+            </div>
+            <div nz-col [nzSpan]="24" id="breakdowns">
+              <app-breakdown-details-table [campaignQueryForm]="campaignQueryForm"></app-breakdown-details-table>
+            </div>
+            <div nz-col [nzSpan]="24" id="performance">
+              <app-campaign-lifetime-performance
+                [selectedCampaign$]="selectedCampaign$"
+              ></app-campaign-lifetime-performance>
+            </div>
+            <div nz-col [nzSpan]="24" id="daily-avg">
+              <app-daily-average-breakdown [selectedCampaign$]="selectedCampaign$"></app-daily-average-breakdown>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <app-hour-average-breakdown [campaignQueryForm]="campaignQueryForm"></app-hour-average-breakdown>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <app-engagement-metrics [selectedCampaign$]="selectedCampaign$"></app-engagement-metrics>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="provider === 'linkedin'">
+            <div nz-col [nzSpan]="24" id="main-chart">
+              <app-overview [selectedCampaign$]="selectedCampaign$"></app-overview>
+            </div>
+            <div nz-col [nzSpan]="24" id="performance">
+              <app-campaign-lifetime-performance
+                [selectedCampaign$]="selectedCampaign$"
+              ></app-campaign-lifetime-performance>
+            </div>
+            <div nz-col [nzSpan]="24" id="engagement">
+              <app-campaign-lifetime-performance
+                [selectedCampaign$]="selectedCampaign$"
+                metricsType="linkedinEngagement"
+              ></app-campaign-lifetime-performance>
+            </div>
+            <div nz-col [nzSpan]="24" id="daily-avg">
+              <app-daily-average-breakdown [selectedCampaign$]="selectedCampaign$"></app-daily-average-breakdown>
+            </div>
+          </ng-container>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+
+<ng-template #campaignDetails>
+  <i class="fad fa-stream"></i>
+  Details
+</ng-template>
+
+<ng-template #campaignInsights>
+  <i class="fad fa-chart-bar"></i>
+  Insights
+</ng-template>

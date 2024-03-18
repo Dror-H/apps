@@ -1,0 +1,53 @@
+<ng-container
+  *ngIf="adTemplateForm.value.settings.provider === 'facebook'; then facebook; else linkedin"
+></ng-container>
+
+<ng-template #facebook>
+  <div nz-row>
+    <div nz-col nzSpan="24" [ngSwitch]="adTemplateForm.value.settings.adTemplateType">
+      <ng-container>
+        <ingo-facebook-image-ad-template
+          *ngSwitchCase="adType.IMAGE"
+          [adTemplateImage]="adTemplateForm.controls.facebook['controls'].image"
+          [adAccount]="adTemplateForm.value.settings.adAccount"
+          [withCard]="withCard"
+        ></ingo-facebook-image-ad-template>
+      </ng-container>
+      <ingo-facebook-carousel-ad-template
+        *ngSwitchCase="adType.CAROUSEL"
+        [adTemplateCarousel]="adTemplateForm.controls.facebook['controls'].carousel"
+        [withCard]="withCard"
+      ></ingo-facebook-carousel-ad-template>
+      <ingo-facebook-video-ad-template
+        *ngSwitchCase="adType.VIDEO"
+        [adTemplateVideo]="adTemplateForm.controls.facebook['controls'].video"
+        [adAccount]="adTemplateForm.value.settings.adAccount"
+        [withCard]="withCard"
+      ></ingo-facebook-video-ad-template>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #linkedin>
+  <div nz-row>
+    <div nz-col nzSpan="24" [ngSwitch]="adTemplateForm.value.settings.adTemplateType">
+      <ingo-linkedin-image-ad-template
+        *ngSwitchCase="adType.IMAGE"
+        [adTemplateImage]="adTemplateForm.controls.linkedin['controls'].image"
+        [withCard]="withCard"
+      ></ingo-linkedin-image-ad-template>
+
+      <app-linkedin-carousel-ad-template
+        *ngSwitchCase="adType.CAROUSEL"
+        [adTemplateCarousel]="adTemplateForm.controls.linkedin['controls'].carousel"
+        [withCard]="withCard"
+      ></app-linkedin-carousel-ad-template>
+
+      <app-linkedin-video-ad-template
+        *ngSwitchCase="adType.VIDEO"
+        [adTemplateVideo]="adTemplateForm.controls.linkedin['controls'].video"
+        [withCard]="withCard"
+      ></app-linkedin-video-ad-template>
+    </div>
+  </div>
+</ng-template>

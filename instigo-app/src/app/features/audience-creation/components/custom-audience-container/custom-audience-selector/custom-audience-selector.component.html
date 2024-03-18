@@ -1,0 +1,49 @@
+<div class="custom-audience-repeater">
+  <nz-select
+    nzShowSearch
+    [ngModel]="null"
+    (nzOnSearch)="onSearch($event)"
+    (nzOpenChange)="onSelectorOpened()"
+    (ngModelChange)="onSourceChange($event)"
+    (nzScrollToBottom)="loadMore.emit()"
+    nzPlaceHolder="Select Custom Audience"
+    [nzCustomTemplate]="emptyTemplate"
+    [nzOptionHeightPx]="38"
+    [nzDropdownRender]="renderTemplate"
+  >
+    <nz-option *ngFor="let item of sources" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+  </nz-select>
+
+  <ng-template #renderTemplate>
+    <div nz-row nzJustify="center" *ngIf="shouldLoadMore">
+      <a class="btn-link" (click)="loadMore.emit()">Load More</a>
+    </div>
+  </ng-template>
+</div>
+<div nz-row [nzGutter]="24" *ngIf="customAudienceFormControl.value.length > 0" class="summary-list summary-group">
+  <div nz-col [nzSpan]="24">
+    <nz-card>
+      <div class="summary-group-wrap">
+        <div class="summary-group-title">
+          <h4>{{ includeOrExclude | titlecase }}d Audiences</h4>
+        </div>
+        <div class="summary-group-inner">
+          <div class="summary-group-item" *ngFor="let audience of customAudienceFormControl.value; index as i">
+            <h5>{{ audience.name }}</h5>
+            <span class="summary-group-action"
+              ><a (click)="removeCustomAudience(audience)"><i class="far fa-trash-alt"></i></a
+            ></span>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>
+
+<!-- <ng-template #emptyTemplate></ng-template> -->
+<ng-template #emptyTemplate
+  ><span class="dup-placeholder">
+    <ng-container *ngIf="customAudienceFormControl.value.length > 0">Select Another</ng-container>
+    <ng-container *ngIf="customAudienceFormControl.value.length === 0">Select Custom Audience</ng-container>
+  </span></ng-template
+>

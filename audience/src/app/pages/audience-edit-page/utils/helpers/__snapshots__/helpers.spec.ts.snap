@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`audiences helpers utils getAudiencesFlatValues should return flattened values 1`] = `
+Array [
+  "business",
+  "director",
+  "owners",
+  "marketing",
+  "managing",
+  "topic 1",
+  "topic 2",
+  "topic 3",
+  "topic 4",
+  "topic 5",
+  "topic 6",
+]
+`;
+
+exports[`audiences helpers utils getAudiencesFlatValues should return flattened values 2`] = `
+Array [
+  "gambling",
+  "football betting",
+  "soccer betting",
+  "Engaged Shoppers on Facebooks",
+  "NBA fans",
+  "motor racing",
+  "horse racing",
+  "tag 1",
+  "tag 2",
+  "tag 3",
+  "tag 4",
+  "tag 5",
+  "tag 6",
+]
+`;

@@ -1,0 +1,47 @@
+<form [formGroup]="budgetForm.controls.range">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Campaign Starts
+          <span class="ad-account-time">{{ adAccount | timeZoneDisplay }}</span>
+          <ingo-explain tooltipId="app.campCreate.budgetSchedule.schedule"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control nzErrorTip="You have to select a start date">
+          <nz-input-group class="ingo-inline-dates">
+            <span class="icon"><i class="fal fa-hourglass-start fa-fw"></i></span>
+            <input class="camp-date" nz-input #startPickerInner (change)="onPickerChange($event, startPicker)" />
+            <input nz-input type="time" formControlName="startTime" ingoTimeInput />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>
+          <ng-container *ngIf="budgetForm.value.budgetType === budgetType.LIFETIME">Campaign Ends</ng-container>
+          <ng-container *ngIf="budgetForm.value.budgetType === budgetType.DAILY"
+            >Campaign Ends (Optional)
+          </ng-container>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-input-group class="ingo-inline-dates">
+            <span class="icon"><i class="fal fa-hourglass-end fa-fw"></i></span>
+            <input class="camp-date" nz-input #endPickerInner (change)="onPickerChange($event, endPicker)" />
+            <i
+              *ngIf="budgetForm.value.budgetType === budgetType.DAILY"
+              class="fas fa-times clear-end-date"
+              (click)="clearEndDate()"
+            ></i>
+            <input nz-input type="time" formControlName="endTime" ingoTimeInput />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <nz-alert
+    *ngIf="budgetForm.status === 'INVALID'"
+    nzType="error"
+    [nzMessage]="budgetForm.errors | errorMessage"
+  ></nz-alert>
+</form>

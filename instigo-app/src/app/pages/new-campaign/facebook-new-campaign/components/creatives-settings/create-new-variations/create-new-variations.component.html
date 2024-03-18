@@ -1,0 +1,77 @@
+<form nz-form class="ingo-add-edit-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item class="newcamp-type-options">
+        <nz-form-label>Creative Type</nz-form-label>
+        <nz-form-control>
+          <nz-button-group>
+            <button
+              nz-button
+              nzType="default"
+              class="btn-group-btn"
+              *ngFor="let type of adTemplateTypes; let i = index"
+              [ngClass]="{ active: type.value === multivariate.value.adTemplateType }"
+              [disabled]="type.active === false"
+              (click)="setActiveType(type.value)"
+            >
+              {{ type.name }}
+            </button>
+          </nz-button-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <div class="ingo-form-divider">
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <form>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzXXl]="12">
+        <ng-container [ngSwitch]="multivariate.value.adTemplateType">
+          <ingo-facebook-image-multi-variate
+            [multivariateImageForm]="multivariate['controls'].image"
+            [campaignObjective]="selectedCampaignObjective"
+            *ngSwitchCase="adType.IMAGE"
+          ></ingo-facebook-image-multi-variate>
+          <ingo-facebook-video-multi-variate
+            [multivariateVideoForm]="multivariate['controls'].video"
+            [campaignObjective]="selectedCampaignObjective"
+            *ngSwitchCase="adType.VIDEO"
+          ></ingo-facebook-video-multi-variate>
+          <ingo-facebook-carousel-multi-variate
+            [multivariateCarouselForm]="multivariate['controls'].carousel"
+            [campaignObjective]="selectedCampaignObjective"
+            *ngSwitchCase="adType.CAROUSEL"
+          ></ingo-facebook-carousel-multi-variate>
+        </ng-container>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzXXl]="12">
+        <ng-container [ngSwitch]="multivariate.value.adTemplateType">
+          <ingo-ad-preview-carousel-container
+            [multivariate]="multivariate"
+            *ngSwitchCase="adType.IMAGE"
+          ></ingo-ad-preview-carousel-container>
+
+          <ingo-ad-preview-carousel-container
+            [multivariate]="multivariate"
+            *ngSwitchCase="adType.VIDEO"
+          ></ingo-ad-preview-carousel-container>
+
+          <ingo-ad-preview-carousel-container
+            [multivariate]="multivariate"
+            *ngSwitchCase="adType.CAROUSEL"
+          ></ingo-ad-preview-carousel-container>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+
+  <nz-divider class="mx--25"></nz-divider>
+  <ng-content></ng-content>
+</form>

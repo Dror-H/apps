@@ -1,0 +1,29 @@
+@import 'src/assets/scss/variables';
+
+nz-select {
+  width: 200px;
+}
+
+.provider-availability {
+  color: $gray-600;
+  float: right;
+}
+
+.mr-5px {
+  margin-right: 5px;
+}
+
+.mt-5px {
+  margin-top: 5px;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.ingo-radio-group > div .title {
+  display: inherit;
+  flex: 0 0 100%;
+  justify-content: center;
+  padding-left: 0;
+}

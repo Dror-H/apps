@@ -1,0 +1,590 @@
+.ant-dropdown {
+  color: $dropdown-item-text;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  top: 8px;
+  z-index: $zindex-dropdown;
+}
+
+.ant-dropdown-menu {
+  border-radius: 4px;
+  box-shadow: $dropdown-shadow;
+  min-width: $dropdown-min-width;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+  color: $dropdown-item-text;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-base;
+  margin: 0;
+  padding: $dropdown-padding-y $dropdown-padding-x;
+
+  > a {
+    @include transition(all 0.3s);
+    color: $dropdown-item-text;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $dropdown-bg-hover;
+    color: $dropdown-item-text-hover;
+
+    > a {
+      background-color: transparent;
+      color: $dropdown-item-text-hover;
+    }
+  }
+}
+
+.ant-dropdown-menu-item-disabled,
+.ant-dropdown-menu-submenu-title-disabled {
+  color: rgba($dropdown-item-text, 0.25);
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: $white;
+    color: rgba($dropdown-item-text, 0.25);
+    cursor: not-allowed;
+  }
+}
+
+.ant-dropdown-menu-item-selected,
+.ant-dropdown-menu-submenu-title-selected {
+  background-color: $dropdown-bg-hover;
+  color: $dropdown-item-text-hover;
+
+  > a {
+    background-color: $dropdown-bg-hover;
+    color: $dropdown-item-text-hover;
+  }
+}
+
+.ingo-adaccounts-dropdown {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px rgba(146, 153, 184, 0.102);
+  display: flex;
+  flex-flow: wrap row;
+  height: 34px;
+  line-height: 1;
+  padding: 0;
+  position: relative;
+  width: 220px;
+
+  .ingo-adaccount-icon {
+    border-right: solid 1px color(gray);
+    padding: 10px 4px;
+    text-align: center;
+    width: 30px;
+  }
+
+  .ingo-adaccount-selected {
+    color: color(gray, 50);
+    flex: 1 0 auto;
+    font-size: 15px;
+    max-width: calc(100% - 50px);
+    overflow: hidden;
+    padding: 0 0 0 7px;
+    text-overflow: ellipsis;
+  }
+
+  .ingo-adaccount-dropdown-icon {
+    position: absolute;
+    right: 1rem;
+
+    &::after,
+    &::before {
+      color: color(gray, 50);
+      font-family: 'Font Awesome 5 Pro';
+      font-size: 12px;
+      line-height: 1;
+      position: absolute;
+      transform: translateY(-50%);
+    }
+
+    &::before {
+      content: '\f106';
+      top: calc(50% - 3px);
+    }
+
+    &::after {
+      content: '\f107';
+      top: calc(50% + 3px);
+    }
+  }
+}
+
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu,
+.ant-dropdown-menu-submenu-title {
+  align-items: center;
+  display: flex;
+  flex-flow: wrap row;
+  padding: 0.5rem 1rem;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 100%;
+
+  &.active,
+  &:hover {
+    background: rgba(color(purple), 6%);
+
+    .ingo-dropdown-option {
+      color: color(purple);
+    }
+  }
+}
+
+.ant-dropdown-menu-submenu {
+  padding: 0 !important;
+}
+
+.ant-dropdown-menu-submenu-title .ant-dropdown-menu-submenu-arrow {
+  display: none;
+}
+
+.ant-dropdown-menu-submenu-selected .ant-dropdown-menu-submenu-title,
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+  color: color(gray, 50);
+}
+
+.ingo-dropdown-inner-icon {
+  flex: 0 0 30px;
+  max-width: 30px;
+  width: 30px;
+}
+
+.ingo-dropdown-option {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  line-height: 1.1rem;
+}
+
+.ingo-dropdown-option span {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+// User Dropdown & Menu
+.user-fold-menu.ant-menu-vertical,
+.user-fold-menu {
+  background: color(white);
+  border-radius: 4px;
+  margin: 0;
+  margin-top: 4px;
+  padding: 0;
+
+  ul {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    &::before {
+      background: rgba(color(purple), 6%) !important;
+    }
+
+    li {
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+      height: auto;
+      line-height: 1;
+      margin-bottom: 4px !important;
+      margin-top: 0;
+      padding: 8px 24px;
+
+      a {
+        font-size: 15px;
+        padding: 0.25rem 1.5rem;
+        padding-left: 0.7rem;
+      }
+
+      a,
+      i {
+        color: color(gray, 50);
+        transition: all 0.25s ease;
+
+        &:hover {
+          background-color: color(white) !important;
+          color: color(gray, 50);
+        }
+      }
+
+      &.sidebar-user-menu-head {
+        align-items: center;
+        background: rgba(color(purple), 6%);
+        border-bottom: 1px solid color(gray);
+        color: color(gray, 50);
+        display: flex;
+        padding: 1rem 1.25rem;
+
+        .ant-avatar {
+          border: 1px solid color(gray);
+          flex: 0 0 2rem;
+          font-size: 0.5rem;
+          height: 2rem;
+          line-height: 2rem;
+          width: 2rem;
+        }
+
+        .nav-user-title {
+          display: inline-flex;
+          flex: 0 0 calc(100% - 2rem);
+          flex-direction: column;
+          line-height: 1;
+          max-width: 180px;
+          overflow: hidden;
+          padding-left: 0.7rem;
+          text-overflow: ellipsis;
+
+          span {
+            margin: 0;
+
+            &:first-child {
+              font-size: 15px;
+              font-weight: 500;
+              margin-bottom: 0.25rem;
+            }
+
+            &.nav-user-role {
+              font-size: 13px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+
+      &.sidebar-user-menu-logout {
+        border-top: 1px solid color(gray);
+        margin: 0;
+        padding: 1rem 1.5rem;
+      }
+
+      i {
+        font-size: 18px;
+        width: 2rem;
+      }
+    }
+
+    li:not(.sidebar-user-menu-head) {
+      &:hover {
+        background-color: color(white) !important;
+
+        a,
+        i {
+          color: color(purple);
+        }
+      }
+    }
+  }
+}
+
+// Dropdown & Menu directional arrow
+.ant-dropdown {
+  .ant-dropdown-menu::before {
+    background: #fff;
+    border-color: #fff transparent transparent #fff;
+    border-style: solid;
+    border-width: 4px;
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.06);
+    content: '';
+    display: block;
+    height: 8px;
+    left: 10px;
+    position: absolute;
+    top: -4px;
+    transform: rotate(45deg);
+    width: 8px;
+    z-index: -1;
+  }
+
+  &.dropdown-arrow-right {
+    .ant-dropdown-menu::before {
+      left: auto;
+      right: 10px;
+    }
+  }
+
+  &.dropdown-arrow-center {
+    .ant-dropdown-menu::before {
+      left: 50%;
+      transform: rotate(45deg) translateX(-50%);
+    }
+  }
+}
+
+// General Dropdown - Primary
+.primary-dropdown.ant-dropdown-menu {
+  .dropdown-head,
+  .dropdown-footer {
+    align-items: center;
+    display: flex;
+    font-size: 15px;
+    font-weight: 500;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .dropdown-head {
+    border-bottom: 1px solid color(gray);
+
+    a {
+      color: color(gray, 40);
+      font-size: 15px;
+      font-weight: 400;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      &:hover {
+        color: color(purple);
+      }
+    }
+  }
+
+  .dropdown-footer {
+    border-top: 1px solid #e5e9f2;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &.center {
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    a {
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    &:hover {
+      background: rgba(color(purple), 6%);
+
+      a {
+        color: color(purple);
+      }
+    }
+  }
+}
+
+// Notifications Panel
+.primary-dropdown {
+  padding: 0;
+
+  &::before {
+    right: 18px !important;
+  }
+
+  .dropdown-body {
+    .ingo-notifications-fold {
+      .ant-list-items {
+        max-height: 260px;
+        overflow: auto;
+
+        .ant-list-item {
+          .notification-icon {
+            align-items: center;
+            background: transparent;
+            border-radius: 50%;
+            color: #fff;
+            display: inline-flex;
+            flex-shrink: 0;
+            font-size: 14px;
+            height: 36px;
+            justify-content: center;
+            margin-right: 0.75rem;
+            width: 36px;
+
+            &.info {
+              background: rgba(color(purple), 10%);
+              color: color(purple);
+            }
+
+            &.success {
+              background: rgba(color(green), 10%);
+              color: color(green);
+            }
+
+            &.warning {
+              background: rgba(color(orange), 10%);
+              color: color(orange);
+            }
+
+            &.error {
+              background: rgba(color(red), 10%);
+              color: color(red);
+            }
+          }
+
+          a {
+            align-items: center;
+            display: flex;
+            padding: 0.75rem 0.75rem 0.75rem 0.9rem;
+          }
+
+          .notification-content {
+            .notification-text {
+              color: color(gray, 50);
+              font-size: 13px;
+
+              span {
+                color: color(navy, 20);
+                font-weight: 500;
+              }
+            }
+
+            .notification-time {
+              color: #8094ae;
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.ingo-table-filter {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px rgb(146 153 184 / 10%);
+  display: flex;
+  flex-flow: wrap row;
+  height: 34px;
+  line-height: 1;
+  margin-left: 10px;
+  padding: 0 0 0 0.75rem;
+  position: relative;
+  width: 100px;
+
+  .ingo-adaccount-icon {
+    border-right: solid 1px color(gray);
+    padding: 10px 4px;
+    text-align: center;
+    width: 30px;
+  }
+
+  .ingo-adaccount-selected {
+    color: color(gray, 50);
+    flex: 1 0 auto;
+    font-size: 15px;
+    max-width: calc(100% - 50px);
+    overflow: hidden;
+    padding: 0 0 0 7px;
+    text-overflow: ellipsis;
+  }
+
+  .ingo-adaccount-dropdown-icon {
+    position: absolute;
+    right: 1rem;
+
+    &::after,
+    &::before {
+      color: color(gray, 50);
+      font-family: 'Font Awesome 5 Pro';
+      font-size: 12px;
+      line-height: 1;
+      position: absolute;
+      transform: translateY(-50%);
+    }
+
+    &::before {
+      content: '\f106';
+      top: calc(50% - 3px);
+    }
+
+    &::after {
+      content: '\f107';
+      top: calc(50% + 3px);
+    }
+  }
+}
+
+.ingo-tabs-view-filters {
+  align-items: center;
+  display: flex;
+  flex-flow: wrap row;
+
+  > span {
+    color: #474b6d;
+    font-size: 15px;
+    font-weight: 500;
+  }
+}
+
+.ingo-table-filter-arrow.arrow-right .ant-dropdown-menu::before {
+  left: auto;
+  right: 10px;
+}
+
+span.table-selected-badge {
+  align-items: center;
+  background: rgba(color(purple), 12%);
+  border-radius: 4px;
+  display: inline-flex;
+  font-size: 14px;
+  justify-content: flex-start;
+  margin-left: 6px;
+  max-height: 25px;
+  overflow: hidden;
+  padding: 0 7px;
+  position: relative;
+  text-align: center;
+  transition: all 0.25s ease;
+
+  i {
+    max-height: 1em;
+    max-width: 0;
+    opacity: 0;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    i {
+      margin-left: 8px;
+      max-width: 200px;
+      opacity: 1;
+    }
+  }
+}
+
+.ant-select {
+  &-dropdown {
+    border-radius: 4px;
+    min-width: 10rem;
+  }
+
+  &-item {
+    color: #474b6d;
+    font-size: 15px;
+    font-weight: 400 !important;
+    padding: 0.5rem 1rem;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &-option-disabled {
+      color: rgba(0, 0, 0, 0.25);
+      cursor: not-allowed;
+    }
+  }
+
+  &-item.ant-select-item-option-selected,
+  &-item-option-active {
+    background: rgba(95, 99, 242, 0.06) !important;
+    color: #5f63f2;
+  }
+
+  &.customize-column-select {
+    width: 100%;
+  }
+}

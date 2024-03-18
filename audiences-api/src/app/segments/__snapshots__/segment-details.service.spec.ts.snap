@@ -1,0 +1,573 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentDetails Test suite removeSegmentsDoubles should removeSegmentsDoubles by path and name 1`] = `
+Object {
+  "industries": Array [],
+  "interests": Array [
+    Object {
+      "id": "1",
+      "name": "test-name-and-path-1",
+      "path": Array [
+        "Test",
+        "Path",
+        "1",
+      ],
+      "size": 14136.5,
+      "topic": "Technology",
+      "type": "interests",
+    },
+    Object {
+      "id": "2",
+      "name": "JavaScript",
+      "path": Array [
+        "Interests",
+        "Additional interests",
+        "JavaScript",
+      ],
+      "size": 34175893,
+      "topic": "Technology",
+      "type": "interests",
+    },
+  ],
+  "work_positions": Array [
+    Object {
+      "id": "5",
+      "name": "test-name-and-path-1",
+      "path": Array [
+        "Demographics",
+        "Work",
+        "Job titles",
+        "Chief technology officer",
+      ],
+      "size": 68966.5,
+      "topic": "",
+      "type": "work_positions",
+    },
+    Object {
+      "id": "6",
+      "name": "Chief technology officer",
+      "path": Array [
+        "Test",
+        "Path",
+        "1",
+      ],
+      "size": 68966.5,
+      "topic": "",
+      "type": "work_positions",
+    },
+  ],
+}
+`;
+
+exports[`SegmentDetails Test suite should extract segments from audiences: valid_segments 1`] = `
+Array [
+  Object {
+    "id": "6003327060545",
+    "name": "Education",
+    "type": "interests",
+  },
+  Object {
+    "id": "6003396751131",
+    "name": "Tutor",
+    "type": "interests",
+  },
+  Object {
+    "id": "6004025401589",
+    "name": "Teacher",
+    "type": "interests",
+  },
+  Object {
+    "id": "107972409235369",
+    "name": "English Teacher",
+    "type": "work_employers",
+  },
+  Object {
+    "id": "954513404566821",
+    "name": "Math Teacher",
+    "type": "work_employers",
+  },
+  Object {
+    "id": "103821172989458",
+    "name": "Teaching artist",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1051011971579436",
+    "name": "High School Biology Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "106622896044549",
+    "name": "Vice-principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "107884929232750",
+    "name": "Kindergarten",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "108464855840777",
+    "name": "Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "109398559087414",
+    "name": "Preschool teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "109439469082967",
+    "name": "Music education",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "114768391869433",
+    "name": "Deputy head teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "115805898470438",
+    "name": "Third Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1380072878976562",
+    "name": "Computer Science Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1403023756671598",
+    "name": "Visual Artist",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1405018603136904",
+    "name": "K-12 Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1406116293027217",
+    "name": "Art Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1406936206277455",
+    "name": "Middle School Math Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "140696145961625",
+    "name": "Primary School Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1408187812818088",
+    "name": "5th Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1415583102075176",
+    "name": "Fifth Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1417189908576256",
+    "name": "Online Tutor",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "141892122496339",
+    "name": "Fine Art Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1422718941354976",
+    "name": "English Language Arts Teacher (ELA Teacher)",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "143025209060614",
+    "name": "Grade 5 Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "143025355718612",
+    "name": "U.S. History Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1438858059739310",
+    "name": "Fine Arts Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "144944208856813",
+    "name": "Visual Art Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1476645765891288",
+    "name": "Elementary Assistant Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "149306888418356",
+    "name": "7th Grade Science Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "149574771723780",
+    "name": "8th Grade Social Studies Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1538450969753491",
+    "name": "Elementary School Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1546106498992005",
+    "name": "English Instructor",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1546377492316689",
+    "name": "7th Grade Social Studies Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1549393365337377",
+    "name": "Second Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1550662191875956",
+    "name": "Physics Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1551021808509774",
+    "name": "Kindergarten / First Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1551251825135255",
+    "name": "Academic Advisor",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1557017201203011",
+    "name": "Kindergarten Teacher Assistant",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1557501907850968",
+    "name": "First Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1561065537505866",
+    "name": "Social Science Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1562586333979670",
+    "name": "Elementary School Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1563685743880967",
+    "name": "Academic Director",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1565228883715589",
+    "name": "World History Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1571955919687821",
+    "name": "Elementary Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1572835689669352",
+    "name": "High School Social Studies Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1580264262190288",
+    "name": "Computer Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1583991218546204",
+    "name": "8th Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1586748758206598",
+    "name": "Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1591522437733311",
+    "name": "Math Teacher (Mathematics Teacher)",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1614927338730237",
+    "name": "6th Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1636035483292019",
+    "name": "High School Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1637754126444386",
+    "name": "K-12 School Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "1716153051944310",
+    "name": "3rd Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "209969802464062",
+    "name": "Principal teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "245905882262356",
+    "name": "Music Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "258568954343661",
+    "name": "Mathematics Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "325361781008455",
+    "name": "High School Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "333350533540499",
+    "name": "Childcare Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "341895449353372",
+    "name": "Pre-K Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "347155165478778",
+    "name": "Kindergarten Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "359483200925720",
+    "name": "School Headmaster",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "416503431839321",
+    "name": "High School Mathematics Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "426688527482066",
+    "name": "Middle School Science Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "436234806546050",
+    "name": "High School English Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "439921926174397",
+    "name": "Sixth Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "461079924040428",
+    "name": "7th Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "496274840511455",
+    "name": "Educational Director",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "575974859172562",
+    "name": "Instrumental Music Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "581178965352954",
+    "name": "Algebra Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "608661762598823",
+    "name": "Preschool Teacher's Assistant",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "614539258690445",
+    "name": "Chemistry Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "619121284885287",
+    "name": "High School Math Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "619759321458017",
+    "name": "Junior High School Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "620135194799717",
+    "name": "1st Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "621597494652947",
+    "name": "Assistant Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "653018508137888",
+    "name": "Middle School Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "654130584715761",
+    "name": "ESL Teacher (English as a Second Language Teacher)",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "717827651666961",
+    "name": "Foreign Language Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "743909405704235",
+    "name": "Piano Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "747246648715981",
+    "name": "History Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "748884925225139",
+    "name": "ESOL Teacher (English for Speakers of Other Languages Teacher)",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "765656216874599",
+    "name": "Elementary Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "765767760186177",
+    "name": "High School Science Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "767043983392422",
+    "name": "Middle School English Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "782051705177790",
+    "name": "Early Childhood Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "788433967872044",
+    "name": "Primary Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "791209787642533",
+    "name": "English Tutor",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "803963443017832",
+    "name": "Middle School Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "805379809539672",
+    "name": "Pre-Kindergarten Teacher (Pre-K Teacher)",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "808480795853906",
+    "name": "Art Educator",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "819705311441453",
+    "name": "Language Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "863385550371515",
+    "name": "2nd Grade Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "865700706822795",
+    "name": "English as a Second Language Instructor (ESL Instructor)",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "925241404173360",
+    "name": "High School Assistant Principal",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "946052088760605",
+    "name": "Social Studies Teacher",
+    "type": "work_positions",
+  },
+  Object {
+    "id": "6071631541183",
+    "name": "Engaged shoppers",
+    "type": "behaviors",
+  },
+]
+`;
+
+exports[`SegmentDetails Test suite should get segment ratio 1`] = `
+Object {
+  "education_majors": 18,
+  "education_schools": 3,
+  "interests": 12,
+}
+`;
+
+exports[`SegmentDetails Test suite should get segment ratio 2`] = `
+Object {
+  "education_majors": 1,
+  "education_statuses": 5,
+  "interests": 3,
+  "work_employers": 2,
+  "work_positions": 94,
+}
+`;

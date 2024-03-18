@@ -1,0 +1,16 @@
+<div *ngIf="(loading$ | async) === true" class="row">
+  <div nz-row nzJustify="center" nzAlign="middle" class="w-100">
+    <ng-template #indicatorTemplate><i nz-icon nzType="loading"></i></ng-template>
+    <nz-spin nzSimple [nzIndicator]="indicatorTemplate"></nz-spin>
+  </div>
+</div>
+<ng-container *ngIf="(loading$ | async) === false">
+  <ingo-workspace-editable-info [workspace]="workspace" (workspaceUpdated)="workspaceUpdated($event)">
+  </ingo-workspace-editable-info>
+  <app-workspace-integrations [workspace]="workspace" (workspaceUpdated)="workspaceUpdated($event)">
+  </app-workspace-integrations>
+  <app-workspace-adaccount [workspace]="workspace"></app-workspace-adaccount>
+  <app-workspace-members [workspace]="workspace"></app-workspace-members>
+  <ingo-workspace-forsaking [workspace]="workspace"></ingo-workspace-forsaking>
+  <ingo-workspace-deletion [workspace]="workspace"></ingo-workspace-deletion>
+</ng-container>

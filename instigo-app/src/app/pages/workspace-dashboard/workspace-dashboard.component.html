@@ -1,0 +1,70 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24" [nzMd]="24" [nzLg]="24" [nzXXl]="24">
+    <div class="dashboard-content">
+      <div class="dashboard-cover-image">
+        <div class="dashboard-cover-content">
+          <h4 class="m-b-0">{{ greeting$ | async }}</h4>
+        </div>
+      </div>
+      <nz-tabset [nzSelectedIndex]="activeTab$ | async" class="dashboard-menu" [nzTabBarExtraContent]="navExtra">
+        <nz-tab nzTitle="Statistics" (nzClick)="activeTab$.next(0)">
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSpan="24">
+              <ingo-workspace-widget-insights-cards
+                [workspaceInsights$]="workspaceInsights$"
+              ></ingo-workspace-widget-insights-cards>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSpan="24">
+              <ingo-workspace-widget-provider-insights
+                [workspaceInsights$]="workspaceInsights$"
+              ></ingo-workspace-widget-provider-insights>
+            </div>
+          </div>
+        </nz-tab>
+        <nz-tab nzTitle="Accounts & Campaigns" (nzClick)="activeTab$.next(1)">
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSpan="24">
+              <ingo-workspace-widget-ad-accounts-table
+                [adAccounts$]="adAccounts$"
+              ></ingo-workspace-widget-ad-accounts-table>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSpan="24">
+              <ingo-workspace-dashboard-campaigns-table></ingo-workspace-dashboard-campaigns-table>
+            </div>
+          </div>
+        </nz-tab>
+        <nz-tab nzTitle="Activities" (nzClick)="activeTab$.next(2)">
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSpan="24">
+              <ingo-workspace-activity></ingo-workspace-activity>
+            </div>
+          </div>
+        </nz-tab>
+        <nz-tab nzTitle="Workspace Info" (nzClick)="activeTab$.next(3)">
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSpan="8">
+              <ingo-workspace-overview-card [workspace$]="workspaceData$"></ingo-workspace-overview-card>
+            </div>
+            <div nz-col nzSpan="8">
+              <ingo-workspace-widget-members [members$]="members$"></ingo-workspace-widget-members>
+            </div>
+            <div nz-col nzSpan="8">
+              <ingo-workspace-trackers [adAccounts$]="adAccounts$"></ingo-workspace-trackers>
+            </div>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </div>
+</div>
+<ng-template #navExtra>
+  <ul class="card-extra-actions" *ngIf="(activeTab$ | async) == 0">
+    <li *ngFor="let preset of internalDatePresets" [ngClass]="{ active: isActiveRange(preset.value) }">
+      <a (click)="changeRange(preset)">{{ preset.label }}</a>
+    </li>
+  </ul>
+</ng-template>

@@ -1,0 +1,19 @@
+.uppy-Root {
+  font-family: proxima-nova, sans-serif !important;
+  z-index: 500;
+}
+
+.uppy-size--md {
+  &.uppy-Dashboard-AddFiles-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 5px;
+    max-width: 480px;
+    text-align: center;
+  }
+
+  &.uppy-Dashboard-inner {
+    width: 100% !important;
+    height: 500px !important;
+  }
+}

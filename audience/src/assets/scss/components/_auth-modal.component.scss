@@ -1,0 +1,50 @@
+.auth-modal {
+  max-width: min(500px, 100%);
+  padding: 0 0.5rem;
+
+  .ant-modal-body {
+    padding: 60px;
+  }
+}
+
+.ad-account-modal {
+  max-width: 600px;
+}
+
+.howto {
+  &-tabs {
+    margin-top: 2rem;
+
+    .ant-tabs-tab {
+      font-size: 15px;
+      padding: 10px 8px;
+
+      &:first-child {
+        background: #f9f9f9;
+        color: #5d5d5d;
+        cursor: default;
+        display: flex;
+        font-weight: 500;
+        justify-content: center;
+        left: -105px;
+        position: absolute;
+        touch-action: none;
+        user-select: none;
+        width: 110px;
+
+        .ant-tabs-tab-btn {
+          color: #5d5d5d !important;
+        }
+      }
+    }
+
+    > .ant-tabs-nav .ant-tabs-nav-operations {
+      display: none;
+    }
+  }
+
+  &-divider {
+    margin: 24px -24px;
+    width: 600px;
+  }
+}

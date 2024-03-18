@@ -1,0 +1,40 @@
+<div class="container-fluid py-4">
+  <app-data-table
+    *ngIf="tableData | async; else skeleton"
+    [tableConfiguration]="tableConfiguration"
+    [state]="tableState | async"
+    [tableData]="tableData | async"
+    (stateChange)="onTableStateChange($event)"
+  ></app-data-table>
+
+  <app-data-table-templates [state]="tableState | async"></app-data-table-templates>
+</div>
+
+<ng-template #searchTermTemplateAndSelect let-column="column" let-value="value" let-row="row">
+  <a class="selectable-table-item-wrap">
+    <span
+      class="selectable-table-item"
+      (click)="selectTargeting(row)"
+      ingoHighlight
+      [searchedWords]="(tableState | async).searchTerm"
+      [text]="value.length > 40 ? (value | slice: 0:40) + '...' : value"
+      nz-tooltip
+      [nzTooltipTitle]="targetingNameTooltip"
+      nzTooltipPlacement="bottom"
+      nzTooltipOverlayClassName="ingo-explain-card campaign-name-tooltip"
+      nzTooltipColor="#5f63f2"
+      classToApply="ingo-highlight"
+    ></span>
+  </a>
+  <ng-template #targetingNameTooltip>
+    {{ value }}
+    <span (click)="selectTargeting(row)">Preview Targeting</span>
+  </ng-template>
+</ng-template>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton
+    [columns]="tableConfiguration.columns"
+    [isScroll]="tableConfiguration.scrollbarH"
+  ></app-data-table-skeleton>
+</ng-template>

@@ -1,0 +1,21 @@
+@use 'typography.variables' as typography;
+@use 'colors.variables' as colors;
+
+.subscription {
+  &-title {
+    font-size: typography.$font-size-xl;
+
+    strong {
+      color: colors.$primary;
+    }
+  }
+
+  &-title,
+  &-description {
+    text-align: center;
+  }
+
+  &__cancel-btn {
+    margin-right: 1rem;
+  }
+}

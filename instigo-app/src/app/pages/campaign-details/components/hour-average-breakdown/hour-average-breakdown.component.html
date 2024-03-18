@@ -1,0 +1,80 @@
+<nz-card [nzTitle]="'app.campDetails.hourAverage.title' | translate" *ngIf="mainChart as chart">
+  <ng-container *ngIf="chart.type === 'finish'; else skeleton">
+    <div nz-row [nzGutter]="25" *ngIf="chart.chartLabels.length > 0; else empty">
+      <div nz-col [nzSpan]="24">
+        <div
+          nz-card-grid
+          class="w-25 chart-metric"
+          *ngFor="let metric of chart.chartData; let i = index"
+          (click)="updateMetricVisibility(i, metric.label)"
+          [ngClass]="{ active: !mainChartMetrics[i].hidden }"
+        >
+          <i
+            class="far cursor-pointer"
+            [ngClass]="{ 'fa-toggle-on': !mainChartMetrics[i].hidden, 'fa-toggle-off': mainChartMetrics[i].hidden }"
+          ></i>
+          <p>
+            {{ metric.label }}
+          </p>
+          <h2>
+            <span class="min-width-50">
+              <ng-container *ngIf="metric.prefix === 'currency'; else printRegular">
+                {{ metric.total || 0 | currency: (campaignDetailsService.campaignCurrency | async) }}
+              </ng-container>
+              <ng-template #printRegular>
+                {{ metric.prefix }}{{ metric.total | number: '1.0-2':'en-US' }}{{ metric.suffix }}
+              </ng-template>
+            </span>
+          </h2>
+          <span class="col-metrics-change">
+            <ng-container *ngIf="metric?.change !== '+'; else noChange">
+              <span *ngIf="metric.icon === 'up'">
+                <i class="far fa-chart-line fa-fw"></i>
+                {{ metric.change }}%
+              </span>
+              <span *ngIf="metric.icon === 'down'" [ngClass]="{ decrease: metric.icon === 'down' }">
+                <i class="far fa-chart-line-down fa-fw"></i>
+                {{ metric.change }}%
+              </span>
+              vs. {{ 'app.campDetails.hourAverage.lastPeriod' | translate }}
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="24" id="chart-content">
+        <div class="parentContainer display-block" [ngClass]="{ 'hide-tip': hideTip }">
+          <canvas
+            baseChart
+            #baseChart="base-chart"
+            [id]="'chartId'"
+            height="110"
+            [datasets]="chart.chartData"
+            [labels]="chart.chartLabels"
+            [options]="chartOptions"
+            [chartType]="chartType"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</nz-card>
+
+<ng-template #empty>
+  <app-empty-range></app-empty-range>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }" [nzTitle]="false" class="p-25"></nz-skeleton>
+</ng-template>
+
+<ng-template #noChange>
+  <span
+    class="no-change"
+    nz-tooltip
+    [nzTooltipTitle]="'app.campDetails.hourAverage.averageErr' | translate"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    {{ 'app.campDetails.hourAverage.changeNotAvailable' | translate }}
+  </span>
+</ng-template>

@@ -1,0 +1,43 @@
+//
+// Google map
+//
+
+.gmaps,
+.gmaps-panaroma {
+  background: $gray-100;
+  border-radius: 3px;
+  height: 300px;
+}
+
+.gmaps-overlay {
+  background: $primary;
+  border-radius: 4px;
+  color: $white;
+  display: block;
+  font-size: 16px;
+  line-height: 40px;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.gmaps-overlay_arrow {
+  height: 0;
+  left: 50%;
+  margin-left: -16px;
+  position: absolute;
+  width: 0;
+
+  &.above {
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 16px solid $primary;
+    bottom: -15px;
+  }
+
+  &.below {
+    border-bottom: 16px solid $primary;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    top: -15px;
+  }
+}

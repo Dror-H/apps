@@ -1,0 +1,308 @@
+<form nz-form [formGroup]="multivariateCarouselForm" class="ingo-add-edit-form">
+  <ingo-ad-template-social-selector
+    [adAccountId]="adAccountId"
+    [socialForm]="multivariateCarouselForm.controls.social"
+  ></ingo-ad-template-social-selector>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col nzSpan="24">
+      <!-- Ad Text -->
+      <nz-form-item>
+        <nz-form-label>
+          Ad Text (Optional)
+          <ingo-explain tooltipId="app.campCreate.creative.adText"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control
+          *ngFor="let item of multivariateCarouselForm.controls.message['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateCarouselForm.controls.message?.errors?.unique }"
+        >
+          <app-message-form [formControl]="multivariateCarouselForm.controls.message['controls'][i]"></app-message-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+            (click)="removeControl(multivariateCarouselForm.controls.message, i)"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateCarouselForm.controls.message?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'message' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- Ad Link -->
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Ad Link
+          <ingo-explain tooltipId="app.campCreate.creative.adLink"></ingo-explain>
+        </nz-form-label>
+        <ng-container *ngFor="let item of multivariateCarouselForm.controls.linkDestination['controls']; index as i">
+          <nz-form-control
+            [ngClass]="{ 'arr-unique': multivariateCarouselForm.controls.linkDestination?.errors?.unique }"
+          >
+            <app-link-form
+              [formControl]="multivariateCarouselForm.controls.linkDestination['controls'][i]"
+            ></app-link-form>
+            <button
+              *ngIf="i > 0"
+              nz-button
+              nzType="primary"
+              class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+              (click)="removeControl(multivariateCarouselForm.controls.linkDestination, i)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </nz-form-control>
+          <ingo-url-builder-trigger [url]="item"></ingo-url-builder-trigger>
+        </ng-container>
+        <ng-container *ngIf="multivariateCarouselForm.controls.linkDestination?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'linkDestination' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+  <!-- Ad Link Caption Text (Caption) -->
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label>
+          Short URL (Optional)
+          <ingo-explain tooltipId="app.campCreate.creative.adLinkDisplay"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control
+          *ngFor="let item of multivariateCarouselForm.controls.linkCaption['controls']; index as i"
+          [ngClass]="{ 'arr-unique': multivariateCarouselForm.controls.linkCaption?.errors?.unique }"
+        >
+          <app-link-caption-form
+            [formControl]="multivariateCarouselForm.controls.linkCaption['controls'][i]"
+          ></app-link-caption-form>
+          <button
+            *ngIf="i > 0"
+            nz-button
+            nzType="primary"
+            class="btn-icon btn-primary btn-clear btn-bold btn-inline btn-warning"
+            (click)="removeControl(multivariateCarouselForm.controls.linkCaption, i)"
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </nz-form-control>
+        <ng-container *ngIf="multivariateCarouselForm.controls.linkCaption?.errors?.unique">
+          <ng-container *ngTemplateOutlet="uniqueValues"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="addButton; context: { name: 'linkCaption' }"></ng-container>
+      </nz-form-item>
+    </div>
+  </div>
+  <!-- Optimization -->
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Optimize for Performance
+          <ingo-explain tooltipId="app.campCreate.creative.optimizePerformance"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-switch
+            formControlName="multiShareOptimized"
+            [nzCheckedChildren]="checkedTemplate"
+            [nzUnCheckedChildren]="unCheckedTemplate"
+          ></nz-switch>
+          <ng-template #checkedTemplate><i class="fas fa-check"></i></ng-template>
+          <ng-template #unCheckedTemplate><i class="far fa-power-off"></i></ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <!-- End Card -->
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Display End Card
+          <ingo-explain tooltipId="app.campCreate.creative.endCard"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-switch
+            formControlName="multiShareEndCard"
+            [nzCheckedChildren]="checkedTemplate"
+            [nzUnCheckedChildren]="unCheckedTemplate"
+          ></nz-switch>
+          <ng-template #checkedTemplate><i class="fas fa-check"></i></ng-template>
+          <ng-template #unCheckedTemplate><i class="far fa-power-off"></i></ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24">
+      <nz-tabset
+        formArrayName="childAttachments"
+        class="ingo-carousel-items"
+        [nzAnimated]="false"
+        nzType="editable-card"
+        [nzSelectedIndex]="0"
+        (nzAdd)="addChild()"
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)"
+        [nzAddIcon]="addCarouselItemIcon"
+      >
+        <nz-tab
+          *ngFor="
+            let childAttachment of multivariateCarouselForm.controls.childAttachments['controls'];
+            let index = index
+          "
+          [nzTitle]="carouselTitle"
+          nzForceRender="true"
+        >
+          <div class="carousel-child" [formGroupName]="index">
+            <h6>
+              Carousel item {{ index + 1 }} of
+              {{ multivariateCarouselForm.controls.childAttachments['controls']?.length }} ; max: {{ MAX_CHILDREN }}
+            </h6>
+            <div nz-row [nzGutter]="24">
+              <!-- Headline -->
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label nzRequired>
+                    Carousel Item Headline
+                    <ingo-explain tooltipId="app.campCreate.creative.adHeadline"></ingo-explain>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <app-headline-form [formControl]="childAttachment.controls.headline"></app-headline-form>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Ad Link -->
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label nzRequired>
+                    Carousel Item Link
+                    <ingo-explain tooltipId="app.campCreate.creative.adLink"></ingo-explain>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <app-link-form
+                      [formControl]="childAttachment.controls.linkDestination"
+                      formControlName="linkDestination"
+                    ></app-link-form>
+                  </nz-form-control>
+                  <ingo-url-builder-trigger [url]="childAttachment.controls.linkDestination"></ingo-url-builder-trigger>
+                </nz-form-item>
+              </div>
+              <!-- Ad Link Display Text (Caption) -->
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label>
+                    Carousel item Short URL (Optional)
+                    <ingo-explain tooltipId="app.campCreate.creative.adLinkDisplay"></ingo-explain>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <app-link-caption-form
+                      [formControl]="childAttachment.controls.linkCaption"
+                      formControlName="linkCaption"
+                    ></app-link-caption-form>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Ad Link Description -->
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label>
+                    Carousel Item Link Description (Optional)
+                    <ingo-explain tooltipId="app.campCreate.creative.adLinkDesc"></ingo-explain>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <app-link-description-form
+                      [formControl]="childAttachment.controls.linkDescription"
+                      formControlName="linkDescription"
+                    ></app-link-description-form>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Call to Action -->
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label>
+                    Carousel Item Call to Action (Optional)
+                    <ingo-explain tooltipId="app.campCreate.creative.cta"></ingo-explain>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <app-call-to-action-form
+                      [formControl]="childAttachment.controls.callToAction"
+                      [provider]="provider"
+                      [selectedObjective]="campaignObjective"
+                      formControlName="callToAction"
+                    ></app-call-to-action-form>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Ad Media -->
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label>
+                    Carousel Item Image
+                    <ingo-explain tooltipId="app.campCreate.creative.adMedia"></ingo-explain>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <ingo-media-image-uppy formControlName="picture"></ingo-media-image-uppy>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+          <ng-template #carouselTitle>
+            <div cdkDrag class="ingo-carousel-item-nav">
+              <div class="ingo-carousel-item-actions">
+                <div
+                  class="ingo-carousel-item-delete"
+                  *ngIf="index > 1"
+                  nz-popconfirm
+                  [nzPopconfirmTitle]="popconfirmContent"
+                  nzPopconfirmPlacement="right"
+                  nzPopconfirmOverlayClassName="ingo-popconfirm"
+                  nzOkText="Delete"
+                  [nzIcon]=""
+                  (nzOnConfirm)="removeChild(index)"
+                >
+                  <i class="far fa-trash-alt fa-fw"></i>
+                </div>
+                <ng-template #popconfirmContent>
+                  <div class="ingo-popconfirm-content">
+                    <i class="fad fa-siren-on"></i>
+                    <span>Are you sure you want to delete this carousel item?</span>
+                  </div>
+                </ng-template>
+                <div class="ingo-carousel-item-drag" cdkDragHandle>
+                  <i class="far fa-arrows-h fa-fw"></i>
+                </div>
+              </div>
+              <i class="fad fa-photo-video"></i>
+            </div>
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+      <ng-template #addCarouselItemIcon><i class="far fa-plus" disabled></i></ng-template>
+    </div>
+  </div>
+</form>
+
+<ng-template #addButton let-name="name">
+  <div nz-row nzJustify="end" class="w-100 mt-10">
+    <button nz-button nzType="primary" class="btn-primary btn-clear btn-tiny btn-h-30" (click)="addControl(name)">
+      + Add
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #uniqueValues>
+  <div class="arr-unique unique-notice">
+    <i class="fas fa-exclamation-triangle fa-fw"></i> All values must be unique
+  </div>
+</ng-template>

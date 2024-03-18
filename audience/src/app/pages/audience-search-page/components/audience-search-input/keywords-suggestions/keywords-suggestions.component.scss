@@ -1,0 +1,28 @@
+.suggestions {
+  &-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  &-title {
+    white-space: nowrap;
+  }
+
+  &-suggestion {
+    display: flex;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &__tag {
+      h4 {
+        max-width: 50ch;
+      }
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+}

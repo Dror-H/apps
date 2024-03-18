@@ -1,0 +1,57 @@
+<div class="divider--xl"></div>
+<div class="sticky-container">
+  <div class="hero-container">
+    <nz-affix [nzOffsetTop]="80">
+      <div class="sticky-container sticky-container--brand">
+        <a routerLink="audience-search sticky-container--brand-link">
+          <img class="hero-brand" src="assets/svg/instigo-brand.svg" alt="instigo logo" />
+        </a>
+      </div>
+    </nz-affix>
+    <h4 class="hero-welcome" nz-typography *ngIf="user$ | async as user">
+      <span class="hero-welcome__wave-emoji"> 👋 </span> Welcome {{ user.name | startCase }}
+    </h4>
+    <h1 class="hero-title" nz-typography>Define Audience</h1>
+    <h3 class="hero-subtitle" nz-typography nzType="secondary">Find Audiences Based on Machine Learning Models</h3>
+  </div>
+
+  <div class="divider--xl"></div>
+  <nz-affix [nzOffsetTop]="130">
+    <div class="sticky-container">
+      <div class="search-input-container">
+        <audi-audience-search-input></audi-audience-search-input>
+        <div class="divider--sm"></div>
+        <!-- <audi-custom-ratio-container></audi-custom-ratio-container> -->
+      </div>
+    </div>
+  </nz-affix>
+</div>
+
+<div class="divider--md"></div>
+
+<ng-container *ngIf="foundAudiences$ | async as foundAudiences">
+  <audi-no-found-audiences
+    *ngIf="foundAudiences && !foundAudiences.length && !(isLoadingAudiences$ | async)"
+  ></audi-no-found-audiences>
+  <!-- <div class="limited-width-container--sm"> -->
+  <!-- <audi-action-buttons
+      [actionButtons]="actionButtons"
+      (clickEvent)="onActionButtonClickEvent($event)"
+    ></audi-action-buttons>
+    <div class="divider--sm"></div>
+    <h4 nz-typography nzType="secondary">Merge recommendations by Selecting/Deselecting</h4> -->
+  <!-- </div> -->
+
+  <!-- <div class="divider--sm"></div> -->
+  <audi-details-drawer></audi-details-drawer>
+  <ng-container *ngIf="foundAudiences.length">
+    <audi-audience-cards-container></audi-audience-cards-container>
+    <div class="divider--lg"></div>
+
+    <audi-action-box
+      [disabled]="!(selectedAudiences$ | async).length || (isLoadingMergedAudience$ | async)"
+      [loading]="isLoadingMergedAudience$ | async"
+      (clickEvent)="onActionBoxClickEvent($event)"
+    ></audi-action-box>
+  </ng-container>
+</ng-container>

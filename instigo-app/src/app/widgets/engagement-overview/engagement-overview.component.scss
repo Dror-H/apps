@@ -1,0 +1,76 @@
+.engagement-upward,
+.engagement-downward {
+  line-height: 2.2;
+
+  p {
+    color: #6b6e8d;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+    margin: 0;
+    margin-bottom: 0;
+  }
+
+  h4 {
+    align-items: center;
+    display: flex;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    line-height: 38px;
+    margin-bottom: 0;
+
+    sub {
+      bottom: 0;
+      font-size: 14px;
+      font-weight: 600;
+      left: 5px;
+      letter-spacing: -0.35px;
+      margin-right: 6px;
+      padding-left: 5px;
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+.engagement-upward {
+  sub {
+    color: #20c997;
+  }
+}
+
+.engagement-downward {
+  sub {
+    color: #ff4d4f;
+  }
+}
+
+.engagement-overview-row {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  .engagement-line-chart {
+    border-bottom: 1px solid rgb(198, 208, 220);
+    position: relative;
+
+    &::before {
+      background: rgb(255, 255, 255);
+      bottom: -1px;
+      content: '';
+      height: 2px;
+      left: 0;
+      position: absolute;
+      width: 10px;
+    }
+  }
+}
+
+.engagement-overview-container {
+  .engagement-overview-row {
+    &:not(:last-child) {
+      margin-bottom: 18px;
+    }
+  }
+}

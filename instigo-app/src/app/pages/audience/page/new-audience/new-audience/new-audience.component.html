@@ -1,0 +1,102 @@
+<section class="pb-30">
+  <div nz-row [nzGutter]="25">
+    <div nz-col nzSpan="24" [nzMd]="24">
+      <nz-page-header class="site-page-header">
+        <nz-page-header-title>Create new audience</nz-page-header-title>
+      </nz-page-header>
+    </div>
+  </div>
+  <div class="sticky-overview-overlay" [ngClass]="{ inview: isOverviewActive }" (click)="toggleOverview(false)"></div>
+  <div nz-row [nzGutter]="24" class="ingo-newcamp-step">
+    <div nz-col nzSpan="16" [nzXl]="18" [formGroup]="audienceForm">
+      <nz-collapse nzGhost [nzAccordion]="false">
+        <nz-collapse-panel
+          [nzHeader]="panelHeaderTypeSelection"
+          [nzActive]="step === 0"
+          nzShowArrow="false"
+          (nzActiveChange)="setStep(0)"
+        >
+          <app-audience-type-selector
+            [audienceForm]="audienceForm"
+            (setStep)="setStep($event)"
+          ></app-audience-type-selector>
+          <nz-alert *ngIf="!typeSelectionValid" nzType="error" nzMessage="All fields are required"></nz-alert>
+        </nz-collapse-panel>
+        <nz-collapse-panel
+          [nzHeader]="panelHeaderTarget"
+          [nzActive]="step === 1"
+          nzShowArrow="false"
+          (nzActiveChange)="setStep(1)"
+          [nzDisabled]="audienceForm.status === 'INVALID'"
+        >
+          <app-audience-targeting
+            *ngIf="step === 1"
+            [audienceForm]="audienceForm"
+            (setStep)="setStep($event)"
+          ></app-audience-targeting>
+        </nz-collapse-panel>
+        <nz-collapse-panel
+          [nzHeader]="panelHeaderOverview"
+          [nzActive]="step === 2"
+          nzShowArrow="false"
+          (nzActiveChange)="setStep(2)"
+          [nzDisabled]="audienceForm.status === 'INVALID'"
+        >
+          <app-audience-overview
+            *ngIf="step === 2 && audienceForm.status === 'VALID'"
+            [audienceForm]="audienceForm"
+            (createAudience)="createAudiences()"
+            (setStep)="setStep($event)"
+          ></app-audience-overview>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </div>
+
+    <ng-template #panelHeaderTypeSelection>
+      <div class="ant-card-head">
+        <div class="ant-card-head-wrapper">
+          <div class="ant-card-head-title">
+            <h2>Audience Type</h2>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #panelHeaderTarget>
+      <div class="ant-card-head">
+        <div class="ant-card-head-wrapper">
+          <div class="ant-card-head-title">
+            <h2>Audience Details</h2>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #panelHeaderOverview>
+      <div class="ant-card-head">
+        <div class="ant-card-head-wrapper">
+          <div class="ant-card-head-title">
+            <h2>Confirm</h2>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <div
+      nz-col
+      nzSpan="8"
+      [nzXl]="6"
+      class="sticky-overview sticky-audience-summary"
+      [ngClass]="{ inview: isOverviewActive }"
+      (click)="toggleOverview(true)"
+    >
+      <ng-container *ngIf="audienceForm.valid">
+        <ingo-audience-summary
+          [audienceForm]="audienceForm"
+          [isOverviewActive]="isOverviewActive"
+          [sticky]="true"
+        ></ingo-audience-summary>
+      </ng-container>
+    </div>
+  </div>
+</section>

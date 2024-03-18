@@ -1,0 +1,46 @@
+<nz-avatar
+  class="cursor-pointer"
+  nzSize="small"
+  [nzText]="user | initialsFromUser"
+  [nzIcon]="!user.firstName && !user.lastName ? 'user' : ''"
+  [nzSrc]="user.profilePicture"
+  nzAlt="user icon"
+  nzTrigger="click"
+  nz-dropdown
+  nzOverlayClassName="user-dropdown-menu"
+  [nzDropdownMenu]="menu"
+></nz-avatar>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item class="dropdown-item">
+      <a routerLink="user-dashboard">
+        <div class="dropdown-item--user">
+          <nz-avatar
+            nzSize="small"
+            [nzText]="user | initialsFromUser"
+            [nzIcon]="!user.firstName && !user.lastName ? 'user' : ''"
+          ></nz-avatar>
+          <div class="user-info">
+            <div>{{ user.firstName }} {{ user.lastName }}</div>
+            <div class="user-role">{{ user?.email }}</div>
+          </div>
+        </div>
+      </a>
+    </li>
+    <li nz-menu-item class="dropdown-item">
+      <a routerLink="user-dashboard">
+        <i class="fal fa-id-badge fa-fw"></i>
+        Edit Profile</a
+      >
+    </li>
+    <li nz-menu-item class="dropdown-item">
+      <a routerLink="user-dashboard/subscription">
+        <i class="fal fa-seedling fa-fw"></i>
+        Subscription Settings</a
+      >
+    </li>
+    <li nz-menu-item class="dropdown-item" (click)="[signOut.emit(), $event.stopPropagation()]">
+      <a> <i class="fal fa-sign-out-alt fa-fw"></i>Logout</a>
+    </li>
+  </ul>
+</nz-dropdown-menu>

@@ -1,0 +1,173 @@
+<nz-card
+  class="account-form ingo-card-nbm"
+  [nzTitle]="'app.account.security.passwordTitle' | translate"
+  [nzExtra]="securityCardExtra"
+>
+  <form nz-form [formGroup]="changePasswordForm" class="ingo-add-edit-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label>{{ 'app.account.security.currentPassword' | translate }}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <input
+                formControlName="previousPassword"
+                type="password"
+                id="validationPreviousPassword"
+                autocomplete="Previous Password"
+                [readonly]="!isPasswordEdit"
+                nz-input
+                nzBorderless
+                [ngClass]="{ active: isPasswordEdit }"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label nzRequired>{{ 'app.account.security.newPassword' | translate }}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <input
+                formControlName="password"
+                type="password"
+                id="validationPassword"
+                autocomplete="New Password"
+                [readonly]="!isPasswordEdit"
+                nz-input
+                nzBorderless
+                [ngClass]="{ active: isPasswordEdit }"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <div nz-col [nzSpan]="24">
+          <div
+            class="errors-tooltips"
+            *ngIf="changePasswordForm.get('password').invalid && !changePasswordForm.get('password').pristine"
+          >
+            <div class="err-tooltip" *ngIf="changePasswordForm.get('password').hasError('hasSmallCase')">
+              <span>Must contain at least 1 Letter in Small Case!</span>
+            </div>
+            <div class="err-tooltip" *ngIf="changePasswordForm.get('password').hasError('hasCapitalCase')">
+              <span>Must contain at least 1 in Capital Case!</span>
+            </div>
+            <div class="err-tooltip" *ngIf="changePasswordForm.get('password').hasError('hasNumber')">
+              <span>Must contain at least 1 number!</span>
+            </div>
+            <div class="err-tooltip" *ngIf="changePasswordForm.get('password').hasError('minlength')">
+              <span>Must be at least 8 characters!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item class="ingo-has-inline-warnings">
+          <nz-form-label nzRequired>{{ 'app.account.security.confirmNew' | translate }}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <input
+                formControlName="repeatPassword"
+                type="password"
+                id="validationRepeatPassword"
+                autocomplete="Confirm New Password"
+                [readonly]="!isPasswordEdit"
+                nz-input
+                nzBorderless
+                [ngClass]="{ active: isPasswordEdit }"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <div
+          class="errors-tooltips"
+          *ngIf="changePasswordForm.get('repeatPassword').invalid && !changePasswordForm.get('repeatPassword').pristine"
+        >
+          <div class="err-tooltip" *ngIf="changePasswordForm.get('repeatPassword').hasError('equalTo')">
+            <span>Passwords must match</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</nz-card>
+
+<ng-template #securityCardExtra>
+  <button nz-button nzType="primary" class="btn-info btn-clear mr-10" (click)="sendResetPassword()">
+    {{ 'app.account.security.sendResetPassword' | translate }}
+  </button>
+
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-dark btn-clear"
+    *ngIf="!isPasswordEdit"
+    (click)="this.isPasswordEdit = true"
+  >
+    {{ 'app.account.security.changePassword' | translate }}
+  </button>
+
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-fade btn-info btn-clear"
+    *ngIf="isPasswordEdit"
+    (click)="cancelFormEdit()"
+  >
+    {{ 'app.general.cancel' | translate }}
+  </button>
+
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-fade btn-success btn-clear"
+    *ngIf="isPasswordEdit && changePasswordForm.dirty"
+    (click)="updateData()"
+    [disabled]="!isPasswordRepeatValid"
+  >
+    {{ 'app.account.security.updatePassword' | translate }}
+  </button>
+</ng-template>
+
+<!-- <nz-card [nzTitle]="'app.account.security.sessionsTitle' | translate" class="ingo-table-card">
+  <ng-container *ngIf="sessionHistory$ | async as sessions; else skeleton">
+    <ng-container *ngIf="sessions.length > 0; else empty">
+      <nz-table
+        #sessionsHistory
+        nzBordered
+        [nzData]="sessionHistory$ | async"
+        [nzPageSize]="5"
+        nzTableLayout="fixed"
+        [nzOuterBordered]="false"
+      >
+        <thead>
+          <tr>
+            <th>{{ 'app.account.security.sessionDevice' | translate }}</th>
+            <th>{{ 'app.account.security.sessionLocation' | translate }}</th>
+            <th width="160px">{{ 'app.account.security.sessionIP' | translate }}</th>
+            <th width="130px">{{ 'app.account.security.sessionDate' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of sessionsHistory.data">
+            <td nzEllipsis>{{ data.deviceDetails.os.name }} / {{ data.deviceDetails.browser.name }}</td>
+            <td nzEllipsis>{{ data.location }}</td>
+            <td>{{ data.ip }}</td>
+            <td>{{ data.updatedAt | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </ng-container>
+  </ng-container>
+</nz-card> -->
+
+<ng-template #empty>
+  <nz-empty></nz-empty>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 4 }" [nzTitle]="false" style="padding: 25px"></nz-skeleton>
+</ng-template>
+
+<ingo-account-deletion></ingo-account-deletion>

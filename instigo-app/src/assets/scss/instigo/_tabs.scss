@@ -1,0 +1,36 @@
+.nav-tabs-custom-big-tabs {
+  padding-left: 2rem;
+
+  .nav-item {
+    background: #fafafa 0% 0% no-repeat padding-box;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 1px 3px #00000015;
+    height: 46px;
+    min-width: 300px;
+    position: relative;
+
+    .btn {
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .nav-link {
+      border: 0;
+      color: #2a3042;
+      font-size: 16px;
+      height: 46px;
+
+      &.active {
+        background: #fff 0% 0% no-repeat padding-box;
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 3px 3px #00000015;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.page-card {
+  border-top-left-radius: 0;
+}

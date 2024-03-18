@@ -1,0 +1,11 @@
+// height set by zorro selector option height
+// we cannot set it dynamically
+.location-selector-dropdown {
+  .ant-select-dropdown {
+    .cdk-virtual-scroll-viewport {
+      $optionHeight: 52px;
+      $optionsCount: 2; // include and exclude
+      height: $optionHeight * $optionsCount !important;
+    }
+  }
+}

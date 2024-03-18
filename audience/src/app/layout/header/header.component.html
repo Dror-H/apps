@@ -1,0 +1,23 @@
+<header class="auth-status">
+  <div class="auth-status-container">
+    <ng-container *ngIf="userState$ | async as user; else auth">
+      <audi-user-dropdown-menu [user]="user" (signOut)="openAuthModal('signout')"></audi-user-dropdown-menu>
+    </ng-container>
+  </div>
+</header>
+
+<ng-template #auth>
+  <button
+    class="auth-button--facebook"
+    nz-button
+    nzType="primary"
+    [nzLoading]="isLoading$ | async"
+    (click)="signInWithFacebook()"
+  >
+    <i
+      [ngStyle]="{ marginLeft: (isLoading$ | async) ? '1rem' : '0' }"
+      class="fb-icon ng-fa-icon fab fa-facebook-f fa-lg"
+    ></i>
+    <span>Sign in with Facebook</span>
+  </button>
+</ng-template>

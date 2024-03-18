@@ -1,0 +1,18 @@
+.ant-modal {
+  z-index: 1060;
+}
+
+.modal-backdrop {
+  z-index: 999 !important;
+}
+
+.modal {
+  z-index: 999;
+}
+
+.add-member-modal input.ant-input {
+  border-radius: 0 !important;
+  border: 0 none !important;
+  padding-left: 25px;
+  box-shadow: none !important;
+}

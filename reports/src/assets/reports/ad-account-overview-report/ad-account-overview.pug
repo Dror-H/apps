@@ -1,0 +1,46 @@
+include ../cover.pug
+div(style="page-break-before:always")
+
+.content
+  .page-title
+    h2 Vanity Metrics
+  .row.flex.justify-between
+    .report-widget-bg
+      .widget
+        .widget-title Overview
+        .widget-subtitle (by date)
+        .widget-content
+          img(src='./line.png')
+  .row.flex.justify-between
+    .report-widget-bg.col-6
+      .widget
+        .widget-title Impressions
+        .widget-subtitle #{summary.impressions}
+        .widget-content
+          img(src='./impressions.png')
+    .report-widget-bg.col-6
+      .widget
+        .widget-title Clicks
+        .widget-subtitle #{summary.clicks}
+        .widget-content
+          img(src='./clicks.png')
+
+div(style="page-break-before:always")
+
+.content
+  .row.flex.justify-between
+    .report-widget-bg.col-6
+      .widget
+        .widget-title CPM
+        .widget-subtitle #{summary.cpm}
+        .widget-content
+          img(src='./cpm.png')
+    .report-widget-bg.col-6
+      .widget
+        .widget-title CPC
+        .widget-subtitle #{summary.cpc}
+        .widget-content
+          img(src='./cpc.png')
+
+style
+  include:scss ../scss/report.scss

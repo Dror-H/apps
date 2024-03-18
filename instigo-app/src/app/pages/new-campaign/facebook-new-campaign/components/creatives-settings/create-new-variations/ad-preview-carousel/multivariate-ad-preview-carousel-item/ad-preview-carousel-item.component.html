@@ -1,0 +1,33 @@
+<ng-container *ngIf="shouldLoadContent; then preview; else skeleton"></ng-container>
+
+<ng-template #preview>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-radio-group class="ingo-radio-group radio-group-2 margin-10" [formControl]="previewSourceTypeControl">
+        <div nz-radio-button [nzValue]="previewSourceOptions['instigo'].value">
+          <span class="title">
+            <span>{{ previewSourceOptions['instigo'].name }}</span>
+          </span>
+        </div>
+        <div nz-radio-button [nzValue]="previewSourceOptions[adTemplateDto.adAccount.provider].value">
+          <span class="title">
+            <span>{{ previewSourceOptions[adTemplateDto.adAccount.provider].name }}</span>
+          </span>
+        </div>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-row nzJustify="center">
+    <ingo-instigo-ad-preview
+      *ngIf="previewSourceTypeControl.value === 'instigo_preview'"
+      [adTemplateDto]="adTemplateDto"
+    ></ingo-instigo-ad-preview>
+    <ingo-preview-iframe-ad-template
+      *ngIf="previewSourceTypeControl.value === 'facebook_preview'"
+      [adTemplateDto]="adTemplateDto"
+    ></ingo-preview-iframe-ad-template>
+  </nz-row>
+</ng-template>
+<ng-template #skeleton>
+  <ingo-ad-template-skeleton></ingo-ad-template-skeleton>
+</ng-template>

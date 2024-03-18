@@ -1,0 +1,149 @@
+<nz-header>
+  <div class="header header-{{ headerColorScheme }}" [ngClass]="{ 'menu-collapsed': isCollapsed }">
+    <div class="nav-wrap">
+      <ul class="nav-left" [style]="isCollapsed ? 'transform: translateX(80px)' : 'transform: translateX(280px)'">
+        <li>
+          <app-quick-nav></app-quick-nav>
+        </li>
+      </ul>
+      <ul class="nav-right">
+        <li>
+          <nz-tag
+            class="beta-tag cursor-pointer"
+            nz-popover
+            [nzPopoverContent]="userFeedbackContent"
+            nzPopoverTrigger="click"
+            nzPopoverOverlayClassName="beta-popover"
+            nzPopoverPlacement="bottomRight"
+            >Beta
+          </nz-tag>
+          <ng-template #userFeedbackContent>
+            Instigo is currently running in beta, and as such, we highly appreciate any feedback you provide.
+          </ng-template>
+        </li>
+        <li style="position: relative" *featureToggle="'userback'">
+          <button class="ingo-create-popover-origin" nz-button nz-element #popoverOriginFeebdack="nzElement"></button>
+          <a
+            nz-popover
+            [nzPopoverContent]="reportIssueContent"
+            [nzPopoverPlacement]="'bottomRight'"
+            [nzPopoverOrigin]="popoverOriginFeebdack.elementRef"
+            nzPopoverTrigger="hover"
+            (click)="openFeedbackTool()"
+          >
+            <i class="fal fa-pennant"></i>
+          </a>
+          <ng-template #reportIssueContent>
+            Report Issue
+            <span class="hotkey-display">&#8984; + U</span>
+          </ng-template>
+        </li>
+        <li style="position: relative">
+          <button
+            class="ingo-create-popover-origin"
+            nz-button
+            nz-element
+            #popoverOriginQuickActions="nzElement"
+          ></button>
+          <a
+            nz-popover
+            [nzPopoverContent]="createPopoverContent"
+            [nzPopoverPlacement]="'bottomRight'"
+            [nzPopoverOverlayClassName]="'ingo-create-popover'"
+            [nzPopoverOrigin]="popoverOriginQuickActions.elementRef"
+            nzPopoverTrigger="click"
+          >
+            <i class="fal fa-layer-plus"></i>
+          </a>
+          <ng-template #createPopoverContent>
+            <div class="popover-mega-dropdown">
+              <div nz-row nzGutter="10">
+                <div nz-col nzSm="12" *ngFor="let item of createPopover">
+                  <div
+                    class="popover-mega-item"
+                    [routerLink]="item.disabled ? '' : item.route"
+                    [ngClass]="{ disabled: item.disabled }"
+                    nz-tooltip
+                    nzTooltipColor="#5f63f2"
+                    nzTooltipPlacement="bottom"
+                    [nzTooltipTitle]="item.disabled ? 'Coming Soon' : ''"
+                  >
+                    <div class="popover-mega-icon">
+                      <i *ngIf="item.iconType == 'nzIcon'" nz-icon nzType="item.icon" theme="item.iconTheme"></i>
+                      <i
+                        *ngIf="item.iconType == 'fontawesome'"
+                        [ngClass]="[item.iconTheme, item.icon, 'anticon', 'ingo-fa']"
+                      ></i>
+                    </div>
+                    <div class="popover-mega-content">
+                      <p>{{ item.title }}</p>
+                      <span>{{ item.subtitle }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li>
+          <instigo-app-notification-dropdown></instigo-app-notification-dropdown>
+        </li>
+        <li>
+          <span
+            nz-dropdown
+            [nzDropdownMenu]="profile"
+            [nzTrigger]="'click'"
+            [nzPlacement]="'bottomRight'"
+            test-id="top-profile-dropdown"
+            [nzOverlayClassName]="'user-fold-menu dropdown-arrow-right'"
+          >
+            <nz-avatar
+              [nzIcon]="'user'"
+              [nzSrc]="(user$ | async).pictureUrl || '../../../assets/icons/avatar.png'"
+              [nzSize]="'small'"
+            ></nz-avatar>
+          </span>
+          <nz-dropdown-menu #profile="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item class="sidebar-user-menu-head">
+                <nz-avatar
+                  [nzIcon]="'user'"
+                  nzSize="default"
+                  nzSrc="{{ (user$ | async).pictureUrl || '../../../assets/icons/avatar.png' }}"
+                ></nz-avatar>
+                <div class="nav-user-title">
+                  <span>{{ (user$ | async)?.fullName }}</span>
+                  <span class="nav-user-role">{{ (user$ | async)?.email }}</span>
+                </div>
+              </li>
+              <li nz-menu-item>
+                <i class="fal fa-id-badge fa-fw"></i>
+                <a class="dropdown-item" test-id="top-account-control-li" [routerLink]="'/account-control'"
+                  >Edit Profile</a
+                >
+              </li>
+              <li nz-menu-item *ngIf="isWorkspaceOwner$ | async">
+                <i class="fal fa-seedling fa-fw"></i>
+                <a class="dropdown-item" [routerLink]="'/account-control/subscription'">Subscription Settings</a>
+              </li>
+              <li nz-menu-item>
+                <i class="fal fa-fingerprint fa-fw"></i>
+                <a class="dropdown-item" [routerLink]="'/account-control/account-security'">Account Security</a>
+              </li>
+              <li nz-menu-item>
+                <i class="fal fa-leaf fa-fw"></i>
+                <a class="dropdown-item" [routerLink]="'/account-control/workspaces'">Workspaces</a>
+              </li>
+              <li nz-menu-item class="sidebar-user-menu-logout">
+                <i class="fal fa-sign-out-alt fa-fw"></i>
+                <a test-id="top-sign-out" class="dropdown-item" href="javascript: void(0);" (click)="logout()"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nz-header>

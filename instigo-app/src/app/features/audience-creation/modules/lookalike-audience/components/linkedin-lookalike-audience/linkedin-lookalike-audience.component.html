@@ -1,0 +1,29 @@
+<div nz-row [nzGutter]="[25, 25]">
+  <div nz-col>
+    <h5>
+      Select your lookalike source
+      <i
+        class="ng-fa-icon fal fa-info fa-1x fa-fw"
+        [ngStyle]="{ cursor: 'pointer' }"
+        nzTooltipPlacement="top"
+        nz-tooltip
+        [nzTooltipTitle]="tipContent"
+      >
+      </i>
+    </h5>
+
+    <nz-select
+      nzShowSearch
+      nzServerSearch
+      (nzOnSearch)="onSearch($event)"
+      [(ngModel)]="lookalikeSource"
+      [nzLoading]="isLoading"
+      (nzOpenChange)="onLookalikeSourceSelectorOpened()"
+      (ngModelChange)="onLookalikeSourceChange($event)"
+      [nzOptions]="lookalikeSources$ | async"
+      [nzOptionHeightPx]="38"
+      nzPlaceHolder="No Ad accounts on this provider"
+    >
+    </nz-select>
+  </div>
+</div>

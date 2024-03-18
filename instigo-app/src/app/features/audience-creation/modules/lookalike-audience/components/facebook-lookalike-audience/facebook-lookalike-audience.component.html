@@ -1,0 +1,105 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col nzSpan="24">
+    <form nz-form class="ingo-add-edit-form">
+      <nz-form-item>
+        <nz-form-label>
+          Lookalike Source
+          <ingo-explain tooltipId="app.campCreate.audience.lookalikeSource"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            [(ngModel)]="lookalikeSource"
+            [ngModelOptions]="{ standalone: true }"
+            (nzScrollToBottom)="loadMore()"
+            [nzLoading]="isLoading"
+            (nzOpenChange)="onLookalikeSourceSelectorOpened()"
+            (ngModelChange)="onLookalikeSourceChange($event)"
+            nzAllowClear
+            nzPlaceHolder="Select lookalike source"
+            [nzDropdownRender]="renderTemplate"
+            [nzOptionHeightPx]="38"
+          >
+            <nz-option
+              *ngFor="let item of lookalikeSources$ | async"
+              [nzValue]="item.value"
+              [nzLabel]="item.label"
+            ></nz-option>
+          </nz-select>
+          <ng-template #renderTemplate>
+            <div nz-row nzJustify="center" *ngIf="shouldLoadMore">
+              <a class="btn-link" (click)="loadMore()">Load More</a>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="24">
+  <div nz-col nzSpan="24">
+    <ingo-location-selector-container
+      [providerId]="adAccount.providerId"
+      [provider]="'facebook'"
+      [providerSubType]="'country'"
+      (getReach)="getReachEventFromChild($event)"
+    ></ingo-location-selector-container>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="24" class="mt-10">
+  <div nz-col nzSpan="24">
+    <form nz-form class="ingo-add-edit-form">
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>
+              Number of Audiences
+              <ingo-explain tooltipId="app.campCreate.audience.lookalikeSize"></ingo-explain>
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                type="number"
+                id="facebookLookalikesCount"
+                name="facebookLookalikesCount"
+                [min]="MIN_COUNT"
+                [max]="MAX_COUNT"
+                nz-input
+                [(ngModel)]="lookalikeSpecsListCount"
+                (ngModelChange)="onUpdateLookalikeSpecsCount($event)"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <ng-container *ngIf="lookalikeReaches$ | async">
+        <nz-form-item
+          *ngFor="let lookalikeSpec of lookalikeSpecs; let i = index"
+          [attr.data-index]="i"
+          class="mt-10 list-audience-explain"
+        >
+          <nz-form-label>
+            Audience #{{ i + 1 }} Reach - {{ lookalikeReaches[i] | shortNumber }}
+            <ingo-explain tooltipId="app.campCreate.audience.location"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control class="mt-10">
+            <ng5-slider
+              [(value)]="lookalikeSpec.startingRatio"
+              [(highValue)]="lookalikeSpec.ratio"
+              [options]="sliderOptions"
+              (userChangeEnd)="onUpdateLookalikeSpecsRatiosEnd($event)"
+            ></ng5-slider>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+    </form>
+
+    <div class="list-audience-explain">
+      <p>
+        Audience size ranges from 1% to 10% of the combined population of your selected locations. A 1% lookalike
+        consists of the people who are most similar to your lookalike source. Increasing the percentage creates a
+        bigger, broader audience.
+      </p>
+    </div>
+  </div>
+</div>

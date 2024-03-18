@@ -1,0 +1,37 @@
+<div class="ingo-newcamp-step">
+  <nz-collapse nzGhost [nzAccordion]="false">
+    <nz-collapse-panel [nzHeader]="workspaceDeletion" [nzShowArrow]="false">
+      <nz-card class="ingo-card-nbm">
+        <button
+          nz-button
+          nzType="primary"
+          nzDanger
+          [disabled]="!isWorkspaceOwner()"
+          (click)="showDeleteWorkspaceModal()"
+        >
+          Delete Workspace
+        </button>
+      </nz-card>
+
+      <!-- Delete workspace Modal -->
+      <nz-modal [(nzVisible)]="isDeleteModalVisible" nzTitle="Delete workspace" (nzOnCancel)="onCancel()">
+        <p>Are you sure you want to disable your workspace ?</p>
+        <p>You and all members will lose access to all your workspace data.</p>
+
+        <div *nzModalFooter>
+          <button nz-button nzType="default" (click)="onCancel()">Cancel</button>
+          <button nz-button nzType="primary" nzDanger (click)="deleteWorkspace()">Delete workspace</button>
+        </div>
+      </nz-modal>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<ng-template #workspaceDeletion>
+  <div class="ant-card-head">
+    <div class="ant-card-head-wrapper">
+      <div class="ant-card-head-title">
+        <h2>Danger Zone</h2>
+      </div>
+    </div>
+  </div>
+</ng-template>

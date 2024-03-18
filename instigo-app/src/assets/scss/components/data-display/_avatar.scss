@@ -1,0 +1,67 @@
+.ant-avatar {
+  background: $avatar-bg;
+  border-radius: $border-radius-circle;
+  color: $body-color;
+  color: $white;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  height: $avatar-size;
+  line-height: $line-height-base;
+  line-height: $avatar-size;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: $avatar-size;
+
+  &.ant-avatar-icon {
+    font-size: $avatar-icon;
+  }
+}
+
+.ant-avatar-lg {
+  height: $avatar-size-lg;
+  line-height: $avatar-size-lg;
+  width: $avatar-size-lg;
+
+  > * {
+    line-height: $avatar-size-lg;
+  }
+
+  &.ant-avatar-icon {
+    font-size: $avatar-icon-lg;
+  }
+}
+
+.ant-avatar-sm {
+  height: $avatar-size-sm;
+  line-height: $avatar-size-sm;
+  width: $avatar-size-sm;
+
+  > * {
+    line-height: $avatar-size-sm;
+  }
+
+  &.ant-avatar-icon {
+    font-size: $avatar-icon-sm;
+  }
+}
+
+.ant-avatar-square {
+  border-radius: $border-radius;
+}
+
+@each $tone in $tone-loop {
+  .ant-avatar-#{nth($tone, 1)} {
+    background: #{nth($tone, 3)};
+    color: #{nth($tone, 2)};
+  }
+}
+
+.avatar-string {
+  .ant-avatar {
+    border: 2px solid $white;
+    margin-left: -5px;
+  }
+}

@@ -1,0 +1,97 @@
+.ingo-geo {
+  padding: 5px;
+
+  @media all and (min-width: 1401px) and (max-width: 1480px) {
+    position: absolute;
+    right: -28px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.85);
+  }
+
+  @media all and (min-width: 1481px) and (max-width: 1600px) {
+    position: absolute;
+    right: -28px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.75);
+  }
+
+  .google-chart {
+    > div > div {
+      margin: 15px auto -15px;
+    }
+
+    svg {
+      path {
+        stroke: #fff;
+        stroke-width: 0.1px;
+        transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        &:hover {
+          fill: #5f63f2;
+        }
+      }
+    }
+  }
+
+  .controls {
+    bottom: 10px;
+    position: absolute;
+    right: 15px;
+
+    button {
+      align-items: center;
+      background: none;
+      background-color: #fff;
+      border: 1px solid #f1f2f6;
+      color: #5a5f7d;
+      cursor: pointer;
+      display: block;
+      display: flex;
+      font-size: 15px;
+      height: 27px;
+      justify-content: center;
+      padding: 0;
+      width: 27px;
+
+      &:first-child {
+        border-radius: 6px 6px 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 6px 6px;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      svg {
+        width: 10px;
+      }
+    }
+
+    button + button {
+      border-top: 0 none;
+    }
+  }
+}
+
+.vector-map-table {
+  table {
+    font-size: 15px;
+
+    thead {
+      tr {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .ant-table {
+    margin-bottom: -15px;
+  }
+
+  .ant-table-tbody > tr:last-child > td {
+    border-bottom: 0 none;
+  }
+}

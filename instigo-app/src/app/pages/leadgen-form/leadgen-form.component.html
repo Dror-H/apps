@@ -1,0 +1,62 @@
+<div nz-row [nzGutter]="25">
+  <div nz-col nzSpan="24" [nzMd]="24">
+    <nz-page-header class="site-page-header">
+      <nz-page-header-title>Lead Forms</nz-page-header-title>
+      <nz-page-header-extra>
+        <button nz-button nzType="primary" class="btn-raised btn-white btn-small" (click)="create()">
+          <span>Create New Lead Form</span>
+          <i class="far fa-plus ml-10"></i>
+        </button>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="24" class="ingo-tabs-view">
+  <div nz-col [nzSpan]="24">
+    <nz-tabset [nzTabBarExtraContent]="tabsFilters">
+      <nz-tab nzTitle="All Lead Forms">
+        <div class="container-fluid py-4">
+          <app-data-table
+            *ngIf="tableData | async; else skeleton"
+            [tableConfiguration]="tableConfiguration"
+            [state]="tableState$ | async"
+            [tableData]="tableData | async"
+            (stateChange)="onTableStateChange($event)"
+          ></app-data-table>
+          <app-data-table-templates [state]="tableState$ | async"></app-data-table-templates>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton
+    [columns]="tableConfiguration.columns"
+    [isScroll]="tableConfiguration.scrollbarH"
+  ></app-data-table-skeleton>
+</ng-template>
+
+<ng-template #tabsFilters>
+  <div class="ingo-tabs-view-filters">
+    <span>Filter by</span>
+    <app-filter-by-page [pages]="(filters$ | async).pages" (selectedPages)="updateFilterState({ pages: $event })">
+    </app-filter-by-page>
+  </div>
+</ng-template>
+
+<ng-template #searchTermTemplateAndSelect let-column="column" let-value="value" let-row="row">
+  <a class="selectable-table-item-wrap">
+    <span
+      class="selectable-table-item"
+      ingoHighlight
+      [searchedWords]="(tableState$ | async).searchTerm"
+      [text]="value"
+      nzTooltipPlacement="bottom"
+      nzTooltipOverlayClassName="ingo-explain-card campaign-name-tooltip"
+      nzTooltipColor="#5f63f2"
+      classToApply="ingo-highlight"
+    ></span>
+  </a>
+</ng-template>

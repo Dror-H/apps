@@ -1,0 +1,121 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="budgetForm" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <ingo-budget-type-selector formControlName="budgetType"></ingo-budget-type-selector>
+      </div>
+
+      <div nz-col [nzSpan]="6" *ngIf="budgetSuggestions">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Budget
+            <ingo-explain tooltipId="app.campCreate.budgetSchedule.budget"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-input-group [nzAddOnAfter]="budgetCurrency" class="ingo-currency-input">
+              <input
+                class="ant-input"
+                currencyMask
+                formControlName="budget"
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currencyInfo.Symbol + ' ',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: false,
+                  min: budgetSuggestions.minBudget,
+                  max: budgetSuggestions.maxBudget
+                }"
+              />
+            </nz-input-group>
+            <ng-template #budgetCurrency
+              ><span nz-tooltip [nzTooltipTitle]="currencyTooltip">{{ currencyCode }}</span>
+            </ng-template>
+            <ng-template #currencyTooltip>
+              The used currency for the budget cannot be changed, since it is determined by the selected ad account's
+              chosen currency.<br /><a href="some-knowledgebase-link" target="_blank">Learn More</a>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <ingo-bid-strategy-selector
+          formControlName="costType"
+          [costType]="linkedinCostType"
+        ></ingo-bid-strategy-selector>
+      </div>
+
+      <div nz-col [nzSpan]="6" *ngIf="budgetSuggestions">
+        <nz-form-item>
+          <nz-form-label
+            >Bid
+            <ingo-explain tooltipId="app.campCreate.delivery.bidLinkedin"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="{{ 'app.campCreate.delivery.bidLinkedin' | translate }}">
+            <nz-input-group [nzAddOnAfter]="budgetCurrency" class="ingo-currency-input">
+              <input
+                class="ant-input"
+                currencyMask
+                formControlName="spendCap"
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currencyInfo.Symbol + ' ',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: true,
+                  min: budgetSuggestions.bidLimits.min.amount,
+                  max: budgetSuggestions.bidLimits.max.amount
+                }"
+              />
+            </nz-input-group>
+            <ng-template #budgetCurrency
+              ><span nz-tooltip [nzTooltipTitle]="currencyTooltip">{{ currencyCode }}</span></ng-template
+            >
+            <ng-template #currencyTooltip>
+              The used currency for the budget cannot be changed, since it is determined by the selected ad account's
+              chosen currency.<br /><a href="some-knowledgebase-link" target="_blank">Learn More</a>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <ingo-campaign-schedule [budgetForm]="budgetForm"></ingo-campaign-schedule>
+
+    <nz-divider class="mx--25"></nz-divider>
+    <nz-alert
+      *ngIf="parentForm.status === 'INVALID'"
+      nzType="error"
+      [nzMessage]="'The campaign can be created only once all the required fields have been filled out'"
+      nzShowIcon
+      class="mb-10"
+    ></nz-alert>
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10 mb-5"
+      [disabled]="parentForm.status === 'INVALID'"
+      (click)="setCampaignStatusAndTriggerCampCreation(campaignStatusType.PAUSED)"
+    >
+      Create new campaign
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10 mb-5"
+      [disabled]="parentForm.status === 'INVALID'"
+      (click)="setCampaignStatusAndTriggerCampCreation(campaignStatusType.ACTIVE)"
+    >
+      Create new campaign and publish
+    </button>
+  </form>
+</nz-card>

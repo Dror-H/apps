@@ -1,0 +1,36 @@
+/* --- Vendors --- */
+@import 'vendors';
+
+/* --- DEPENDENCIES --- */
+@import 'variables';
+
+/* --- FONTS ---  */
+@import '../fonts/proxima-nova/stylesheet';
+@import '../fonts/sailec/stylesheet.css';
+
+/* --- BASE --- */
+@import 'base';
+
+/* --- COMPONENTS --- */
+@import 'components';
+
+/* --- SHARED STYLES --- */
+@import 'shared-styles';
+
+/* --- OVERRIDES --- */
+@import './overrides/overrides';
+
+:root {
+  --main-darker: #141625;
+  --main-dark: #283655;
+  --main-light: #6273a0;
+  --main-lighter: #9db8ff;
+  --main-text-dark: #383c57;
+  --main-text-light: #7a7e99;
+  --main-hover: #505f85;
+  --main-border: #57668b;
+  --main-border-opac: rgba(80, 95, 133, 0.55);
+  --main-radius-max: 7px;
+  --main-radius-mid: 5px;
+  --main-radius-min: 3px;
+}

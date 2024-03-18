@@ -1,0 +1,175 @@
+<div nz-row [nzGutter]="24" class="placements-selectors">
+  <div nz-col [nzSpan]="12" [nzXXl]="24">
+    <nz-form-item>
+      <nz-form-label>Device & Network Display Options</nz-form-label>
+      <nz-form-control>
+        <div class="summary-list summary-group">
+          <nz-card>
+            <div class="summary-group-wrap">
+              <div class="summary-group-title">
+                <h4>Devices</h4>
+              </div>
+              <div class="summary-group-inner" [formGroup]="adPlacementForm.controls.devices">
+                <div class="summary-group-item">
+                  <h5>Desktop</h5>
+                  <span class="summary-group-action">
+                    <label
+                      formControlName="desktop"
+                      nz-checkbox
+                      [nzDisabled]="!adPlacementForm.controls.devices['controls'].mobile.value"
+                      >Desktop</label
+                    >
+                  </span>
+                </div>
+                <div class="summary-group-item">
+                  <h5>Mobile</h5>
+                  <span class="summary-group-action">
+                    <label
+                      formControlName="mobile"
+                      nz-checkbox
+                      [nzDisabled]="!adPlacementForm.controls.devices['controls'].desktop.value"
+                      >Mobile</label
+                    >
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="summary-group-wrap">
+              <div class="summary-group-title">
+                <h4>Networks</h4>
+              </div>
+              <div class="summary-group-inner" [formGroup]="adPlacementForm.controls.placements">
+                <div class="summary-group-item">
+                  <h5>Facebook</h5>
+                  <span class="summary-group-action">
+                    <label formControlName="facebook" nz-checkbox>Facebook</label>
+                  </span>
+                </div>
+                <div
+                  class="summary-group-item"
+                  [ngClass]="{ disabled: !instagramAccountControl?.value }"
+                  nz-tooltip
+                  [nzTooltipTrigger]="!instagramAccountControl?.value ? 'hover' : null"
+                  [nzTooltipTitle]="'app.campCreate.creative.selectIgAccountNetwork' | translate"
+                  nzTooltipOverlayClassName="ingo-explain-card"
+                  nzTooltipColor="#5f63f2"
+                >
+                  <h5>Instagram</h5>
+                  <span class="summary-group-action">
+                    <label
+                      formControlName="instagram"
+                      nz-checkbox
+                      [nzDisabled]="
+                        !adPlacementForm.controls.devices['controls'].mobile.value || !instagramAccountControl?.value
+                      "
+                      >Instagram</label
+                    >
+                  </span>
+                </div>
+                <div class="summary-group-item">
+                  <h5>Audience Network</h5>
+                  <span class="summary-group-action">
+                    <label
+                      formControlName="audience"
+                      nz-checkbox
+                      [nzDisabled]="!adPlacementForm.controls.devices['controls'].mobile.value"
+                      >Audience Network</label
+                    >
+                  </span>
+                </div>
+                <div class="summary-group-item">
+                  <h5>Messenger</h5>
+                  <span class="summary-group-action">
+                    <label
+                      formControlName="messenger"
+                      nz-checkbox
+                      [nzDisabled]="!adPlacementForm.controls.devices['controls'].mobile.value"
+                      >Messenger</label
+                    >
+                  </span>
+                </div>
+              </div>
+            </div>
+          </nz-card>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12" [nzXXl]="24">
+    <nz-form-item>
+      <nz-form-label>Ad Placements</nz-form-label>
+      <nz-form-control>
+        <div class="summary-list summary-group placement-options">
+          <nz-card>
+            <div class="summary-group-wrap" *ngFor="let placementType of adTemplateOptionsKeys">
+              <div class="summary-group-title">
+                <h4>{{ placementType.label | titlecase }}</h4>
+                <span class="summary-group-action">
+                  <input
+                    [id]="placementType.label"
+                    type="checkbox"
+                    [checked]="placementType.value"
+                    (change)="toggleAllInSubCategory($event, placementType)"
+                  />
+                  <label [for]="placementType.label"></label>
+                </span>
+              </div>
+
+              <div class="summary-group-inner">
+                <ng-container *ngFor="let format of adTemplateOptions[placementType.label]; let i = index">
+                  <div
+                    *ngIf="format.platform !== 'instagram_positions'; else instagramField"
+                    class="summary-group-item"
+                    (click)="activePreview(format.value)"
+                    [ngClass]="{ active: format.value == activePreviewValue }"
+                  >
+                    <h5>{{ format.label }}</h5>
+                    <span class="summary-group-action">
+                      <input
+                        type="checkbox"
+                        (click)="toggleAdFormat($event, format)"
+                        [checked]="format.checked"
+                        [disabled]="format.disabled"
+                        [id]="format.value.value + '-' + i"
+                      />
+                      <label [for]="format.value.value + '-' + i"></label>
+                    </span>
+                  </div>
+                  <ng-template #instagramField>
+                    <div
+                      class="summary-group-item"
+                      (click)="activePreview(format.value)"
+                      [ngClass]="{
+                        active: format.value == activePreviewValue,
+                        disabled: !this.adPlacementForm.controls.placements['controls'].instagram.value
+                      }"
+                      nz-tooltip
+                      [nzTooltipTrigger]="
+                        !this.adPlacementForm.controls.placements['controls'].instagram.value ? 'hover' : null
+                      "
+                      [nzTooltipTitle]="'app.campCreate.creative.selectIgAccountPlacement' | translate"
+                      nzTooltipOverlayClassName="ingo-explain-card"
+                      nzTooltipColor="#5f63f2"
+                    >
+                      <h5>{{ format.label }}</h5>
+                      <span class="summary-group-action">
+                        <input
+                          type="checkbox"
+                          (click)="toggleAdFormat($event, format)"
+                          [checked]="format.checked"
+                          [disabled]="format.disabled"
+                          [id]="format.value.value + '-' + i"
+                        />
+                        <label [for]="format.value.value + '-' + i"></label>
+                      </span>
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </div>
+            </div>
+          </nz-card>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>

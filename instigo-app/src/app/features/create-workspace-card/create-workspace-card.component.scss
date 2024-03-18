@@ -1,0 +1,14 @@
+.card-workspace {
+  border-radius: 0.25rem;
+  top: 0;
+}
+
+.active {
+  &:hover {
+    border-color: #5f63f2;
+  }
+}
+
+.ws-add-placeholder:hover {
+  color: #5f63f2 !important;
+}

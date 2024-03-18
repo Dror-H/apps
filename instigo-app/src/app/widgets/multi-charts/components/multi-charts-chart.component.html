@@ -1,0 +1,27 @@
+<div>
+  <h2>{{ total }}</h2>
+  <p class="card-body-subtitle">{{ metric }}</p>
+  <p class="card-body-sub">
+    <span class="card-body-sub-status" *ngIf="icon === 'up'">
+      <i class="ng-fa-icon fas fa-arrow-up fa-1x fa-fw"></i>
+      {{ compare }}%
+    </span>
+    <span class="card-body-sub-status" *ngIf="icon === 'down'" [ngClass]="{ decrease: icon === 'down' }">
+      <i class="ng-fa-icon fas fa-arrow-down fa-1x fa-fw"></i> {{ compare }}%
+    </span>
+    <span>{{ totalLast }} prev.</span>
+  </p>
+  <div class="parentContainer ingo-chart-card-chart" style="display: block">
+    <canvas
+      #dashboardCard="base-chart"
+      baseChart
+      [id]="chartId"
+      height="193"
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    ></canvas>
+  </div>
+</div>

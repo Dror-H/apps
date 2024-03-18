@@ -1,0 +1,30 @@
+<ng-container *ngIf="!notFetchable">
+  <uppy-dashboard [uppy]="uppy" [props]="props"></uppy-dashboard>
+</ng-container>
+
+<nz-alert
+  *ngIf="isUploadingToProvider"
+  nzType="info"
+  [nzMessage]="videoUpload"
+  (nzOnClose)="removeExistingFile()"
+></nz-alert>
+
+<ng-template #videoUpload>
+  <div nz-row nzAlign="middle">
+    <div nz-col nzSpan="3">
+      <ng-template #indicatorTemplate><i nz-icon nzType="loading"></i></ng-template>
+      <nz-spin nzSimple nzSize="large" [nzIndicator]="indicatorTemplate"></nz-spin>
+    </div>
+    <div nz-col nzSpan="21">
+      <span>Video is uploading on {{ adAccount.provider | uppercase }}. It might take a few minutes...</span>
+    </div>
+  </div>
+</ng-template>
+
+<nz-alert
+  *ngIf="notFetchable"
+  nzType="error"
+  nzCloseable
+  nzMessage="We are unable to fetch ad videos for ads not created via Instigo. To replace the current ad video, close this message."
+  (nzOnClose)="removeExistingFile()"
+></nz-alert>

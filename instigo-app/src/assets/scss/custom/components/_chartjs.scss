@@ -1,0 +1,60 @@
+// ChartJS custom tooltips
+.ingo-card-chart-tooltip {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(241, 242, 246);
+  border-radius: 3px;
+  box-shadow: rgba(146, 153, 184, 0.082) 0 8px 10px;
+  left: 0;
+  min-width: 80px;
+  opacity: 0;
+  padding: 10px 12px !important;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, 5%);
+  transition: all 0.5s ease 0s;
+  z-index: 222;
+
+  &::before {
+    border-bottom: 5px solid rgb(255, 255, 255);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    content: '';
+    left: 50%;
+    position: absolute;
+    top: -5px;
+    transform: translateX(-50%);
+
+    .tooltip-title {
+      color: rgb(90, 95, 125);
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-weight: 500 !important;
+      margin-bottom: 4px;
+      text-transform: capitalize;
+
+      table {
+        tbody {
+          td {
+            color: rgb(39, 43, 65);
+            font-size: 13px;
+            font-weight: 500;
+            padding-bottom: 3px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+
+  span.tooltip-key {
+    display: inline-block;
+    height: 10px;
+    margin-right: 10px;
+    width: 10px;
+  }
+}
+
+.hide-tip .ingo-card-chart-tooltip {
+  display: none !important;
+}

@@ -1,0 +1,29 @@
+<ng-container>
+  <div class="suggestions-container">
+    <h4 nz-typography class="suggestions-title">Keyword Suggestions:</h4>
+    <div class="suggestions-suggestion">
+      <ng-container *ngIf="!isLoading; else loadingSkeleton">
+        <nz-tag
+          *ngFor="let keywordSuggestion of keywordsSuggestions"
+          (click)="emitSelectedSuggestion(keywordSuggestion)"
+          class="suggestions-suggestion__tag cursor-pointer"
+          [title]="keywordSuggestion"
+          ><h4 nz-typography nzEllipsis [nzContent]="keywordSuggestion"></h4>
+        </nz-tag>
+      </ng-container>
+      <h4 nz-typography *ngIf="keywordsSuggestions.length === 0 && !isLoading">No suggestions found</h4>
+    </div>
+    <div class="suggestions__refresh-icon">
+      <i (click)="emitRefreshSuggestions()" class="fas fa-sync cursor-pointer"></i>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loadingSkeleton>
+  <nz-skeleton-element
+    *ngFor="let item of [1, 2, 3, 4]"
+    nzType="input"
+    [nzActive]="true"
+    class="suggestions-suggestion__skeleton-element"
+  ></nz-skeleton-element>
+</ng-template>

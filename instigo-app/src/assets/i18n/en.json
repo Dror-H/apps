@@ -1,0 +1,410 @@
+{
+  "app": {
+    "general": {
+      "data-sync-started": "Data Synchronization successfully started",
+      "workspace-already-synced": "Workspace already synced in the past 15 min",
+      "changeLost": "Your changes will be lost",
+      "continue": "Continue?",
+      "yes": "Yes",
+      "cancel": "Cancel",
+      "email": "Email address",
+      "analysisErr": "Change analysis is available only when a time preset is selected as the dates-range",
+      "changeNotAvailable": "Change not available",
+      "quickNav": "Quick Navigation",
+      "emptyRange": "No data for the selected date range",
+      "error": "Sorry, there is an error on server."
+    },
+    "account": {
+      "security": {
+        "passwordTitle": "Password",
+        "sessionsTitle": "Login & Sessions History",
+        "confirmPassword": "You must confirm your new password",
+        "passwordMatch": "The passwords you provided do not match",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmNew": "Confirm Password",
+        "changePassword": "Change Password",
+        "updatePassword": "Update Password",
+        "sessionDevice": "Device",
+        "sessionIP": "IP",
+        "sessionLocation": "Location",
+        "sessionDate": "Date",
+        "sendResetPassword": "Send Reset Password Email"
+      }
+    },
+    "steps": {
+      "continue": "Continue",
+      "back": "Back",
+      "skip": "Skip",
+      "done": "Done"
+    },
+    "login": {
+      "register": "Register",
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "title": "Login to Instigo",
+      "advice": "Welcome back. Please login to your account to access your workspace.",
+      "signInWithFacebook": "Sign in with Facebook",
+      "signInWithLinkedin": "Sign in with Linkedin",
+      "signInButton": "Sign in",
+      "forgotPasswordButton": "Forgot password",
+      "repeatPassword": "Repeat password",
+      "error": {
+        "empty": "All fields are required",
+        "404": "This email was not found",
+        "401": "Wrong credentials",
+        "400": "Wrong credentials",
+        "409": "Conflict! This email already exists!"
+      }
+    },
+    "errors": {
+      "notCompleted": "Field not completed",
+      "retentionDays": "Retention must be between 1 and 180 days"
+    },
+    "register": {
+      "title": "Create an account",
+      "advice": "Start for 14 days completely free",
+      "email": "Email address",
+      "password": "Password",
+      "repeatPassword": "Repeat password",
+      "signUpButton": "Sign up",
+      "409": "Conflict! This email already exists!",
+      "403": "You don't have permission!",
+      "accountSuccessfullyCreated": "Welcome to Instigo!",
+      "accountSuccessfullyCreatedContent": "Let's quickly set up your account"
+    },
+    "resetPassword": {
+      "resetPassword": "Reset password",
+      "password": "Password",
+      "repeatPassword": "Repeat password"
+    },
+    "sendResetPassword": {
+      "sendResetPassword": "Forgot your password?",
+      "advice": "Please enter the email address associated with your account",
+      "email": "Email address",
+      "sendEmail": "Send email",
+      "successMessage": "Open the email we've just sent to continue",
+      "successTitle": "Help is on the way",
+      "errorMessage": "This email is not associated with an account.",
+      "errorTitle": "Oops, try again"
+    },
+    "expiredInvitation": {
+      "title": "Your invitation has expired",
+      "advice": "Please ask your workspace owner to re-issue your invitation"
+    },
+    "onboarding": {
+      "firstStep": "Create an Account",
+      "dataValidation": "Validate Your Details",
+      "createWorkspace": "Create a Workspace",
+      "inviteMembers": "Invite Team Members",
+      "connectApps": "Connect Sources",
+      "leftSideHeading": "A few clicks away from driving success",
+      "leftSideSubHeading": "Start off by validating your information and creating your first workspace",
+      "welcome": "Welcome aboard!",
+      "welcomeSubMessage": "Before we continue, take a quick look to make sure your details are correct. You’ll be using them for signing into Instigo, so make sure they’re in order. Don’t worry, you can edit them anytime from your account settings.",
+      "createWorkspaceTitle": "Create Workspace",
+      "createWorkspaceSubMessage": "Workspaces are super-groups used to organize your activities on Instigo. Let’s create one.",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "lookingGood": "Looking Good",
+      "workspaceName": "Workspace Name",
+      "addTeamMembers": "Add team members",
+      "addTeamMembersSubHeading": "Invite others to collaborate with you",
+      "getAdAccountsError": "Unfortunately we couldn't find any AdAccount",
+      "completeOnboardingError": "We couldn't complete onboarding",
+      "completeOnboardingMessage": "Your account information can take up until an hour to completely be fetched!",
+      "subscription": "Subscription",
+      "trialPeriodInfo": "You will not be charged until the end of your trial period"
+    },
+    "adBlockMessage": "Some features might not work properly when an ad blocker is enabled.",
+    "adBlockMessageTitle": "Uh oh, ad block is on",
+    "profile": {
+      "accountInformation": {
+        "successMessage": "Account information updated.",
+        "errorMessage": "The update failed."
+      },
+      "accountSecurity": {
+        "successMessage": "Password updated.",
+        "errorMessage": "The update failed."
+      },
+      "vatValidation": {
+        "successMessage": "The company name has been matched with the provided VAT number",
+        "errorMessage": "We were unable to verify your VAT number"
+      }
+    },
+    "workspaceDetails": {
+      "workspaceEditableFields": {
+        "successMessage": "The workspace information updated.",
+        "errorMessage": "The update failed."
+      }
+    },
+    "audience": {
+      "summary": "Audience Summary",
+      "selectLanguage": "Select targeting language",
+      "languagePlaceholder": "Select language source",
+      "segmentError": "Not all segments are correct, try to edit the targeting!"
+    },
+    "campaignsDraft": {
+      "edit": "Click to edit the draft",
+      "errorTitle": "Your draft is gone",
+      "errorDescription": "The draft could not be found. Please select another one from this table, or start a new campaign"
+    },
+    "leadForm": {
+      "createErrorOnFacebook": "Error occurred while creating lead form on Facebook's side",
+      "createErrorOnInstigo": "Error occurred while saving the lead form in the database",
+      "successOnFacebook": "The lead form was successfully created on Facebook!",
+      "successOnInstigo": "The lead form was successfully saved on Instigo!"
+    },
+    "ad-template": {
+      "settings": {
+        "name": "Ad Template Name",
+        "namePlaceholder": "Name",
+        "nameError": "Min. length of 4 letters is required"
+      }
+    },
+    "campCreate": {
+      "campaign": {
+        "adAccount": "Define the ad account under which this campaign will be created.",
+        "noAdAccount": "There is no ad account for this provider on this workspace.",
+        "adAccountError": "Define the ad account under which this campaign will be created.",
+        "campaignGroup": "The group where the campaign will be created.",
+        "campaignGroupError": "You have to select a campaign group.",
+        "campName": "Give your campaign an identifiable name",
+        "buyType": "The method by which you pay for and target ads in your campaigns: through dynamic auction bidding, fixed-price bidding, or reach and frequency buying",
+        "objective": "Choose what you want people to do when they see your ads. Your campaign objective should align with your overall business goals.",
+        "specialCats": "You're required to declare if your ads are about social issues, elections or politics",
+        "campCreateFormErr": "The form is invalid. Recheck the fields.",
+        "campCreateLoading": "Campaign <strong> {{value}} </strong> is being created...",
+        "campCreated": "Campaign successfully created!",
+        "campCreatedDescription": "Campaign with name: <strong> {{value}} </strong> has been successfully created on {{provider}}.",
+        "campError": "Error occurred while creating campaign",
+        "campErrorDescription": "Error while creating the campaign <strong>\"{{campaignName}}\"</strong> on {{step}} level <br> <strong> error: {{errorTitle}} </strong> <br> {{errorMsg}}",
+        "retry": "Retry",
+        "campSeeCampaigns": "See campaigns",
+        "campSeeDrafts": "See Drafts",
+        "campStartOver": "Create another"
+      },
+      "creative": {
+        "adName": "The name of the ad as it will be viewed in reporting",
+        "creativeType": "The ad formats you can use depend on your advertising objective",
+        "promoPage": "Your Facebook Page or Instagram account represents your business in ads",
+        "igAccount": "Select an Instagram account to represent your business in your Instagram ad",
+        "adHeadline": "The headline will appear in most placements, but its position will vary by placement",
+        "adText": "The primary text for your ad appears in most placements, though the position varies",
+        "adLink": "Enter the URL for the web page you want people to visit",
+        "adLinkDesc": "The description is additional text that appears in some placements. Its position on the ad varies by placement",
+        "adLinkDisplay": "Show a shortened link instead of your full website URL in some placements",
+        "cta": "Show a button or link on your ad that represents the action you want people to take",
+        "adMedia": "The image or video of an ad. Media (an image, video or video thumbnail) with width or height less than 600px is not working. Select media wider or higher than 600px.",
+        "adFormat": "The format style of the an ad",
+        "pixel": "Select the a pixel for event tracking",
+        "preview": "Cycle through the previews",
+        "placement": "Choose the places to show your ad. The more placements you select, the more opportunities you'll have to reach your target audience and achieve your business goals.",
+        "selectIgAccountPlacement": "You must select an Instagram account to enable this placement",
+        "selectIgAccountNetwork": "You must select an Instagram account to enable this network",
+        "igIneligiblePost": "The selected post is not eligible to be used in Instagram ads",
+        "optimizePerformance": "On Facebook News Feed, Instagram Feed and Instagram Stories, the carousel card that performs best will be shown first. For all other placements, cards will appear in the order you arrange them.",
+        "endCard": "Add a card at the end with your Page profile picture",
+        "socialErr": "Select one promote page or one Instagram account to continue",
+        "leadgenForm": "Select one of the lead forms in order to continue",
+        "eventsForm": "Select one of the events",
+        "events": "Select one of the events in order to continue",
+        "buildUrl": "Add URL Parameters",
+        "buildUrlExplain": "By adding custom campaign parameters to your URLs, you can better measure campaign performance with your third-party analytics tools",
+        "buildUrlSourceExplain": "Used to track the primary name of the referer of traffic, typically the name of the platform being used, e.g. Facebook",
+        "buildUrlMediumExplain": "Technically reserved for the marketing medium. For example ‘cpc’ or ‘referral’. But you can leverage this tag to track audiences",
+        "buildUrlContentExplain": "Used this for ad level tracking e.g. Lifestyle Image 01. This enables you to segment performance on the creative level",
+        "buildUrlCampaignExplain": "The campaign name",
+        "createNewVariations": "Creating New Variations",
+        "total": "Total",
+        "variations": "variations"
+      },
+      "audience": {
+        "location": "Enter one or more global regions, countries, states/regions, cities, postal codes or addresses to show or exclude your ad to people in those locations",
+        "gender": "Show your ads to either men or women, or select All for both",
+        "age": "Select the minimum and maximum age of the people who will find your ad relevant",
+        "targeting": "Define your audience by including or excluding demographics, interests and behaviors",
+        "customAudience": "Use Custom Audiences to reach people who already interacted with your business or lookalike audiences to reach new people similar to your existing customers",
+        "inclusionCriteria": "Inclusion Criteria",
+        "inclusionCriteriaEx": "Any to expand the audience, All to make it more specific",
+        "source": "Source",
+        "languageDescription": "Your audience size will vary depending on the language selected here. English may be selected as the default language, even in areas where a local language is available, to reach all users in the region.",
+        "languageError": "The language must be selected!",
+        "events": "Events",
+        "retention": "Retention days",
+        "percentile": "Percentile",
+        "includePeople": "Include People",
+        "furtherNarrow": "Further narrow",
+        "excludePeople": "Exclude People",
+        "noPixel": "It seems there is no PIXEL on this ad account",
+        "noPixelSuggestion": "Please create a pixel first!",
+        "atLeastOne": "At least one of this values",
+        "onlyOne": "Enter a value to filter by",
+        "max5": "Maximum of 5 criteria",
+        "targetingExpand": "Define your audience by including or excluding demographics, interests and behaviors",
+        "fbConnections": "Reach people who have a specific kind of connection to your Page, app or event. This will narrow your audience to include only people with that specific connection who also meet the other targeting categories you've selected.",
+        "lookalikeSize": "You can create multiple lookalikes with different levels of similarity to your source. This allows you to bid differently for audiences with different conversion values.",
+        "lookalikeSource": "The source that you select will be used to find people who share similar traits"
+      },
+      "budgetSchedule": {
+        "type": "A daily budget is the average you'll spend every day. A lifetime budget is the maximum you'll spend during the lifetime of your ad set.",
+        "budget": "Your ad set budget is the daily or lifetime amount you want to spend on this ad set",
+        "spendCap": "Set an overall spending limit for your ad campaign. This means your ad sets in the campaign will stop once you've reached your spending limit. This option is not available when using a campaign lifetime budget",
+        "schedule": "You can choose to run your ads continuously starting today or only during a specific date range.",
+        "dayparting": "You can schedule your ads for specific hours and days of the week",
+        "budgetType": "Budget Type",
+        "bidStrategy": "Bidding strategy",
+        "daily": "Daily",
+        "lifetime": "Lifetime"
+      },
+      "delivery": {
+        "optimizeFor": "Choose the event you want to optimize for in your ad set. Your selection affects who sees your ads to get you the desired outcome",
+        "billingEvent": "The selected option determines when you pay for your ad. For many optimization goals, you'll pay each time your ad is served (known as an impression)",
+        "bidStrategy": "Your bid strategy tells the ad network how to bid for you in ad auctions. Auctions determine which results you get and how much they cost.",
+        "bidStrategyError": "You have to select a bidding strategy",
+        "bidLinkedin": "Amount to bid (for manual bidding) or amount which is the target cost (for target cost bidding) per click, impression, or other event depending on the pricing model.",
+        "costCap": "Set a bid control if you want to control your maximum bid in every auction. If you don't set one, Facebook's ad system will focus on spending your entire budget and getting the most results",
+        "costCapError": "The amount should be over 0.01 or more",
+        "accelerated": "Accelerated delivery can be useful for time-sensitive promotions. You need to set a bid cap to use accelerated delivery",
+        "cbo": "Campaign budget optimization will distribute your budget across ad sets to get more results depending on your delivery optimization choices and bid strategy",
+        "conversionEvents": "Select a conversion event",
+        "conversionPixel": "Select a pixel for the conversion",
+        "maxFrequency": "Impressions util the day interval",
+        "maxFrequencyErr": "Interval days must be between 1 and 90",
+        "intervalDays": "Repeat after n days",
+        "intervalDaysErr": "Interval days must be between 1 and 90"
+      }
+    },
+    "campDetails": {
+      "campSummary": {
+        "campaignId": "The Campaign ID has been copied",
+        "title": "Campaign Summary",
+        "copyId": "Copy Campaign ID",
+        "objective": "Objective",
+        "deliverySummary": "Delivery & Budget Summary",
+        "budget": "Budget",
+        "budgetAdSet": "Budget by Ad Set",
+        "budgetRemaining": "Budget Remaining",
+        "budgetRemainingByAdSet": "Budget Remaining by Ad Set",
+        "bidding": "Bidding",
+        "bidAmount": "Bid Amount",
+        "buyingType": "Buying Type",
+        "spendCap": "Spend Cap",
+        "notSet": "Not Set",
+        "adAccount": "Ad Account",
+        "campId": "Campaign ID",
+        "campName": "Campaign Name",
+        "campSettings": "Campaign Settings",
+        "created": "Created",
+        "lastUpdated": "Last Updated",
+        "campStatus": "Campaign Status",
+        "campStart": "Campaign Started",
+        "campEnds": "Campaign Ends",
+        "specialCategories": "Special Categories",
+        "payFor": "Pay For",
+        "payForAdSet": "Pay For by Ad Set",
+        "dayparting": "Dayparting",
+        "daypartingAdSet": "Dayparting by Ad Set",
+        "today": "Today"
+      },
+      "campUpdate": {
+        "editField": "Edit",
+        "saveEdit": "Save",
+        "remSpendCap": "Remove Spend Cap",
+        "nameUpdated": "Campaign name has been updated",
+        "budgetUpdated": "Budget has been updated",
+        "stopTimeUpdated": "Campaign end date has been updated",
+        "spendCapUpdated": "Campaign spend cap has been updated",
+        "nameFailedUpdate": "Campaign name could not be updated",
+        "budgetFailedUpdate": "Budget could not be updated",
+        "stopTimeFailedUpdate": "Campaign end date could not be updated",
+        "spendCapFailedUpdate": "Campaign spend cap could not be updated",
+        "budgetAdSetUpdated": "Ad Set budget has been updated",
+        "budgetAdSetFailedUpdate": "Ad Set budget could not be updated",
+        "nameAdSetUpdated": "Ad Set name has been updated",
+        "nameAdSetFailedUpdate": "Ad Set name could not be updated",
+        "stopTimeAdSetUpdated": "Ad set end date has been updated",
+        "stopTimeAdSetFailedUpdate": "Ad Set end time could not be updated",
+        "adSetScheduleAdSetUpdated": "Ad set schedule has been updated",
+        "adSetScheduleAdSetFailedUpdate": "Ad set schedule could not be updated",
+        "deliverySettingsAdSetUpdated": "Ad set delivery settings has been updated",
+        "noAdSetFailedUpdate": "This campaign doesn't have ad sets"
+      },
+      "campTarget": {
+        "title": "Targeting"
+      },
+      "campTable": {
+        "campAdSets": "Campaign Ad Sets",
+        "campAds": "Campaign Ad Creatives",
+        "viewAdOn": "View ad on",
+        "optimizationBudget": "When Campaign Budget Optimization is active, ad set's budgets are distributed automatically"
+      },
+      "breakdownTable": {
+        "breakdownAnalysis": "Breakdown Analysis",
+        "breakdownBy": "Breakdown by",
+        "with": "with",
+        "asConv": "as a conversion"
+      },
+      "campLifetime": {
+        "title": "Lifetime Performance Metrics",
+        "warning": "Change analysis is available only when a time preset is selected as the dates-range",
+        " ": "Change not available"
+      },
+      "campEngagement": {
+        "title": "Engagement Statistics",
+        "warning": "Change analysis is available only when a time preset is selected as the dates-range",
+        " ": "Change not available"
+      },
+      "dailyAverage": {
+        "dailyAvr": "Daily Averages Breakdown",
+        "lastPeriod": "last period",
+        "changeErr": "Change analysis is available only when a time preset is selected as the dates-range"
+      },
+      "hourAverage": {
+        "title": "Hourly Averages Breakdown",
+        "averageErr": "Change analysis is available only when a time preset is selected as the dates-range",
+        "lastPeriod": "last period",
+        "changeNotAvailable": "Change not available"
+      },
+      "engagementMetrics": {
+        "title": "Engagement Metrics",
+        "engagementErr": "Change analysis is available only when a time preset is selected as the dates-range",
+        "changeNotAvailable": "Change not available",
+        "lastPeriod": "last period"
+      }
+    },
+    "workspaceMetrics": {
+      "facebook": {
+        "spend": "How much you spent in total on your Facebook ads",
+        "clicks": "How many clicks your ads received in total on Facebook",
+        "impressions": "How many times your ads were viewed in total on Facebook",
+        "reach": "How many people have seen your ads at least once on Facebook",
+        "cpm": "The average paid for every 1k people viewing your Facebook ads",
+        "cpc": "How much paid on average for every ad-click on Facebook",
+        "ctr": "The average ratio between clicks and views on your Facebook ads",
+        "frequency": "The average number of times each person saw your Facebook ads",
+        "uniqueClicks": "The number of unique clicks your ads recevied on Facebook",
+        "socialSpend": "The total spent on social actions resulting from your Facebook ads"
+      },
+      "linkedin": {
+        "spend": "How much you spent in total on your LinkedIn ads",
+        "clicks": "How many clicks your ads received in total on LinkedIn",
+        "impressions": "How many times your ads were viewed in total on LinkedIn",
+        "reach": "How many people have seen your ads at least once on LinkedIn",
+        "cpm": "The average paid for every 1k people viewing your LinkedIn ads",
+        "cpc": "How much paid on average for every ad-click on LinkedIn",
+        "ctr": "The average ratio between clicks and views on your LinkedIn ads",
+        "frequency": "The average number of times each person saw your LinkedIn ads",
+        "uniqueClicks": "The number of unique clicks your ads recevied on LinkedIn",
+        "socialSpend": "The total spent on social actions resulting from your LinkedIn ads"
+      }
+    },
+    "error_codes": {
+      "default_title": "We are sorry for any inconvenience caused.",
+      "default_404": "It looks like you’re trying to access a page that has either been deleted or never existed.",
+      "default_500": "It looks like our server had an error",
+      "4_100": "Invalid token",
+      "4_102": "Invalid email please try again"
+    }
+  }
+}

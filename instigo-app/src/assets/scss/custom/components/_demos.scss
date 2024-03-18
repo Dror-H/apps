@@ -1,0 +1,149 @@
+//
+// _demos.scss
+//
+
+// Demo Only
+.button-items {
+  margin-bottom: -12px;
+  margin-left: -8px;
+
+  .btn {
+    margin-bottom: 12px;
+    margin-left: 8px;
+  }
+}
+
+// Lightbox
+
+.mfp-popup-form {
+  max-width: 1140px;
+}
+
+// Modals
+
+.bs-example-modal {
+  bottom: auto;
+  display: block;
+  left: auto;
+  position: relative;
+  right: auto;
+  top: auto;
+  z-index: 1;
+}
+
+// Icon demo ( Demo only )
+.icon-demo-content {
+  color: $gray-500;
+  text-align: center;
+
+  i {
+    color: $gray-600;
+    display: block;
+    font-size: 24px;
+    margin-bottom: 16px;
+    transition: all 0.4s;
+  }
+
+  .col-lg-4 {
+    margin-top: 24px;
+
+    &:hover {
+      i {
+        color: $primary;
+        transform: scale(1.5);
+      }
+    }
+  }
+}
+
+// Grid
+
+.grid-structure {
+  .grid-container {
+    background-color: $gray-100;
+    font-size: 0.8rem;
+    font-weight: $font-weight-medium;
+    margin-top: 10px;
+    padding: 10px 20px;
+  }
+}
+
+// card radio
+
+.card-radio {
+  background-color: $card-bg;
+  border: 2px solid $card-border-color;
+  border-radius: $border-radius;
+  overflow: hidden;
+  padding: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-label {
+    display: block;
+  }
+
+  &-input {
+    display: none;
+
+    &:checked + .card-radio {
+      border-color: $primary !important;
+    }
+  }
+
+  &-input-dark {
+    display: none;
+
+    &:checked + .card-radio-dark {
+      border-color: $dark !important;
+    }
+
+    &:disabled + .card-radio-dark {
+      background-color: $gray-200 !important;
+    }
+  }
+
+  &-dark {
+    &:hover {
+      box-shadow: 0 4px 8px rgba(38, 38, 38, 0.2);
+      top: -3px;
+      transition: top 1s ease 0;
+      transition: all 0.3s ease-out;
+    }
+  }
+}
+
+// list radio
+.list-radio {
+  background-color: $card-bg;
+  border: none;
+  overflow: hidden;
+  padding: 0.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.list-radio-label {
+  display: block;
+}
+
+.list-radio-input {
+  display: none;
+
+  &:checked + .list-radio {
+    background-color: $primary !important;
+    color: $white;
+  }
+
+  &:disabled + .list-radio {
+    opacity: 0.5;
+  }
+}

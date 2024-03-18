@@ -1,0 +1,84 @@
+<div @slideUp class="onboarding-section-wrapper">
+  <h1>
+    {{ 'app.onboarding.welcome' | translate }}
+  </h1>
+  <h6>
+    {{ 'app.onboarding.welcomeSubMessage' | translate }}
+  </h6>
+
+  <form class="form-signin" [formGroup]="dataValidationForm" (ngSubmit)="submitForm()" autocomplete="off">
+    <div class="row">
+      <div class="col-xs-12 col-xl-6">
+        <div class="form-label-group">
+          <input
+            formControlName="firstName"
+            autocomplete="off"
+            name="fakeusernameremembered"
+            type="text"
+            id="inputFirstName"
+            class="form-control shadow-sm"
+            placeholder="{{ 'app.onboarding.firstName' | translate }}"
+            required
+          />
+          <label for="inputFirstName"> {{ 'app.onboarding.firstName' | translate }} </label>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="errorHandler"
+          [ngTemplateOutletContext]="{ controlName: 'firstName', controlAlias: 'First Name' }"
+        ></ng-container>
+      </div>
+      <div class="col-xs-12 col-xl-6">
+        <div class="form-label-group">
+          <input
+            formControlName="lastName"
+            autocomplete="off"
+            name="fakeusernameremembered"
+            type="text"
+            id="inputLastName"
+            class="form-control shadow-sm"
+            placeholder="{{ 'app.onboarding.lastName' | translate }}"
+            required
+            #lastNameControl
+          />
+          <label for="inputLastName"> {{ 'app.onboarding.lastName' | translate }} </label>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="errorHandler"
+          [ngTemplateOutletContext]="{ controlName: 'lastName', controlAlias: 'Last Name' }"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="form-label-group">
+      <input
+        formControlName="email"
+        type="text"
+        autocomplete="off"
+        name="fakeusernameremembered"
+        id="inputEmail"
+        class="form-control shadow-sm"
+        placeholder="{{ 'app.login.email' | translate }}"
+        required
+      />
+      <label for="inputEmail"> {{ 'app.login.email' | translate }} </label>
+      <ng-container
+        [ngTemplateOutlet]="errorHandler"
+        [ngTemplateOutletContext]="{ controlName: 'email', controlAlias: 'Email' }"
+      ></ng-container>
+    </div>
+
+    <button class="btn btn-lg btn-block btn-square shadow-sm custom-submit-btn" type="submit">
+      {{ 'app.onboarding.lookingGood' | translate }}
+    </button>
+  </form>
+</div>
+
+<ng-template #errorHandler let-controlName="controlName" let-controlAlias="controlAlias">
+  <div class="errors-container mb-3" *ngIf="dataValidationForm.controls[controlName] as control">
+    <ng-container *ngIf="(!control.pristine || control.touched || control.dirty) && control.errors as errors">
+      <small *ngIf="errors.required" class="text-danger">{{ controlAlias }} is required</small>
+      <small *ngIf="errors.minlength" class="text-danger">
+        {{ controlAlias }} must be longer than {{ errors.minlength.requiredLength }} characters
+      </small>
+    </ng-container>
+  </div>
+</ng-template>

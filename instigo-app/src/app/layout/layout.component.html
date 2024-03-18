@@ -1,0 +1,50 @@
+<instigo-app-banner></instigo-app-banner>
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar ingo-sidebar sidebar-{{ sidebarColorScheme }}"
+    nzTheme="light"
+    nzWidth="280px"
+    [nzTrigger]="null"
+  >
+    <ingo-sidenav
+      [isCollapsed]="isCollapsed"
+      (menuCollapsed)="isMenuCollapsed()"
+      [colorScheme]="sidebarColorScheme"
+    ></ingo-sidenav>
+  </nz-sider>
+
+  <ingo-header
+    (menuCollapsed)="isMenuCollapsed()"
+    [isCollapsed]="isCollapsed"
+    [headerColorScheme]="headerColorScheme"
+  ></ingo-header>
+
+  <nz-layout class="main-layout">
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="themer-button" *ngIf="isThemeSwitcherActive"> Theme </a>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>
+      <h6>Sidebar Color Scheme</h6>
+      <nz-radio-group [(ngModel)]="sidebarColorScheme">
+        <label nz-radio-button nzValue="default" (click)="updateSettings()">Default</label>
+        <label nz-radio-button nzValue="light" (click)="updateSettings()">Light</label>
+        <label nz-radio-button nzValue="dark" (click)="updateSettings()">Dark</label>
+      </nz-radio-group>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item>
+      <h6>Header Color Scheme</h6>
+      <nz-radio-group [(ngModel)]="headerColorScheme">
+        <label nz-radio-button nzValue="default" (click)="updateSettings()">Default</label>
+        <label nz-radio-button nzValue="light" (click)="updateSettings()">Light</label>
+        <label nz-radio-button nzValue="dark" (click)="updateSettings()">Dark</label>
+      </nz-radio-group>
+    </li>
+  </ul>
+</nz-dropdown-menu>

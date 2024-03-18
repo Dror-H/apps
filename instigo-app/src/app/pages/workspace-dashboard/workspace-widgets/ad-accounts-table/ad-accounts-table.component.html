@@ -1,0 +1,73 @@
+<nz-card nzTitle="Ad Accounts" class="ingo-table-card ingo-table-capital ingo-ws-db-accounts" [nzExtra]="cardExtra">
+  <div *ngIf="adAccounts$ | async as adAccounts">
+    <app-data-table
+      *ngIf="adAccounts.type === 'finish'; else skeleton"
+      [tableConfiguration]="tableConfiguration"
+      [state]="tableState"
+      [tableData]="adAccounts.value || []"
+    >
+      {{ updateLength(adAccounts.value) }}
+    </app-data-table>
+  </div>
+</nz-card>
+<app-data-table-templates [state]="tableState"></app-data-table-templates>
+
+<ng-template #skeleton>
+  <app-data-table-skeleton
+    [columns]="tableConfiguration.columns"
+    [isScroll]="tableConfiguration.scrollbarH"
+    [isSelectable]="false"
+    [isCustomizable]="false"
+    [isSearchable]="false"
+  ></app-data-table-skeleton>
+</ng-template>
+
+<ng-template #adAccountNameTemplate let-column="column" let-value="value" let-row="row">
+  <span class="activity-time"
+    ><span
+      class="pixel-indicator"
+      [ngClass]="{ warning: row.adAccountStatusDescription, inactive: row.status !== adAccountStatusType.ACTIVE }"
+    ></span
+  ></span>
+  <a
+    class="selectable-table-item"
+    routerLink="/dashboard/adaccount"
+    [queryParams]="{ id: row.id }"
+    [text]="value.length > 26 ? (value | slice: 0:26) + '...' : value"
+    nz-tooltip
+    [nzTooltipTitle]="adAccountsDetails"
+    nzTooltipPlacement="bottom"
+    nzTooltipOverlayClassName="ingo-explain-card activity-moreinfo"
+    nzTooltipColor="#5f63f2"
+    classToApply="ingo-highlight"
+  ></a>
+  <a
+    class="view-campaign-icon"
+    routerLink="/dashboard/adaccount"
+    [queryParams]="{ id: row.id }"
+    nz-tooltip
+    nzTooltipTitle="View Account Dashboard"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    <i class="far fa-game-board-alt"></i>
+  </a>
+
+  <ng-template #adAccountsDetails>
+    <span class="main-info">
+      {{ row.name }}
+    </span>
+    <span *ngIf="row.adAccountStatusDescription"
+      ><span class="account-status-message">{{ row.adAccountStatusDescription.message }}</span
+      ><a [href]="row.adAccountStatusDescription.actionLink" target="_blank">{{
+        row.adAccountStatusDescription.actionBtn
+      }}</a></span
+    >
+  </ng-template>
+</ng-template>
+
+<ng-template #cardExtra>
+  <button (click)="navigate()" nz-button nzType="primary" class="btn-primary btn-clear btn-tiny btn-small">
+    Add New
+  </button>
+</ng-template>

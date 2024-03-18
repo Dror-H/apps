@@ -1,0 +1,94 @@
+<nz-card class="account-form ingo-table-card" [nzTitle]="membersCardHeading" [nzExtra]="membersCardExtra">
+  <app-data-table
+    #workspaceMembers
+    [tableConfiguration]="tableConfiguration"
+    [state]="tableState"
+    [tableData]="tableData"
+  ></app-data-table>
+  <app-data-table-templates [state]="tableState"></app-data-table-templates>
+</nz-card>
+<ng-template #userStatusCellTemplate let-value="value">
+  <span class="status-badge" [ngClass]="{ active: value === 'Active', pending: value !== 'Active' }">
+    {{ value }}
+  </span>
+</ng-template>
+<ng-template #userRoleCellTemplate let-value="value">
+  {{ value.toString() | titlecase }}
+</ng-template>
+
+<ng-template #membersCardHeading>
+  <div class="card-table-header">
+    Members
+    <div class="table-search">
+      <a nz-tooltip [nzTooltipTitle]="'Search'" [nzTooltipColor]="'#5f63f2'" (click)="toggleSearch()">
+        <i class="far fa-search"></i>
+      </a>
+      <nz-input-group [nzSuffix]="suffixIconSearch" [ngClass]="{ 'search-open': isSearchOpen$ | async }">
+        <input
+          type="text"
+          #searchTerm
+          nz-input
+          placeholder="Search Members"
+          (keyup)="searchTerm$.next(searchTerm.value)"
+        />
+      </nz-input-group>
+      <ng-template #suffixIconSearch> </ng-template>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #membersCardExtra>
+  <button nz-button nzType="primary" class="btn-primary btn-clear" (click)="openAddMemberModal()">Add Member</button>
+</ng-template>
+
+<nz-modal
+  [(nzVisible)]="isAddMemberOpen"
+  nzTitle="Add Member"
+  (nzOnCancel)="handleCancel()"
+  nzClassName="add-member-modal ingo-modal-table"
+  nzWrapClassName="vertical-center-modal"
+  [nzCloseIcon]="modalCloseIcon"
+>
+  <div *nzModalContent class="ingo-add-edit-form">
+    <input
+      #memberEmail
+      nz-input
+      email
+      [(ngModel)]="newMemberEmail"
+      type="email"
+      name="email"
+      class="form-control"
+      placeholder="member@company.com"
+    />
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" class="btn-fade btn-dark btn-clear" (click)="handleCancel()">Cancel</button>
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-fade btn-success btn-clear"
+      (click)="handleOk()"
+      [nzLoading]="isConfirmLoading"
+      [disabled]="!newMemberEmail"
+    >
+      Add
+    </button>
+  </div>
+</nz-modal>
+
+<ng-template #modalCloseIcon><i class="far fa-times"></i></ng-template>
+
+<ng-template #removeUserTemplate let-row="row">
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-danger btn-clear btn-small"
+    nz-tooltip
+    nzTooltipTitle="Remove User"
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+    (click)="removeFromWorkspaceUser(row)"
+  >
+    <i class="ng-fa-icon fal fa-trash-alt fa-1x"></i>
+  </button>
+</ng-template>

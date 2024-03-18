@@ -1,0 +1,19 @@
+.card-table-bordered {
+  .ant-table-tbody tr td,
+  .ant-table-thead tr th {
+    font-size: 15px;
+    padding: 16px 25px;
+  }
+
+  .ant-table-thead > tr > th {
+    background: #fff;
+    border-top: 1px solid color(white, 10);
+    font-weight: 600;
+  }
+}
+
+.ant-table-ping-right .ant-table-cell-fix-right-first::after,
+.ant-table-ping-right .ant-table-cell-fix-right-last::after,
+.ant-table-ping-right:not(.ant-table-has-fix-right) .ant-table-container::after {
+  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.049);
+}

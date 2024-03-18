@@ -1,0 +1,30 @@
+<div *ngIf="adAccount" class="ingo-add-edit-form">
+  <div nz-row nzGutter="12" [formGroup]="loadAudienceForm">
+    <div nz-col nzSpan="6">
+      <nz-radio-group class="ingo-radio-group radio-group-2" formControlName="isTargeting">
+        <div nz-radio-button *ngFor="let type of audienceTypes" [nzValue]="type.value">
+          <span class="title">
+            <span>{{ type.name }}</span>
+          </span>
+        </div>
+      </nz-radio-group>
+    </div>
+    <div nz-col nzSpan="18">
+      <ingo-saved-audience-selector
+        [adAccount]="adAccount.value"
+        (savedAudienceEmitter)="selectAudience($event)"
+        [selectedAudience]="loadAudienceForm.value"
+        [targeting]="loadAudienceForm.controls.isTargeting.value"
+      ></ingo-saved-audience-selector>
+    </div>
+  </div>
+  <nz-divider class="mx--25" *ngIf="this.loadAudienceForm.value.id"></nz-divider>
+  <div class="mt-10">
+    <app-saved-audience-targeting
+      *ngIf="showTargetingDetails"
+      [audienceForm]="loadAudienceForm"
+      [adAccount]="adAccount"
+      [rules]="rules"
+    ></app-saved-audience-targeting>
+  </div>
+</div>

@@ -1,0 +1,810 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`audience rules utils createRulesFromTargeting should create rules from targeting with location data 1`] = `
+Object {
+  "exclude": Object {
+    "or": Object {
+      "behaviors": Array [
+        Object {
+          "audienceSize": 539317289.5,
+          "name": "Engaged shoppers",
+          "path": Array [
+            "Behaviours",
+            "Purchase behaviour",
+            "Engaged shoppers",
+          ],
+          "providerId": "6071631541183",
+          "type": "behaviors",
+        },
+        Object {
+          "audienceSize": 123456,
+          "name": "test",
+          "path": Array [
+            "Behaviours",
+          ],
+          "providerId": "123456",
+          "type": "behaviors",
+        },
+      ],
+      "demographics": Array [
+        Object {
+          "audienceSize": 654321,
+          "name": "test 2",
+          "path": Array [
+            "Demographics",
+          ],
+          "providerId": "654321",
+          "type": "demographics",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 321654,
+          "name": "test 2",
+          "path": Array [
+            "Interests",
+          ],
+          "providerId": "123654",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+  "include": Object {
+    "and": Array [
+      Object {
+        "or": Object {
+          "countries": Array [],
+          "locationTypes": Array [],
+        },
+      },
+      Object {
+        "or": Object {
+          "ageRange": Array [
+            Object {
+              "providerId": "(25,50)",
+              "type": "ageRange",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "genders": Array [
+            Object {
+              "providerId": "0",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "locales": Array [
+            Object {
+              "providerId": Array [],
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "targetOptimization": Array [
+            Object {
+              "providerId": false,
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "customAudiences": Array [
+            Object {},
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "facebookConnections": Array [
+            Object {
+              "providerId": Array [],
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "behaviors": Array [
+            Object {
+              "audienceSize": 48970322,
+              "name": "Small business owners",
+              "path": Array [
+                "Behaviours",
+                "Digital activities",
+                "Small business owners",
+              ],
+              "providerId": "6002714898572",
+              "type": "behaviors",
+            },
+          ],
+          "employers": Array [
+            Object {
+              "audienceSize": 116699,
+              "name": "Business Owner",
+              "path": Array [
+                "Demographics",
+                "Work",
+                "Employers",
+                "Business Owner",
+              ],
+              "providerId": "109288035760640",
+              "type": "employers",
+            },
+          ],
+          "interests": Array [
+            Object {
+              "audienceSize": 192686100.5,
+              "name": "Small business",
+              "path": Array [
+                "Interests",
+                "Business and industry",
+                "Small business",
+              ],
+              "providerId": "6002884511422",
+              "type": "interests",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "educationStatuses": Array [
+            Object {
+              "providerId": "",
+              "type": "educationStatuses",
+            },
+          ],
+          "fieldsOfStudy": Array [
+            Object {
+              "audienceSize": 2636510.5,
+              "name": "Business management",
+              "path": Array [
+                "Demographics",
+                "Education",
+                "Fields of study",
+                "Business management",
+              ],
+              "providerId": "106335129403847",
+              "type": "fieldsOfStudy",
+            },
+          ],
+          "interests": Array [
+            Object {
+              "audienceSize": 41083805,
+              "name": "Business school",
+              "path": Array [
+                "Interests",
+                "Additional interests",
+                "Business school",
+              ],
+              "providerId": "6002964301046",
+              "type": "interests",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "employers": Array [
+            Object {
+              "audienceSize": 3339.5,
+              "name": "Currently looking for a job.",
+              "path": Array [
+                "Demographics",
+                "Work",
+                "Employers",
+                "Currently looking for a job.",
+              ],
+              "providerId": "116050848438791",
+              "type": "employers",
+            },
+          ],
+          "interests": Array [
+            Object {
+              "audienceSize": 41083805,
+              "name": "Business school",
+              "path": Array [
+                "Interests",
+                "Additional interests",
+                "Business school",
+              ],
+              "providerId": "6002964301046",
+              "type": "interests",
+            },
+          ],
+        },
+      },
+    ],
+  },
+  "provider": "facebook",
+}
+`;
+
+exports[`audience rules utils createRulesFromTargeting should create rules from targeting without location data 1`] = `
+Object {
+  "exclude": Object {
+    "or": Object {
+      "behaviors": Array [
+        Object {
+          "audienceSize": 539317289.5,
+          "name": "Engaged shoppers",
+          "path": Array [
+            "Behaviours",
+            "Purchase behaviour",
+            "Engaged shoppers",
+          ],
+          "providerId": "6071631541183",
+          "type": "behaviors",
+        },
+        Object {
+          "audienceSize": 123456,
+          "name": "test",
+          "path": Array [
+            "Behaviours",
+          ],
+          "providerId": "123456",
+          "type": "behaviors",
+        },
+      ],
+      "demographics": Array [
+        Object {
+          "audienceSize": 654321,
+          "name": "test 2",
+          "path": Array [
+            "Demographics",
+          ],
+          "providerId": "654321",
+          "type": "demographics",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 321654,
+          "name": "test 2",
+          "path": Array [
+            "Interests",
+          ],
+          "providerId": "123654",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+  "include": Object {
+    "and": Array [
+      Object {
+        "or": Object {
+          "locationTypes": Array [],
+        },
+      },
+      Object {
+        "or": Object {
+          "ageRange": Array [
+            Object {
+              "providerId": "(25,50)",
+              "type": "ageRange",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "genders": Array [
+            Object {
+              "providerId": "0",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "locales": Array [
+            Object {
+              "providerId": Array [],
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "targetOptimization": Array [
+            Object {
+              "providerId": false,
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "customAudiences": Array [
+            Object {},
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "facebookConnections": Array [
+            Object {
+              "providerId": Array [],
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "behaviors": Array [
+            Object {
+              "audienceSize": 48970322,
+              "name": "Small business owners",
+              "path": Array [
+                "Behaviours",
+                "Digital activities",
+                "Small business owners",
+              ],
+              "providerId": "6002714898572",
+              "type": "behaviors",
+            },
+          ],
+          "employers": Array [
+            Object {
+              "audienceSize": 116699,
+              "name": "Business Owner",
+              "path": Array [
+                "Demographics",
+                "Work",
+                "Employers",
+                "Business Owner",
+              ],
+              "providerId": "109288035760640",
+              "type": "employers",
+            },
+          ],
+          "interests": Array [
+            Object {
+              "audienceSize": 192686100.5,
+              "name": "Small business",
+              "path": Array [
+                "Interests",
+                "Business and industry",
+                "Small business",
+              ],
+              "providerId": "6002884511422",
+              "type": "interests",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "educationStatuses": Array [
+            Object {
+              "providerId": "",
+              "type": "educationStatuses",
+            },
+          ],
+          "fieldsOfStudy": Array [
+            Object {
+              "audienceSize": 2636510.5,
+              "name": "Business management",
+              "path": Array [
+                "Demographics",
+                "Education",
+                "Fields of study",
+                "Business management",
+              ],
+              "providerId": "106335129403847",
+              "type": "fieldsOfStudy",
+            },
+          ],
+          "interests": Array [
+            Object {
+              "audienceSize": 41083805,
+              "name": "Business school",
+              "path": Array [
+                "Interests",
+                "Additional interests",
+                "Business school",
+              ],
+              "providerId": "6002964301046",
+              "type": "interests",
+            },
+          ],
+        },
+      },
+      Object {
+        "or": Object {
+          "employers": Array [
+            Object {
+              "audienceSize": 3339.5,
+              "name": "Currently looking for a job.",
+              "path": Array [
+                "Demographics",
+                "Work",
+                "Employers",
+                "Currently looking for a job.",
+              ],
+              "providerId": "116050848438791",
+              "type": "employers",
+            },
+          ],
+          "interests": Array [
+            Object {
+              "audienceSize": 41083805,
+              "name": "Business school",
+              "path": Array [
+                "Interests",
+                "Additional interests",
+                "Business school",
+              ],
+              "providerId": "6002964301046",
+              "type": "interests",
+            },
+          ],
+        },
+      },
+    ],
+  },
+  "provider": "facebook",
+}
+`;
+
+exports[`audience rules utils getRulesWithDetailedTargeting should get rules with detailed targeting 1`] = `
+Array [
+  Object {
+    "or": Object {
+      "countries": Array [],
+      "locationTypes": Array [],
+    },
+  },
+  Object {
+    "or": Object {
+      "ageRange": Array [
+        Object {
+          "providerId": "(25,50)",
+          "type": "ageRange",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "genders": Array [
+        Object {
+          "providerId": "0",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "locales": Array [
+        Object {
+          "providerId": Array [],
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "targetOptimization": Array [
+        Object {
+          "providerId": false,
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "customAudiences": Array [
+        Object {},
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "facebookConnections": Array [
+        Object {
+          "providerId": Array [],
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "behaviors": Array [
+        Object {
+          "audienceSize": 48970322,
+          "name": "Small business owners",
+          "path": Array [
+            "Behaviours",
+            "Digital activities",
+            "Small business owners",
+          ],
+          "providerId": "6002714898572",
+          "type": "behaviors",
+        },
+      ],
+      "employers": Array [
+        Object {
+          "audienceSize": 116699,
+          "name": "Business Owner",
+          "path": Array [
+            "Demographics",
+            "Work",
+            "Employers",
+            "Business Owner",
+          ],
+          "providerId": "109288035760640",
+          "type": "employers",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 192686100.5,
+          "name": "Small business",
+          "path": Array [
+            "Interests",
+            "Business and industry",
+            "Small business",
+          ],
+          "providerId": "6002884511422",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "educationStatuses": Array [
+        Object {
+          "providerId": "",
+          "type": "educationStatuses",
+        },
+      ],
+      "fieldsOfStudy": Array [
+        Object {
+          "audienceSize": 2636510.5,
+          "name": "Business management",
+          "path": Array [
+            "Demographics",
+            "Education",
+            "Fields of study",
+            "Business management",
+          ],
+          "providerId": "106335129403847",
+          "type": "fieldsOfStudy",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 41083805,
+          "name": "Business school",
+          "path": Array [
+            "Interests",
+            "Additional interests",
+            "Business school",
+          ],
+          "providerId": "6002964301046",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "employers": Array [
+        Object {
+          "audienceSize": 3339.5,
+          "name": "Currently looking for a job.",
+          "path": Array [
+            "Demographics",
+            "Work",
+            "Employers",
+            "Currently looking for a job.",
+          ],
+          "providerId": "116050848438791",
+          "type": "employers",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 41083805,
+          "name": "Business school",
+          "path": Array [
+            "Interests",
+            "Additional interests",
+            "Business school",
+          ],
+          "providerId": "6002964301046",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`audience rules utils getSelectedAudienceDetailedTargeting should get selected audience with detailed targeting 1`] = `
+Array [
+  Object {
+    "or": Object {
+      "countries": Array [],
+      "locationTypes": Array [],
+    },
+  },
+  Object {
+    "or": Object {
+      "ageRange": Array [
+        Object {
+          "providerId": "(25,50)",
+          "type": "ageRange",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "genders": Array [
+        Object {
+          "providerId": "0",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "locales": Array [
+        Object {
+          "providerId": Array [],
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "targetOptimization": Array [
+        Object {
+          "providerId": false,
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "customAudiences": Array [
+        Object {},
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "facebookConnections": Array [
+        Object {
+          "providerId": Array [],
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "behaviors": Array [
+        Object {
+          "audienceSize": 48970322,
+          "name": "Small business owners",
+          "path": Array [
+            "Behaviours",
+            "Digital activities",
+            "Small business owners",
+          ],
+          "providerId": "6002714898572",
+          "type": "behaviors",
+        },
+      ],
+      "employers": Array [
+        Object {
+          "audienceSize": 116699,
+          "name": "Business Owner",
+          "path": Array [
+            "Demographics",
+            "Work",
+            "Employers",
+            "Business Owner",
+          ],
+          "providerId": "109288035760640",
+          "type": "employers",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 192686100.5,
+          "name": "Small business",
+          "path": Array [
+            "Interests",
+            "Business and industry",
+            "Small business",
+          ],
+          "providerId": "6002884511422",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "educationStatuses": Array [
+        Object {
+          "providerId": "",
+          "type": "educationStatuses",
+        },
+      ],
+      "fieldsOfStudy": Array [
+        Object {
+          "audienceSize": 2636510.5,
+          "name": "Business management",
+          "path": Array [
+            "Demographics",
+            "Education",
+            "Fields of study",
+            "Business management",
+          ],
+          "providerId": "106335129403847",
+          "type": "fieldsOfStudy",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 41083805,
+          "name": "Business school",
+          "path": Array [
+            "Interests",
+            "Additional interests",
+            "Business school",
+          ],
+          "providerId": "6002964301046",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+  Object {
+    "or": Object {
+      "employers": Array [
+        Object {
+          "audienceSize": 3339.5,
+          "name": "Currently looking for a job.",
+          "path": Array [
+            "Demographics",
+            "Work",
+            "Employers",
+            "Currently looking for a job.",
+          ],
+          "providerId": "116050848438791",
+          "type": "employers",
+        },
+      ],
+      "interests": Array [
+        Object {
+          "audienceSize": 41083805,
+          "name": "Business school",
+          "path": Array [
+            "Interests",
+            "Additional interests",
+            "Business school",
+          ],
+          "providerId": "6002964301046",
+          "type": "interests",
+        },
+      ],
+    },
+  },
+]
+`;

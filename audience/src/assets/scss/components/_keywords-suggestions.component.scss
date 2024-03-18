@@ -1,0 +1,9 @@
+.suggestions-suggestion {
+  &__skeleton-element {
+    width: calc(25% - 1rem);
+
+    .ant-skeleton-input {
+      height: 18px;
+    }
+  }
+}

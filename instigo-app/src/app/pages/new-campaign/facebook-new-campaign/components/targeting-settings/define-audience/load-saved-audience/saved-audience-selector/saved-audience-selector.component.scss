@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'functions';
+
+nz-select {
+  min-width: 100%;
+}
+
+.audience-list {
+  width: 100%;
+
+  span {
+    font-weight: 500;
+  }
+
+  small {
+    background: rgba(color(purple), 10%);
+    border-radius: 4px;
+    color: color(purple);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 5px;
+  }
+}

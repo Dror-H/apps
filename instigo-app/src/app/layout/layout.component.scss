@@ -1,0 +1,121 @@
+:host {
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.app-layout {
+  min-height: 100vh;
+  min-width: 1140px;
+}
+
+.menu-sidebar {
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  min-height: calc(100vh + 1px);
+  position: relative;
+  z-index: 900;
+
+  @media all and (max-width: 1280px) {
+    flex: 0 0 240px !important;
+    max-width: 240px !important;
+    min-width: 240px !important;
+    width: 240px !important;
+  }
+}
+
+.header-trigger {
+  cursor: pointer;
+  font-size: 20px;
+  height: 64px;
+  padding: 20px 24px;
+  transition: all 0.3s, padding 0s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.sidebar-logo {
+  background: #001529;
+  height: 64px;
+  line-height: 64px;
+  overflow: hidden;
+  padding-left: 24px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.sidebar-logo img {
+  display: inline-block;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+}
+
+.sidebar-logo h1 {
+  color: #fff;
+  display: inline-block;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 0 20px;
+  vertical-align: middle;
+}
+
+.main-layout {
+  margin-left: 280px;
+  max-width: calc(100vw - 280px);
+  min-width: 860px;
+  overflow-x: unset !important;
+  @media all and (max-width: 1280px) {
+    margin-left: 240px;
+    max-width: calc(100vw - 240px);
+    min-width: 900px;
+  }
+}
+
+nz-sider {
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed !important;
+}
+
+nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.app-header {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  height: 64px;
+  padding: 0;
+  position: relative;
+}
+
+nz-content {
+  margin-top: 70px;
+  padding: 0 30px;
+}
+
+.themer-button {
+  align-items: center;
+  background: #f0f3ff;
+  border: 2px solid #5f63f2;
+  border-radius: 4px;
+  bottom: 6.42857em;
+  color: #5f63f2;
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  position: absolute;
+  right: 1.42857em;
+  width: 4.28571em;
+}

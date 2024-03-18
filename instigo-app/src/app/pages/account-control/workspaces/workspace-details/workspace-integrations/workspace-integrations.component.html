@@ -1,0 +1,111 @@
+<nz-card class="account-form ingo-card-nbm" nzTitle="Integrations">
+  <nz-list class="ingo-ints">
+    <nz-list-item *ngFor="let provider of providers">
+      <nz-list-item-meta [nzAvatar]="providerIcon">
+        <nz-list-item-meta-title>
+          <span class="activity-time"
+            ><span
+              class="pixel-indicator"
+              [ngClass]="{
+                inactive: !isProviderActive(provider.value),
+                grey: !isProviderConnected(provider.value)
+              }"
+            ></span
+          ></span>
+
+          <span *ngIf="!isProviderConnected(provider.value) || isProviderActive(provider.value)"
+            ><span> {{ provider.label }}</span>
+          </span>
+
+          <span
+            *ngIf="isProviderConnected(provider.value) && !isProviderActive(provider.value)"
+            nz-tooltip
+            [nzTooltipTitle]="tokenInactive"
+            nzTooltipPlacement="bottom"
+            nzTooltipOverlayClassName="ingo-explain-card activity-moreinfo"
+            nzTooltipColor="#5f63f2"
+            classToApply="ingo-highlight"
+            ><span class="selectable-provider-label"> {{ provider.label }}</span>
+          </span>
+
+          <ng-template #tokenInactive>
+            <span class="main-info"> {{ provider.label }} </span>
+
+            <span *ngIf="!isProviderActive(provider.value)"
+              ><span class="account-status-message"
+                >Token inactive click to
+                <strong
+                  ><a (click)="loginOnProviderPlatform(provider.value)" target="_blank">reactive token</a></strong
+                ></span
+              ></span
+            >
+          </ng-template>
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <ng-container *ngIf="isProviderConnected(provider.value); else notConnected">
+            Connected {{ getProviderConnectionDate(provider.value) | date: 'dd/MM/yyyy' }}
+          </ng-container>
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <ng-container *ngIf="isProviderConnected(provider.value)"
+        ><span class="ints-member">by {{ workspace.owner.fullName }}</span></ng-container
+      >
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <button
+            nz-button
+            nzType="primary"
+            class="btn-primary btn-clear btn-small"
+            [disabled]="!isWorkspaceOwner() || !isProviderAvailable(provider.value)"
+            (click)="addMoreAdAccount(provider.value)"
+            [ngClass]="{ 'btn-icon-only': !isProviderConnected(provider.value) }"
+          >
+            <ng-container *ngIf="isProviderConnected(provider.value); else connectBtn">Add</ng-container>
+          </button>
+        </nz-list-item-action>
+      </ul>
+      <ng-template #providerIcon>
+        <i [ngClass]="getProviderIcon(provider.value)" [ngStyle]="{ color: getProviderColor(provider.value) }"></i>
+      </ng-template>
+      <ng-template #connectBtn><i class="far fa-plug"></i></ng-template>
+      <ng-template #notConnected> Not connected </ng-template>
+    </nz-list-item>
+  </nz-list>
+</nz-card>
+
+<ng-template #modalCloseIcon><i class="far fa-times"></i></ng-template>
+
+<ng-template #connectAdAccountExplain>
+  <div class="account-connect-explain">
+    <h4>How to connect an ad account</h4>
+    <p>
+      To connect an ad account, select the check box next to it, then click on the <strong>Add Accounts</strong> button
+      at the bottom right (you can select multiple accounts at the same time). Please note that only the
+      <strong>workspace owner</strong> is able to add or remove accounts. To connect your own accounts, use a workspace
+      that you own instead.
+    </p>
+    <h4>Why are some accounts already checked?</h4>
+    <p>
+      A checked box next to an ad account means that this ad account has already been connected to Instigo (either on
+      this workspace or another). In order to be able to add that ad account to this workspace, you will have to contact
+      the owner of the other workspace where this ad account is already connected, and ask them to remove it.
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #connectAdAccountHeaderTemplate>
+  <div>
+    Select Ad Accounts
+    <span
+      class="account-selector-tooltip"
+      nz-tooltip
+      [nzTooltipTitle]="connectAdAccountExplain"
+      nzTooltipOverlayClassName="ingo-explain-card connect-account-tooltip"
+      nzTooltipColor="#5F63F2"
+      nzTooltipPlacement="bottom"
+    >
+      How to connect an account
+      <i class="fas fa-info-circle"></i>
+    </span>
+  </div>
+</ng-template>

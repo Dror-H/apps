@@ -1,0 +1,20 @@
+<div nz-row>
+  <div nz-col [nzSpan]="24">
+    <nz-form-item>
+      <nz-form-label nzRequired>
+        Language
+        <ingo-explain tooltipId="app.campCreate.audience.languageDescription"></ingo-explain>
+      </nz-form-label>
+      <nz-form-control nzErrorTip="app.campCreate.audience.languageError">
+        <nz-select
+          [ngModel]="selectedLanguage"
+          (ngModelChange)="onLanguageSelect($event)"
+          nzPlaceHolder="Select Campaign Language"
+          [nzOptions]="linkedinLocales"
+          [nzOptionHeightPx]="38"
+        >
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+@import 'src/assets/scss/variables';
+
+.summary-group-action {
+  opacity: 0.7;
+}
+
+.active {
+  background-color: color(gray, 30);
+
+  h5 {
+    color: color(navy, 10);
+  }
+}
+
+.light-border {
+  border: 1px solid #eee;
+  border-radius: 4px !important;
+}
+
+.ant-checkbox-wrapper {
+  margin-left: 0;
+}
+
+.ant-collapse-item {
+  margin-bottom: 5px;
+}
+
+.placement-options span.summary-group-action {
+  right: 26px;
+
+  label::before {
+    border: 0 none !important;
+    color: #5a5f7d;
+    content: '\f111';
+    cursor: pointer;
+    font-family: 'Font Awesome 5 Pro';
+    font-size: 15px;
+    font-weight: 400;
+    left: 0;
+    opacity: 1 !important;
+    position: absolute;
+    top: 51%;
+    transform: translateY(-50%);
+    transition: all 0.25s ease;
+
+    &:hover {
+      content: '\f058';
+      font-weight: 900;
+      opacity: 0.35;
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked ~ label::before {
+      color: color(purple);
+      content: '\f058';
+      font-weight: 900;
+
+      &:hover {
+        content: '\f5ec' !important;
+      }
+    }
+
+    &:disabled ~ label::before {
+      color: #cfcfe2;
+      cursor: not-allowed;
+      font-weight: 900;
+    }
+  }
+}
+
+.summary-group-title .summary-group-action {
+  right: 20px;
+}

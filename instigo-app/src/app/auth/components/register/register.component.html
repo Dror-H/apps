@@ -1,0 +1,121 @@
+<div class="onboarding-form-wrapper mx-auto">
+  <div class="auth-container">
+    <h1 test-id="register-title">
+      {{ 'app.register.title' | translate }}
+    </h1>
+    <h6>{{ 'app.register.advice' | translate }}</h6>
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+      <div class="form-label-group">
+        <input
+          autocomplete="off"
+          formControlName="email"
+          type="email"
+          id="inputEmail"
+          class="form-control shadow-sm"
+          placeholder="{{ 'app.register.email' | translate }}"
+          required
+        />
+        <i class="ng-fa-icon far fa-at fa-lg fa-fw"></i>
+        <label for="inputEmail"> {{ 'app.register.email' | translate }} </label>
+      </div>
+
+      <div class="form-label-group">
+        <input
+          autocomplete="off"
+          #inputPassword
+          formControlName="password"
+          type="password"
+          id="inputPassword"
+          class="form-control shadow-sm"
+          placeholder="{{ 'app.register.password' | translate }}"
+          required
+          (focus)="showPasswordTip = true"
+          (blur)="showPasswordTip = false"
+          nz-tooltip
+          nzTooltipTrigger="focus"
+          nzTooltipMouseEnterDelay="2"
+          nzTooltipOverlayClassName="ingo-password-verify"
+          nzTooltipPlacement="right"
+          nzTooltipColor="#f7f7f7"
+          [nzTooltipTitle]="passwordVerifyContent"
+          [nzTooltipVisible]="showPasswordTip"
+        />
+        <span
+          class="show-pwd-btn"
+          (click)="inputPassword.type = inputPassword.type == 'password' ? 'text' : 'password'"
+        >
+          <i *ngIf="inputPassword.type == 'password'" class="ng-fa-icon far fa-fingerprint fa-lg fa-fw"></i>
+          <i *ngIf="inputPassword.type == 'text'" class="ng-fa-icon far fa-eye fa-lg fa-fw"></i>
+        </span>
+
+        <label for="inputPassword">{{ 'app.register.password' | translate }}</label>
+      </div>
+
+      <ng-template #passwordVerifyContent>
+        <div class="password-verify">
+          <span
+            [ngClass]="{ passed: inputPassword.value.length && !registerForm.get('password').hasError('minlength') }"
+            >Min. 8 characters</span
+          >
+          <span
+            [ngClass]="{
+              passed: inputPassword.value.length && !registerForm.get('password').hasError('hasCapitalCase')
+            }"
+            >An uppercase letter</span
+          >
+          <span
+            [ngClass]="{ passed: inputPassword.value.length && !registerForm.get('password').hasError('hasSmallCase') }"
+            >A lowercase letter</span
+          >
+          <span
+            [ngClass]="{ passed: inputPassword.value.length && !registerForm.get('password').hasError('hasNumber') }"
+            >A number</span
+          >
+        </div>
+      </ng-template>
+
+      <div class="form-label-group">
+        <input
+          autocomplete="off"
+          #inputRepeatPassword
+          formControlName="repeatPassword"
+          type="password"
+          id="inputRepeatPassword"
+          class="form-control shadow-sm"
+          placeholder="{{ 'app.register.repeatPassword' | translate }}"
+          required
+          (focus)="showPasswordVerifyTip = true"
+          (blur)="showPasswordVerifyTip = false"
+          nz-tooltip
+          nzTooltipTrigger="focus"
+          nzTooltipMouseEnterDelay="2"
+          nzTooltipOverlayClassName="ingo-password-verify repeat"
+          nzTooltipPlacement="right"
+          nzTooltipColor="#f7f7f7"
+          [nzTooltipTitle]="'Password is not matched'"
+          [nzTooltipVisible]="registerForm.get('repeatPassword').hasError('equalTo') && showPasswordVerifyTip"
+        />
+        <span
+          class="show-pwd-btn"
+          (click)="inputRepeatPassword.type = inputRepeatPassword.type == 'password' ? 'text' : 'password'"
+        >
+          <i *ngIf="inputRepeatPassword.type == 'password'" class="ng-fa-icon far fa-fingerprint fa-lg fa-fw"></i>
+          <i *ngIf="inputRepeatPassword.type == 'text'" class="ng-fa-icon far fa-eye fa-lg fa-fw"></i>
+        </span>
+        <label for="inputRepeatPassword">{{ 'app.register.repeatPassword' | translate }}</label>
+      </div>
+
+      <button class="btn btn-lg btn-block btn-square shadow-sm custom-submit-btn" type="submit">
+        {{ 'app.register.signUpButton' | translate }}
+      </button>
+    </form>
+    <app-social-login actionType="Sign up"></app-social-login>
+
+    <div class="auth-footer">
+      <div>
+        Already have an account?
+        <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active">Sign in.</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "name": "INSTIGO",
+  "short_name": "INSTIGO",
+  "theme_color": "#f5f5f5",
+  "background_color": "#f5f5f5",
+  "description": "the ultimate marketing tool",
+  "orientation": "landscape-primary",
+  "lang": "en",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/icons/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

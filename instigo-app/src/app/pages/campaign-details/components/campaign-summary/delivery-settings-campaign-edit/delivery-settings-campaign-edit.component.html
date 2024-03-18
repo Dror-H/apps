@@ -1,0 +1,192 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="deliverySettings" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Optimize For
+            <ingo-explain tooltipId="app.campCreate.delivery.optimizeFor"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to select an optimization goal">
+            <nz-select
+              formControlName="optimizedFor"
+              nzPlaceHolder="Select Goal"
+              [nzOptionHeightPx]="38"
+              [nzDisabled]="objective === 'CONVERSIONS'"
+            >
+              <nz-option
+                *ngFor="let goal of optimizationGoals; let i = index"
+                [nzLabel]="goal.name"
+                [nzValue]="goal.id"
+              >
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Get Charged For
+            <ingo-explain tooltipId="app.campCreate.delivery.billingEvent"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to select a billing event">
+            <nz-select formControlName="billingEvent" nzPlaceHolder="Select Billing Event" [nzOptionHeightPx]="38">
+              <nz-option
+                *ngFor="let goal of billingEvents; let i = index"
+                [nzLabel]="goal.name | titlecase"
+                [nzValue]="goal.id"
+              >
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8" *ngIf="isOffsiteConversions">
+        <nz-form-item [formGroup]="deliverySettings.controls.conversion">
+          <nz-form-label nzRequired>
+            Conversion events
+            <ingo-explain tooltipId="app.campCreate.delivery.conversionEvents"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to select a conversion event">
+            <nz-select
+              formControlName="conversionEvents"
+              nzPlaceHolder="Select Conversion Event"
+              [nzOptions]="conversionEvents"
+              [nzOptionHeightPx]="38"
+            >
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="8" *ngIf="deliverySettings.value.optimizedFor === 'REACH'">
+        <nz-form-item [formGroup]="deliverySettings.controls.reach">
+          <nz-form-label nzRequired>
+            Frequency
+            <ingo-explain tooltipId="app.campCreate.delivery.maxFrequency"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="app.campCreate.delivery.maxFrequencyErr">
+            <input nz-input formControlName="maxFrequency" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Bidding Strategy
+            <ingo-explain tooltipId="app.campCreate.delivery.bidStrategy"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="app.campCreate.delivery.bidStrategyError">
+            <nz-select formControlName="bidStrategy" nzPlaceHolder="Select Bidding Strategy" [nzOptionHeightPx]="38">
+              <nz-option
+                *ngFor="let goal of biddingStrategies; let i = index"
+                [nzLabel]="goal.name"
+                [nzValue]="goal.id"
+                [nzDisabled]="goal.disabled"
+              >
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label
+            >Cost Cap
+            <ingo-explain tooltipId="app.campCreate.delivery.costCap"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="app.campCreate.delivery.costCapError">
+            <nz-input-group [nzAddOnAfter]="budgetCurrency" class="ingo-currency-input">
+              <input
+                class="ant-input"
+                currencyMask
+                formControlName="costCap"
+                [attr.disabled]="
+                  deliverySettings.value.bidStrategy === facebookBidStrategyEnum.LOWEST_COST_WITHOUT_CAP ? '' : null
+                "
+                [options]="{
+                  align: 'left',
+                  allowNegative: false,
+                  allowZero: true,
+                  decimal: '.',
+                  precision: 2,
+                  prefix: currency.symbol + ' ',
+                  suffix: '',
+                  thousands: ',',
+                  nullable: true,
+                  min: 0,
+                  max: 10000000
+                }"
+              />
+            </nz-input-group>
+            <ng-template #budgetCurrency
+              ><span nz-tooltip [nzTooltipTitle]="currencyTooltip">{{ currency.code }}</span></ng-template
+            >
+            <ng-template #currencyTooltip>
+              The used currency for the budget cannot be changed, since it is determined by the selected ad account's
+              chosen currency.<br /><a href="some-knowledgebase-link" target="_blank">Learn More</a>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <ng-container *ngIf="isOffsiteConversions">
+        <ng-container *ngIf="this.hasPixels; then conversionPixel; else noPixel"></ng-container>
+      </ng-container>
+
+      <ng-template #conversionPixel>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item [formGroup]="deliverySettings.controls.conversion">
+            <nz-form-label nzRequired>
+              Conversion PIXEL
+              <ingo-explain tooltipId="app.campCreate.delivery.conversionPixel"></ingo-explain>
+            </nz-form-label>
+            <nz-form-control nzErrorTip="You have to select a pixel">
+              <nz-select
+                nzPlaceHolder="Select pixel"
+                [nzCustomTemplate]="multipleTemplate"
+                formControlName="conversionPixel"
+                [nzOptionHeightPx]="38"
+              >
+                <ng-container *ngFor="let pixel of pixels">
+                  <nz-option nzCustomContent [nzLabel]="pixel" [nzValue]="pixel.value">
+                    <span class="pixel-indicator" [ngClass]="{ inactive: pixel.isUnavailable }"></span>
+                    <span>{{ pixel.label }}</span>
+                  </nz-option>
+                </ng-container>
+
+                <ng-template #multipleTemplate let-selected>
+                  <div class="account-select-selected">
+                    <span class="pixel-indicator" [ngClass]="{ inactive: selected.nzLabel.isUnavailable }"></span>
+                    <span>{{ selected.nzLabel.label }}</span>
+                  </div>
+                </ng-template>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </ng-template>
+
+      <ng-template #noPixel>
+        <div nz-col [nzSpan]="8">
+          <span class="danger"> There's no PIXEL on this account. Create one or change the ad account!</span>
+        </div>
+      </ng-template>
+
+      <div nz-col [nzSpan]="8" *ngIf="deliverySettings.value.optimizedFor === 'REACH'">
+        <nz-form-item [formGroup]="deliverySettings.controls.reach">
+          <nz-form-label nzRequired>
+            Day interval
+            <ingo-explain tooltipId="app.campCreate.delivery.intervalDays"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="app.campCreate.delivery.intervalDays">
+            <input nz-input formControlName="intervalDays" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-card>

@@ -1,0 +1,67 @@
+//
+// _nav.scss
+//
+
+.vertical-nav {
+  .nav {
+    .nav-link {
+      margin-bottom: 8px;
+      padding: 24px 16px;
+      text-align: center;
+
+      .nav-icon {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.nav-tabs,
+.nav-pills {
+  > li {
+    > a {
+      color: $gray-700;
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+.nav-pills {
+  > a {
+    color: $gray-700;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.nav-tabs-custom {
+  border-bottom: 2px solid $gray-300;
+
+  .nav-item {
+    color: $dark;
+    position: relative;
+
+    .nav-link {
+      border: none;
+
+      &::after {
+        background: $primary;
+        bottom: -1px;
+        content: '';
+        height: 2px;
+        left: 0;
+        position: absolute;
+        transform: scale(0);
+        transition: all 250ms ease 0s;
+        width: 100%;
+      }
+
+      &.active {
+        color: $primary;
+
+        &::after {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}

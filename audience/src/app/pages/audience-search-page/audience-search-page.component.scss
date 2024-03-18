@@ -1,0 +1,51 @@
+@import 'colors.variables';
+@import 'backgrounds.variables';
+@import 'margins.variables';
+
+.sticky-container {
+  backface-visibility: hidden;
+  background-color: $bkg-body-base;
+
+  &--brand {
+    $fix: 2px;
+    margin-bottom: 1rem;
+    padding-bottom: calc(1.5rem + #{$fix});
+
+    &-link {
+      display: inline-block;
+    }
+  }
+}
+
+.hero {
+  &-container {
+    text-align: center;
+  }
+
+  &-welcome {
+    margin-bottom: 2px;
+
+    &__wave-emoji {
+      margin-right: 0.25rem;
+    }
+  }
+
+  &-brand {
+    margin: 0 auto;
+    width: 115px;
+  }
+
+  &-title {
+    margin-bottom: $margin-sm;
+  }
+}
+
+.search-input-container {
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 0 0.5rem;
+}
+
+[nz-typography] {
+  text-align: center;
+}

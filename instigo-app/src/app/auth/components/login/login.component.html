@@ -1,0 +1,60 @@
+<div class="onboarding-form-wrapper mx-auto">
+  <div class="auth-container login">
+    <h1 test-id="login-title">
+      {{ 'app.login.title' | translate }}
+    </h1>
+    <h6>{{ 'app.login.advice' | translate }}</h6>
+    <form class="form-signin" [formGroup]="loginFrom" (ngSubmit)="submitForm()">
+      <div class="form-label-group">
+        <input
+          test-id="email-input"
+          formControlName="email"
+          type="text"
+          id="loginInputEmail"
+          class="form-control shadow-sm"
+          placeholder="{{ 'app.login.email' | translate }}"
+          required
+        />
+        <i class="ng-fa-icon far fa-at fa-lg fa-fw"></i>
+        <label for="loginInputEmail"> {{ 'app.login.email' | translate }} </label>
+      </div>
+
+      <div class="form-label-group">
+        <input
+          #inputPassword
+          test-id="password-input"
+          formControlName="password"
+          type="password"
+          id="inputPassword"
+          class="form-control shadow-sm"
+          placeholder="{{ 'app.login.password' | translate }}"
+          required
+          autocomplete="on"
+        />
+        <span
+          class="show-pwd-btn"
+          (click)="inputPassword.type = inputPassword.type == 'password' ? 'text' : 'password'"
+        >
+          <i *ngIf="inputPassword.type == 'password'" class="ng-fa-icon far fa-fingerprint fa-lg fa-fw"></i>
+          <i *ngIf="inputPassword.type == 'text'" class="ng-fa-icon far fa-eye fa-lg fa-fw"></i>
+        </span>
+        <label for="inputPassword">{{ 'app.login.password' | translate }}</label>
+      </div>
+      <button test-id="login-btn" class="btn btn-lg btn-block btn-square shadow-sm custom-submit-btn" type="submit">
+        {{ 'app.login.signInButton' | translate }}
+      </button>
+    </form>
+    <app-social-login actionType="Sign in"></app-social-login>
+    <div class="auth-footer">
+      <div>
+        New to Instigo?
+        <a [routerLink]="['/auth/register']" routerLinkActive="router-link-active">Sign up</a>
+      </div>
+      <div>
+        <a [routerLink]="['/auth/send-reset-password']" routerLinkActive="router-link-active">{{
+          'app.login.forgotPasswordButton' | translate
+        }}</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<nz-card *ngIf="(pixels$ | async)?.length > 0; else skeleton" [nzTitle]="title" class="workspace-activity quickview">
+  <ng-container *ngFor="let pixel of pixels$ | async">
+    <div
+      class="activity-info"
+      nz-tooltip
+      nzTooltipTrigger="click"
+      nzTooltipOverlayClassName="ingo-explain-card activity-moreinfo"
+      nzTooltipColor="#5f63f2"
+      nzTooltipPlacement="right"
+      [nzTooltipTitle]="activityMoreInfo"
+    >
+      <h4 class="activity-name">
+        <span>{{ pixel.name }}</span>
+      </h4>
+      <div class="activity-desc">
+        <span class="activity-provider">
+          <i class="fa-fw ng-fa-icon fab fa-facebook-square" *ngIf="pixel.provider === 'facebook'"></i>
+          <i class="fa-fw ng-fa-icon fab fa-linkedin" *ngIf="pixel.provider === 'linkedin'"></i>
+        </span>
+        <span class="activity-time"
+          ><span class="pixel-indicator" [ngClass]="{ inactive: pixel.isUnavailable }"></span>Last checked
+          {{ pixel.lastChecked.relativeTime }}</span
+        >
+      </div>
+    </div>
+    <ng-template #activityMoreInfo>
+      <span class="main-info">
+        <ng-container *ngIf="pixel.provider === 'facebook'; else linkedinPixelDesc">
+          {{ pixel.name }}
+        </ng-container>
+        <ng-template #linkedinPixelDesc> {{ pixel.account }} Insights Tag </ng-template>
+      </span>
+      <span>
+        <span>Available</span>
+        <span>Last checked {{ pixel.lastChecked.actualTime }}</span>
+      </span>
+    </ng-template>
+  </ng-container>
+</nz-card>
+
+<ng-template #title>
+  <h2>Pixels & Tags</h2>
+</ng-template>
+
+<ng-template #skeleton>
+  <nz-card [nzTitle]="title">
+    <div class="workspace-members-outline">
+      <div class="member-info">
+        <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 9 }" [nzTitle]="false"></nz-skeleton>
+      </div>
+    </div>
+  </nz-card>
+</ng-template>

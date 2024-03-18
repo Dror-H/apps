@@ -1,0 +1,58 @@
+<nz-card nzTitle="Compare Ad Sets">
+  <ng-container *ngIf="allAdSets$ | async as adSets; else spin">
+    <ng-container *ngIf="adSets.length > 0; else empty">
+      <div class="ingo-card-compare">
+        <!-- TODO place option to change attribution window -->
+        <nz-card *ngFor="let adSet of adSets; let i = index" [nzCover]="adSetCover" [nzTitle]="adSet.name">
+          <nz-list nzBordered>
+            <nz-list-item
+              ><span nz-typography [ngStyle]="{ 'font-weight': adSet.spend === winnerAdSetRef.spend ? '700' : '400' }"
+                >Spent</span
+              >{{ adSet.spend }}</nz-list-item
+            >
+            <nz-list-item><span nz-typography>ROI</span>14.24%</nz-list-item>
+            <nz-list-item
+              ><span nz-typography [ngStyle]="{ 'font-weight': adSet.ctr === winnerAdSetRef.ctr ? '700' : '400' }"
+                >CTR</span
+              >{{ adSet.ctr }}</nz-list-item
+            >
+            <nz-list-item
+              ><span nz-typography [ngStyle]="{ 'font-weight': adSet.cpc === winnerAdSetRef.cpc ? '700' : '400' }"
+                >CPC</span
+              >{{ adSet.cpc }}</nz-list-item
+            >
+            <nz-list-item
+              ><span nz-typography [ngStyle]="{ 'font-weight': adSet.cpp === winnerAdSetRef.cpp ? '700' : '400' }"
+                >CPP</span
+              >{{ adSet.cpp }}</nz-list-item
+            >
+            <nz-list-item
+              ><span
+                nz-typography
+                [ngStyle]="{ 'font-weight': adSet.impressions === winnerAdSetRef.impressions ? '700' : '400' }"
+                >Impressions</span
+              >{{ adSet.impressions }}</nz-list-item
+            >
+            <nz-list-item><span nz-typography>Clicks</span>{{ adSet.clicks }}</nz-list-item>
+            <nz-list-item><span nz-typography>Reach</span>{{ adSet.reach }}</nz-list-item>
+            <nz-list-item><span nz-typography>Conversions</span>1,000</nz-list-item>
+          </nz-list>
+          <ng-template #adSetCover>
+            <!-- TODO adset can have multiple ad so take the first one - e.g. adSet.childAds[0].screenshotThumb -->
+            <img alt="" src="./assets/images/placeholder-ad.png" />
+          </ng-template>
+        </nz-card>
+      </div>
+    </ng-container>
+  </ng-container>
+</nz-card>
+
+<ng-template #empty>
+  <app-empty-range></app-empty-range>
+</ng-template>
+
+<ng-template #spin>
+  <div class="spin">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>

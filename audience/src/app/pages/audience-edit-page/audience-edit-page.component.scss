@@ -1,0 +1,54 @@
+@use 'backgrounds.variables' as backgrounds;
+@use 'colors.variables' as colors;
+@use 'components/header.variables' as header;
+
+.ingo-add-edit-form {
+  display: flex;
+  gap: 1rem;
+
+  nz-card {
+    flex-basis: 100%;
+  }
+
+  ingo-facebook-saved-audience-targeting {
+    flex: 1;
+  }
+
+  .margin-right {
+    margin-right: 0.5rem;
+  }
+
+  .save-button--saved {
+    background-color: colors.$green;
+  }
+}
+
+.brand {
+  &-container {
+    height: header.$header-height;
+    left: 50%;
+    position: relative;
+  }
+
+  &-image {
+    width: 115px;
+  }
+
+  &-affix {
+    max-width: 50%;
+    position: relative;
+    z-index: 22;
+  }
+}
+
+.tooltip-pos {
+  position: relative;
+
+  ingo-explain {
+    font-size: 16px;
+    position: absolute;
+    right: -8px;
+    top: -9px;
+    z-index: 200;
+  }
+}

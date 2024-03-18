@@ -1,0 +1,8 @@
+@import 'colors.variables';
+
+.buttons-container {
+  .active {
+    background-color: $primary-color;
+    color: $white;
+  }
+}

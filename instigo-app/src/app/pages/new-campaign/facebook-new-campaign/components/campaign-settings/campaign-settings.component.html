@@ -1,0 +1,135 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="settingsForm" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="7" [nzXl]="6">
+        <ingo-ad-account-selector
+          [provider]="supportedProviders.FACEBOOK"
+          [formControl]="settingsForm.controls.account"
+          [adAccountList]="adAccountList"
+        ></ingo-ad-account-selector>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Campaign Name
+            <ingo-explain tooltipId="app.campCreate.campaign.campName"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to name your campaign">
+            <nz-input-group>
+              <input formControlName="name" nz-input placeholder="e.g. Funnel stage and objective" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="5" [nzXl]="6">
+        <nz-form-item>
+          <nz-form-label
+            >Buying Type
+            <ingo-explain tooltipId="app.campCreate.campaign.buyType"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              id="campaign-buying-type"
+              formControlName="buyingType"
+              nzPlaceHolder="Select Type"
+              [nzOptionHeightPx]="38"
+            >
+              <nz-option nzLabel="Auction" nzValue="auction"></nz-option>
+              <nz-option nzLabel="Reach & Frequency" nzValue="reach" [nzDisabled]="true"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Campaign Objective
+            <ingo-explain tooltipId="app.campCreate.campaign.objective"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to select an objective for your campaign">
+            <ingo-objective-selector
+              formControlName="objective"
+              [campaignObjectives]="facebookCampaignObjectives"
+            ></ingo-objective-selector>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="4">
+      <div nz-col [nzSpan]="6" class="mr-10">
+        <nz-form-item>
+          <nz-form-label
+            >Special Ad Categories
+            <div class="special-cats-tip">
+              <ingo-explain tooltipId="app.campCreate.campaign.specialCats"></ingo-explain>
+            </div>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-switch
+              formControlName="specialCats"
+              [nzCheckedChildren]="checkedTemplate"
+              [nzUnCheckedChildren]="unCheckedTemplate"
+            ></nz-switch>
+            <ng-template #checkedTemplate><i class="fas fa-check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i class="far fa-power-off"></i></ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="1" *ngIf="settingsForm.value.specialCats">
+        <div class="ingo-lead-arrow"><i class="far fa-long-arrow-right"></i></div>
+      </div>
+      <div nz-col [nzSpan]="13" *ngIf="settingsForm.value.specialCats">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="You have to select an ad account">
+            <nz-select
+              id="campaign-special-cats"
+              formControlName="specialCatsOptions"
+              nzPlaceHolder="Select Categories"
+              [nzCustomTemplate]="specialCatSelected"
+              [nzMenuItemSelectedIcon]="specialCatsSelectedIcon"
+              nzMode="multiple"
+              nzShowSearch="false"
+              nzShowArrow="true"
+              class="hide-input"
+              (ngModelChange)="updateSpecialCats($event)"
+              nzDropdownClassName="special-cats-wrap"
+              [nzOptionHeightPx]="88"
+            >
+              <nz-option
+                *ngFor="let category of specialCatsOptions"
+                [nzLabel]="category"
+                [nzValue]="category.name"
+                nzCustomContent
+              >
+                <div class="special-cat">
+                  <div class="icon"><i class="{{ category.icon }}"></i></div>
+                  <div class="desc">
+                    <strong>{{ category.name }}</strong>
+                    <span>{{ category.desc }}</span>
+                  </div>
+                </div>
+              </nz-option>
+            </nz-select>
+            <ng-template #specialCatSelected> {{ specialCatsSelected }} </ng-template>
+            <ng-template #specialCatsSelectedIcon><i class="fas fa-check-circle"></i></ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <nz-divider class="mx--25"></nz-divider>
+
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10"
+      [disabled]="!(settingsForm.status === 'VALID')"
+      (click)="setStep.emit()"
+    >
+      Continue
+    </button>
+  </form>
+</nz-card>

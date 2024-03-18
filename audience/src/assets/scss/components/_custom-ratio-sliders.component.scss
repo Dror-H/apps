@@ -1,0 +1,16 @@
+@import 'colors.variables';
+@import 'mixins';
+
+.slider {
+  &-interests {
+    @include slider-colors;
+  }
+
+  &-demographics {
+    @include slider-colors($cyan);
+  }
+
+  &-behaviors {
+    @include slider-colors($pink);
+  }
+}

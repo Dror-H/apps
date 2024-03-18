@@ -1,0 +1,108 @@
+<div nz-row [nzGutter]="24" *ngIf="allMetrics$ | async as allMetrics">
+  <ng-container *ngIf="allMetrics.length > 0 && activeMetrics.length > 0">
+    <ng-container *ngFor="let activeMetric of activeMetrics; let i = index">
+      <div nz-col [nzSpan]="8" *ngIf="activeMetric.active">
+        <nz-card class="provider-metric">
+          <div class="provider-metric-inner">
+            <div class="metric-header">
+              <div class="metric-selector">
+                <a
+                  nz-dropdown
+                  [nzDropdownMenu]="cardDropdown"
+                  class="card-extra-dropdown"
+                  [nzOverlayClassName]="'dropdown-arrow-right metric-selector-dropdown'"
+                  [nzTrigger]="'click'"
+                >
+                  <i class="far fa-bars"></i>
+                </a>
+
+                <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+                  <ul nz-menu nzSelectable>
+                    <li nz-menu-item class="change-metric-title">
+                      <div class="ingo-dropdown-option">Change Metric</div>
+                    </li>
+                    <ng-container *ngFor="let item of allMetrics; let c = index">
+                      <li
+                        nz-menu-item
+                        *ngIf="inactiveMetrics.has(item.id)"
+                        (click)="toggleMetric(i, item.id, activeMetric.id)"
+                      >
+                        <div class="ingo-dropdown-inner-icon">
+                          <i
+                            [ngClass]="providerIcons[item.provider]"
+                            [ngStyle]="{ color: providerColors[item.provider] }"
+                            class="fa-1x fa-fw"
+                          >
+                          </i>
+                        </div>
+                        <div class="ingo-dropdown-option">
+                          {{ metricTypes[item.metric].name }}
+                        </div>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </nz-dropdown-menu>
+              </div>
+            </div>
+            <div class="metric-total">
+              <ng-container
+                [ngTemplateOutlet]="printTotal"
+                [ngTemplateOutletContext]="{ total: activeMetric.summary, type: metricTypes[activeMetric.metric].type }"
+              ></ng-container>
+              <span>
+                <ng-container
+                  [ngTemplateOutlet]="printChange"
+                  [ngTemplateOutletContext]="{ change: activeMetric.change }"
+                ></ng-container>
+              </span>
+            </div>
+            <div class="metric-desc">
+              {{ metricTypes[activeMetric.metric].message[activeMetric.provider] | translate }}
+            </div>
+            <div class="metric-footer">
+              <div class="metric-meta">
+                <p>
+                  <i class="fad fa-th fa-fw"></i><span>{{ metricTypes[activeMetric.metric].name }}</span>
+                </p>
+                <p *ngIf="activeRange$ | async as date">
+                  <i class="fad fa-calendar-star fa-fw"></i><span>{{ date.start }} - {{ date.end }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #printTotal let-total="total" let-type="type">
+  <ng-container *ngIf="type === 'currency'">{{ total || 0 | currency: (defaultCurrency$ | async) }}</ng-container>
+  <ng-container *ngIf="type === 'shortNumber'">{{ total || 0 | shortNumber }}</ng-container>
+  <ng-container *ngIf="type === 'percentage'">{{ total | number: '1.0-2':'en-US' }}%</ng-container>
+  <ng-container *ngIf="!type">{{ total | number: '1.0-2' }}</ng-container>
+</ng-template>
+
+<ng-template #printChange let-change="change">
+  <ng-container *ngIf="change.change !== '+'">
+    <span *ngIf="change.icon === 'up'">
+      <i class="far fa-chart-line fa-fw"></i>
+      {{ change.change }}%
+    </span>
+    <span *ngIf="change.icon === 'down'" [ngClass]="{ decrease: change.icon === 'down' }">
+      <i class="far fa-chart-line-down fa-fw"></i>
+      {{ change.change }}%
+    </span>
+  </ng-container>
+</ng-template>
+
+<ng-template #noChange>
+  <span
+    class="no-change"
+    ingoTooltip
+    nzTooltipTitle="Change analysis is available only when a time preset is selected as the dates-range"
+    nzTooltipOverlayClassName="ingo-explain-card"
+  >
+    Change not available
+  </span>
+</ng-template>

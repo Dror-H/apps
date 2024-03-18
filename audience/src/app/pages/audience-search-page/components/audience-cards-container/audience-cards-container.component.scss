@@ -1,0 +1,20 @@
+@use 'audiences-app-variables' as *;
+
+.card-wrapper {
+  margin-top: 1px; /* compensation for outline on selected audience */
+
+  &:hover {
+    outline: 1px solid $purple;
+  }
+
+  &--selected {
+    border-radius: $border-radius-sm;
+    outline: 1px solid $primary-color;
+  }
+}
+
+ingo-explain {
+  position: absolute;
+  right: 0;
+  z-index: 200;
+}

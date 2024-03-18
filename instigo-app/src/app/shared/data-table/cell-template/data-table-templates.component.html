@@ -1,0 +1,222 @@
+<ng-template #networkHeader let-column="column">
+  <span class="provider-cell"><i class="fas fa-share-alt-square fa-fw"></i></span>
+</ng-template>
+
+<ng-template #cellProviderIcon let-value="value">
+  <span class="provider-cell"
+    ><i class="fa-fw" [ngClass]="providerIcon(value)" [ngStyle]="{ color: providerColor(value) }"></i
+  ></span>
+</ng-template>
+
+<ng-template #thumbnailTemplate let-value="value">
+  <img class="ad-thumbnail" *ngIf="value" width="30px" height="30px" [src]="value" />
+  <i *ngIf="!value" class="fal fa-image-polaroid"></i>
+</ng-template>
+
+<ng-template #facebookPreviewTemplate let-row="row" let-value="value">
+  <ng-container *ngIf="value">
+    <img class="ad-thumbnail" width="30px" height="30px" [src]="value" />
+    <a
+      [href]="previewFacebookCreative(row.providerId)"
+      target="_blank"
+      class="preview-link-overlay"
+      nzTooltipTitle="View on Facebook"
+      nz-tooltip
+      nzTooltipOverlayClassName="ingo-explain-card"
+      nzTooltipColor="#5f63f2"
+    >
+      <i class="fab fa-facebook-f fa-fw"></i>
+    </a>
+  </ng-container>
+  <i *ngIf="!value" class="fal fa-image-polaroid"></i>
+</ng-template>
+
+<ng-template #startCase let-value="value">
+  {{ value | startCase }}
+</ng-template>
+
+<ng-template #nameTemplate let-value="value">
+  <span
+    nzTooltipTitle="{{ value?.length > 30 ? value : '' }}"
+    nzTooltipPlacement="bottom"
+    nz-tooltip
+    nzTooltipOverlayClassName="ingo-explain-card"
+    nzTooltipColor="#5f63f2"
+  >
+    {{ value?.length > 30 ? (value | slice: 0:30) + '...' : value }}
+  </span>
+</ng-template>
+
+<ng-template #searchTermTemplate let-value="value">
+  <span
+    nzTooltipTitle="{{ value }}"
+    nzTooltipPlacement="right"
+    nz-tooltip
+    ingoHighlight
+    [searchedWords]="state.searchTerm"
+    [text]="value?.length > 32 ? (value | slice: 0:32) + '...' : value"
+    classToApply="ingo-highlight"
+  ></span>
+</ng-template>
+
+<ng-template #campaignStatus let-value="value">
+  <span
+    class="status-badge"
+    [ngClass]="{
+      active: value === 'ACTIVE',
+      completed: value == 'COMPLETED',
+      paused: value == 'PAUSED',
+      review: value == 'INREVIEW',
+      draft: value == 'DRAFT'
+    }"
+  >
+    {{ value | titlecase }}
+  </span>
+</ng-template>
+
+<ng-template #editBudgetTemplate let-row="row" let-column="column" let-value="value">
+  <div *ngIf="value" class="cell-template-with-subtext">
+    <span class="cell-template-with-subtext__value">
+      {{ (value | isNumber) ? (value | currency: row.currency:'symbol') : '-' }}
+      <i class="ng-fa-icon fal fa-pencil-alt fa-lg float-right"></i>
+    </span>
+    <span class="cell-template-with-subtext__subtext">
+      {{ row.budgetType | titlecase }} | {{ row.adSetsCount }} Ad Sets
+    </span>
+  </div>
+  <div *ngIf="!value">
+    <i class="ng-fa-icon fal fa-meh fa-lg"></i>
+  </div>
+</ng-template>
+
+<ng-template #campaignBudgetTemplate let-row="row" let-value="value">
+  <div *ngIf="value" class="cell-template-with-subtext">
+    {{ (value | isNumber) ? (value | currency: row.currency:'symbol') : '-' }} / {{ row.budgetType | titlecase }}
+  </div>
+  <div *ngIf="!value">By Ad Set</div>
+</ng-template>
+
+<ng-template #adSetBudgetTemplate let-row="row" let-value="value">
+  <div *ngIf="value" class="cell-template-with-subtext">
+    {{ (value | isNumber) ? (value | currency: row.currency:'symbol') : '-' }} / {{ row.budgetType | titlecase }}
+  </div>
+  <div *ngIf="!value">
+    CBO
+    <div
+      class="ingo-explain r-15"
+      nz-tooltip
+      nzTooltipTitle="When Campaign Budget Optimization is active, ad set's budgets are distributed automatically"
+      nzTooltipOverlayClassName="ingo-explain-card"
+      nzTooltipColor="#5f63f2"
+    >
+      <i class="fas fa-info-circle"></i>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #currencyCell let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | currency: row.currency:'symbol') : '-' }}
+</ng-template>
+
+<ng-template #numberCell let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-2') : '-' }}
+</ng-template>
+
+<ng-template #integerCell let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-0') : '-' }}
+</ng-template>
+
+<ng-template #percentageCell let-row="row" let-column="column" let-value="value">
+  {{ (value | isNumber) ? (value | number: '1.0-2') + '%' : '-' }}
+</ng-template>
+
+<ng-template #clicksTemplate let-value="value">
+  <i *ngIf="value | isNumber" class="ng-fa-icon fal fa-hand-pointer fa-1x"></i>
+  {{ (value | isNumber) ? (value | number: '1.0-2') : '-' }}
+</ng-template>
+
+<ng-template #impressionsTemplate let-value="value">
+  <i *ngIf="value | isNumber" class="ng-fa-icon fal fa-eye fa-1x"></i>
+  {{ (value | isNumber) ? (value | number: '1.0-2') : '-' }}
+</ng-template>
+
+<ng-template #reachTemplate let-value="value">
+  <i *ngIf="value | isNumber" class="ng-fa-icon fal fa-user fa-1x"></i>
+  {{ (value | isNumber) ? (value | number: '1.0-2') : '-' }}
+</ng-template>
+
+<ng-template #dateCell let-value="value">
+  {{ value | date }}
+</ng-template>
+
+<ng-template #contentToClipboardIcon let-row="row" let-column="column" let-value="value">
+  <ng-template #tipContent let-tipContent="tipContent">{{ tipContent }}</ng-template>
+  <i
+    class="ng-fa-icon fal fa-clipboard fa-1x"
+    [ngStyle]="{ cursor: 'pointer' }"
+    (click)="onCopyCellContent(t, value)"
+    (mouseover)="tooltipOn(t)"
+    (mouseleave)="tooltipOff(t)"
+    [ngbTooltip]="tipContent"
+    placement="top"
+    triggers="manual"
+    tooltipClass="cell-tooltip"
+    #t="ngbTooltip"
+    [autoClose]="false"
+  ></i>
+</ng-template>
+
+<ng-template #businessTemplate let-row="row" let-value="value">
+  <img
+    [src]="row.businessProfilePicture || '/assets/images/default-business-image.png'"
+    class="ad-account-pic"
+    alt="image"
+  />
+  &nbsp;
+  {{ value }}
+</ng-template>
+
+<ng-template #selectableTemplate let-column="column">
+  <span *ngIf="isLoaded">
+    <i
+      class="ng-fa-icon fal fa-pencil-alt fa-lg"
+      [ngStyle]="{ cursor: 'pointer', color: columnIsValid(column) ? 'black' : 'red' }"
+      (click)="openColumnEditor(column)"
+    >
+    </i>
+    &nbsp; {{ column?.name }} &nbsp;
+    <i
+      class="ng-fa-icon fa-lg cursor-pointer"
+      [ngClass]="isColumnSelected(column) ? 'fal fa-times' : 'fal fa-check'"
+      (click)="toggleSelection(column)"
+    ></i>
+  </span>
+</ng-template>
+
+<ng-template #searchCampaignAndRouteToDetails let-column="column" let-value="value" let-row="row">
+  <a
+    nzTooltipTitle="{{ value }}"
+    nzTooltipPlacement="right"
+    nz-tooltip
+    class="selectable-table-item"
+    [routerLink]="['/campaign-details', row.id]"
+    [queryParams]="{ provider: row.provider }"
+  >
+    <a
+      ingoHighlight
+      [searchedWords]="state?.searchTerm"
+      [text]="value.length > 32 ? (value | slice: 0:32) + '...' : value"
+      classToApply="ingo-highlight"
+    ></a>
+  </a>
+</ng-template>
+
+<ng-template #viewCampaignDetails let-row="row">
+  <a [routerLink]="['/campaign-details', row.id]" [queryParams]="{ provider: row.provider }">
+    <i class="ng-fa-icon fal fa-eye fa-lg"> </i
+  ></a>
+</ng-template>
+
+<ng-template #viewHeader let-column="column">
+  <span><i class="ng-fa-icon fal fa-eye fa-lg"></i></span>
+</ng-template>

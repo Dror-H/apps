@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FacebookTargetingExportSerializer should create the adSet 1`] = `
+Object {
+  "adAccount": Object {
+    "accessToken": "string",
+    "adAccountStatusDescription": "any",
+    "businessCity": "string",
+    "businessCountryCode": "string",
+    "businessId": "businessId",
+    "businessName": "some business name",
+    "businessProfilePicture": "string",
+    "businessStreet": "string",
+    "businessStreet2": "string",
+    "businessZip": "string",
+    "currency": "EUR",
+    "disableReason": "string",
+    "name": "test-ad account",
+    "provider": "facebook",
+    "providerId": "providerId",
+    "status": "ACTIVE",
+    "timezoneId": "string",
+    "timezoneName": "string",
+    "timezoneOffsetHoursUtc": "string",
+    "totalAmountSpent": "string",
+  },
+  "bidAmount": null,
+  "bidStrategy": "LOWEST_COST_WITH_BID_CAP",
+  "billingEvent": "IMPRESSIONS",
+  "campaign": null,
+  "name": "Instigo Audiences | Audience Name",
+  "optimizationGoal": "LINK_CLICKS",
+  "pacingType": Array [
+    "standard",
+  ],
+  "provider": "facebook",
+  "startTime": 2020-01-01T00:00:00.000Z,
+  "status": "ACTIVE",
+  "targeting": Object {},
+}
+`;
+
+exports[`FacebookTargetingExportSerializer should serialize the campaign 1`] = `
+Object {
+  "adAccount": Object {
+    "accessToken": "string",
+    "adAccountStatusDescription": "any",
+    "businessCity": "string",
+    "businessCountryCode": "string",
+    "businessId": "businessId",
+    "businessName": "some business name",
+    "businessProfilePicture": "string",
+    "businessStreet": "string",
+    "businessStreet2": "string",
+    "businessZip": "string",
+    "currency": "EUR",
+    "disableReason": "string",
+    "name": "test-ad account",
+    "provider": "facebook",
+    "providerId": "providerId",
+    "status": "ACTIVE",
+    "timezoneId": "string",
+    "timezoneName": "string",
+    "timezoneOffsetHoursUtc": "string",
+    "totalAmountSpent": "string",
+  },
+  "effectiveStatus": "IN_PROCESS",
+  "name": "Instigo Audiences | Audience Name",
+  "provider": "facebook",
+  "providerSpecificFields": Object {
+    "bidStrategy": "LOWEST_COST_WITHOUT_CAP",
+    "buyingType": "auction",
+    "dailyBudget": 20,
+    "objective": "LINK_CLICKS",
+    "specialAdCategories": null,
+    "spendCap": 20,
+  },
+  "status": "PAUSED",
+}
+`;

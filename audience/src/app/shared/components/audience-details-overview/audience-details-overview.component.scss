@@ -1,0 +1,21 @@
+@use 'audiences-app-variables' as *;
+
+.targeting-percentage {
+  font-size: $font-size-xs;
+  margin-left: 0.25rem;
+}
+
+.match-percentage {
+  display: flex;
+  margin-bottom: 0.5rem;
+
+  .ant-tag {
+    align-self: center;
+    font-size: $font-size-xs;
+    margin-left: 0.5rem;
+  }
+}
+
+.title {
+  white-space: nowrap;
+}

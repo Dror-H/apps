@@ -1,0 +1,43 @@
+<nz-card class="ingo-card-nbm">
+  <form [formGroup]="audienceForm" class="ingo-add-edit-form">
+    <app-saved-audience-targeting
+      [audienceForm]="audienceForm"
+      [rules]="existingRules"
+      *ngIf="audienceForm.value.audienceType === audienceType.SAVED_AUDIENCE"
+    >
+    </app-saved-audience-targeting>
+
+    <ingo-custom-audience
+      [adTemplateForm]="audienceForm"
+      *ngIf="audienceForm.value.audienceType === audienceType.CUSTOM_AUDIENCE"
+      (isFormValid)="validateForm($event)"
+    ></ingo-custom-audience>
+
+    <ingo-lookalike-audience
+      [audienceForm]="audienceForm"
+      *ngIf="audienceForm.value.audienceType === audienceType.LOOKALIKE_AUDIENCE"
+      (isFormValid)="validateForm($event)"
+    ></ingo-lookalike-audience>
+  </form>
+
+  <nz-divider class="mx--25"></nz-divider>
+
+  <div nz-row class="mt-10">
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10"
+      (click)="checkTosAndContinue()"
+      [disabled]="
+        (audienceForm.value.audienceType === audienceType.CUSTOM_AUDIENCE && !isCustomAudienceFormValid) ||
+        (audienceForm.value.audienceType === audienceType.LOOKALIKE_AUDIENCE && !isCustomAudienceFormValid) ||
+        (audienceForm.value.audienceType === audienceType.SAVED_AUDIENCE && audienceForm.status === 'INVALID')
+      "
+    >
+      <span>Continue</span>
+    </button>
+    <button nz-button nzType="primary" class="btn-light btn-bold" (click)="setStep.emit(0)">
+      <span>Previous</span>
+    </button>
+  </div>
+</nz-card>

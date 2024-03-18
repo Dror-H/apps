@@ -1,0 +1,48 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2015",
+    "jsx": "react",
+    "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "paths": {
+      "@app": ["src/app"],
+      "@app/*": ["src/app/*"],
+      "core-js/es7/reflect": ["../../node_modules/core-js/proposals/reflect-metadata"],
+      "core-js/es6/reflect": ["../../node_modules/core-js/proposals/reflect-metadata"],
+      "@instigo-app/data-transfer-object": ["../../libs/data-transfer-object/src/index.ts"],
+      "@instigo-app/ui/linkedin": ["../../libs/ui/linkedin/src/index.ts"],
+      "@instigo-app/ui/shared": ["../../libs/ui/shared/src/index.ts"],
+      "@instigo-app/ui/facebook": ["../../libs/ui/facebook/src/index.ts"],
+      "@instigo-app/ui/components": ["../../libs/ui/components/src/index.ts"]
+    }
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
+    }
+  ],
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableIvy": true
+  }
+}

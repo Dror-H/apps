@@ -1,0 +1,91 @@
+<div nz-row [nzGutter]="[24, 24]">
+  <div nz-col [nzSpan]="12">
+    <div nz-form class="newcamp-type-options ingo-add-edit-form">
+      <nz-form-label>Select Media Source</nz-form-label>
+      <nz-radio-group
+        class="ingo-radio-group radio-group-2"
+        [(ngModel)]="radioValue"
+        (ngModelChange)="onSourceChange($event)"
+      >
+        <div nz-radio-button nzValue="instigo">
+          <span class="title"><span>Instigo</span></span>
+        </div>
+        <div nz-radio-button nzValue="facebook">
+          <span class="title"><span>Facebook</span></span>
+        </div>
+      </nz-radio-group>
+    </div>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="[24, 24]" nzJustify="center" *ngIf="mediaNumber > 0; else empty">
+  <perfect-scrollbar class="p-25">
+    <div nz-row [nzGutter]="[24, 0]">
+      <div *ngFor="let file of files" nz-col nzSpan="4">
+        <div *ngIf="file.mimetype.startsWith('video/')">
+          <video
+            class="video-js vjs-default-skin"
+            width="250px"
+            height="150px"
+            controls
+            preload="none"
+            poster="http://video-js.zencoder.com/oceans-clip.jpg"
+            data-setup='{ "aspectRatio":"350:150", "playbackRates": [1, 1.5, 2] }'
+          >
+            <source
+              *ngIf="file.mimetype.endsWith('/mp4')"
+              [src]="file.location"
+              (error)="getFileObjectUrl(file, video)"
+              type="video/mp4"
+              #video
+            />
+            <source
+              *ngIf="file.mimetype.endsWith('/ogg')"
+              [src]="file.location"
+              (error)="getFileObjectUrl(file, video)"
+              type="video/ogg"
+              #video
+            />
+            <source
+              *ngIf="file.mimetype.endsWith('/mpeg')"
+              [src]="file.location"
+              (error)="getFileObjectUrl(file, video)"
+              type="video/mpeg"
+              #video
+            />
+          </video>
+          <button nz-button nzType="default" (click)="selectMedia(file)">Select Video</button>
+        </div>
+        <a *ngIf="file.mimetype.startsWith('image/')" (click)="selectMedia(file)" class="cursor-pointer">
+          <img class="img-fluid img-thumbnail" [src]="file.location" (error)="getFileObjectUrl(file, image)" #image />
+          <small>{{ file.name }}</small>
+        </a>
+      </div>
+    </div>
+  </perfect-scrollbar>
+
+  <nz-pagination
+    [nzPageIndex]="pageIndex"
+    [nzPageSize]="pageSize"
+    [nzTotal]="mediaNumber"
+    (nzPageIndexChange)="onPageChange($event)"
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+</div>
+
+<div *nzModalFooter>
+  <button nz-button nzType="primary" class="btn-light" (click)="closeModal()">Cancel</button>
+</div>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+  {{ range[0] }}-{{ range[1] }} of {{ total }} items
+</ng-template>
+
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="contentTpl">
+    <ng-template #contentTpl>
+      <span>You have not uploaded any media yet</span>
+    </ng-template>
+  </nz-empty>
+</ng-template>

@@ -1,0 +1,20 @@
+.errors-tooltips {
+  margin-bottom: 5px;
+  padding-top: 3px;
+
+  .err-tooltip {
+    span {
+      color: #efc245;
+      padding-left: 5px;
+
+      &::before {
+        content: '\f071';
+        display: inline-block;
+        font-family: 'Font Awesome 5 Pro';
+        font-weight: 900;
+        padding-right: 5px;
+        vertical-align: baseline;
+      }
+    }
+  }
+}

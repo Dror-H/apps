@@ -1,0 +1,17 @@
+<nz-carousel nzEffect="scrollx" class="carousel-size" nzEnableSwipe="true" [nzDots]="false">
+  <div nz-carousel-content *ngFor="let form of formCombinations; index as i">
+    <div nz-col>
+      <ingo-ad-preview-carousel-item
+        [adTemplateDto]="form"
+        [itemIndex]="i"
+        [actualIndex]="carousel.activeIndex"
+      ></ingo-ad-preview-carousel-item>
+    </div>
+  </div>
+</nz-carousel>
+
+<div nz-row nzJustify="space-between" nzAlign="middle" *ngIf="formCombinations.length > 1">
+  <button nz-button nzType="default" (click)="goTo($event, -1)" class="button-width">Previous</button>
+  {{ carousel.activeIndex + 1 }} / {{ formCombinations.length }}
+  <button nz-button nzType="default" (click)="goTo($event, 1)" class="button-width">Next</button>
+</div>

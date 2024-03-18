@@ -1,0 +1,20 @@
+<nz-select
+  [nzPlaceHolder]="selectedCampaignName"
+  nzShowSearch
+  nzServerSearch
+  [(ngModel)]="selectedSearchItem"
+  [nzOptionHeightPx]="38"
+  nzPlaceHolder="Search Campaign"
+  (nzOnSearch)="searchItems$.next($event)"
+  (ngModelChange)="onSelect($event)"
+  (nzFocus)="toggleActive()"
+  (nzBlur)="toggleActive()"
+  class="camp-details-search"
+>
+  <ng-container *ngFor="let campaign of campaignSearched">
+    <nz-option [nzValue]="campaign" [nzLabel]="campaign.name"></nz-option>
+  </ng-container>
+  <nz-option nzDisabled nzCustomContent *ngIf="searchActive">
+    <i nz-icon nzType="loading" class="loading-icon"></i> Search for campaigns
+  </nz-option>
+</nz-select>

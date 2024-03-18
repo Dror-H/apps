@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+.workspace-members-outline {
+  align-items: center;
+  display: flex;
+  flex-flow: wrap row;
+
+  > .member-info {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 100%;
+    margin-bottom: 1rem;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  figure {
+    margin: 0 12px 0 0;
+  }
+
+  img {
+    border-radius: 10%;
+    box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
+    width: 40px;
+    @media all and (max-width: 1280px) {
+      width: 32px !important;
+    }
+  }
+
+  .member-name {
+    color: #474b6d;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @media all and (max-width: 1280px) {
+      font-size: 15px;
+    }
+  }
+
+  .member-role {
+    color: #9299b8;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    @media all and (max-width: 1280px) {
+      font-size: 13px;
+    }
+  }
+
+  .member-is-owner {
+    color: #5f63f2;
+    font-size: 15px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    @media all and (max-width: 1280px) {
+      font-size: 14px;
+    }
+  }
+}

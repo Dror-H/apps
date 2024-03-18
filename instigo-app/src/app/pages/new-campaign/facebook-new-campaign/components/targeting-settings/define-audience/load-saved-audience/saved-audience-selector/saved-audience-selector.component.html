@@ -1,0 +1,35 @@
+<nz-select
+  nzShowSearch
+  [ngModel]="selectedAudience"
+  (nzOnSearch)="onSearch($event)"
+  (nzOpenChange)="onSelectorOpened()"
+  (ngModelChange)="onSourceChange($event)"
+  (nzScrollToBottom)="loadMoreCustomAudiences()"
+  [nzOptionHeightPx]="38"
+  [compareWith]="compareFn"
+  nzPlaceHolder="Select one of existing targeting objects"
+  [nzDropdownRender]="renderTemplate"
+  [nzCustomTemplate]="displaySelected"
+>
+  <ng-container *ngFor="let item of sources">
+    <nz-option nzCustomContent [nzLabel]="item.name" [nzValue]="item">
+      <div nz-row nzJustify="space-between" class="audience-list">
+        <span class="display-block">{{ item.name }}</span>
+        <small class="display-block">{{ item.size | number }}</small>
+      </div>
+    </nz-option>
+  </ng-container>
+
+  <ng-template #displaySelected let-selected>
+    <div nz-row nzJustify="space-between" class="audience-list">
+      <span class="display-block">{{ selected.nzValue.name }}</span>
+      <small class="display-block">{{ selected.nzValue.size | number }}</small>
+    </div>
+  </ng-template>
+</nz-select>
+
+<ng-template #renderTemplate>
+  <div nz-row nzJustify="center" *ngIf="shouldLoadMore">
+    <a class="btn-link" (click)="loadMoreCustomAudiences()">Load More</a>
+  </div>
+</ng-template>

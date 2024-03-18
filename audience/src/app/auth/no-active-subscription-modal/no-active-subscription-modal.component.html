@@ -1,0 +1,36 @@
+<div class="subscription">
+  <h1 class="subscription-title" nz-typography>Try Instigo Audiences <strong>Risk-Free</strong></h1>
+  <div class="divider--xxs"></div>
+  <h4 class="subscription-description" nz-typography nzType="secondary">
+    Discover automated audience creation for only <strong>$19</strong>/Month.
+  </h4>
+  <div class="divider--xs"></div>
+  <nz-spin nzTip="Checking payment info..." [nzSpinning]="isLoading">
+    <form
+      class="ingo-add-edit-form user-subscription"
+      ngxStripeCardGroup
+      nz-form
+      [formGroup]="paymentForm"
+      (ngSubmit)="pay()"
+    >
+      <div [nzGutter]="15" nz-row>
+        <div [nzSpan]="24" nz-col>
+          <input formControlName="name" id="userName" placeholder="Name" />
+        </div>
+        <div [nzSpan]="24" nz-col>
+          <ngx-stripe-card #cardElement [options]="stripeCardElementOptions"></ngx-stripe-card>
+        </div>
+      </div>
+      <ngx-stripe-payment-request-button></ngx-stripe-payment-request-button>
+      <div class="divider--lg"></div>
+      <div class="divider--xxs"></div>
+
+      <div nz-row nzJustify="end">
+        <button class="subscription__cancel-btn" nz-button nzType="text" (click)="closeModal()" type="button">
+          <h3 nz-typography nzType="secondary">Cancel</h3>
+        </button>
+        <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Pay $19</button>
+      </div>
+    </form>
+  </nz-spin>
+</div>

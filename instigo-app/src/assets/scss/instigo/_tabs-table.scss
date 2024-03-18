@@ -1,0 +1,126 @@
+.ingo-tabs-view {
+  .ant-tabs-nav-wrap {
+    margin-bottom: -2px;
+  }
+
+  .ant-tabs-tab,
+  .ant-tabs-top > .ant-tabs-nav {
+    margin: 0;
+    padding: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .ant-tabs-tab:not(:first-child) {
+    margin-left: -5px;
+  }
+
+  .ant-tabs-tab:nth-child(1) {
+    z-index: 2;
+  }
+
+  .ant-tabs-tab:nth-child(2) {
+    z-index: 1;
+  }
+
+  .ant-tabs-tab:nth-child(3) {
+    z-index: 0;
+  }
+
+  .ant-tabs-tab-btn {
+    color: color(gray, 40);
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    padding: 1.35em 3.75em 0.7em 1.75em;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.25s ease;
+
+    @media all and (max-width: 1280px) {
+      font-size: 15px;
+      padding: 1.15em 3.45em 0.6em 1.45em;
+    }
+
+    > i {
+      font-size: 14px;
+      margin-right: 5px;
+      @media all and (max-width: 1280px) {
+        font-size: 12px;
+        margin-right: 5px;
+      }
+    }
+
+    &::before {
+      background: #f5f6f9;
+      border: 2px solid #fff;
+      border-bottom: none;
+      border-bottom: 0;
+      border-radius: 12px 12px 0 0;
+      bottom: 0.1rem;
+      box-shadow: 0 -3px 7px -1px rgb(0 0 0 / 4%);
+      content: '';
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: perspective(10px) rotateX(2deg);
+      transform-origin: bottom left;
+      z-index: -1;
+    }
+
+    &:hover {
+      color: color(gray, 50);
+    }
+  }
+
+  .ant-tabs-tab.ant-tabs-tab-active {
+    z-index: 4 !important;
+
+    .ant-tabs-tab-btn {
+      color: color(purple);
+      font-weight: 600 !important;
+    }
+  }
+
+  .ant-tabs-tab-active .ant-tabs-tab-btn::before {
+    background: #fff;
+    border: 0 none !important;
+  }
+
+  .ant-tabs-content-holder {
+    background: #fff;
+  }
+
+  .ant-tabs-ink-bar {
+    display: none !important;
+  }
+
+  &.ingo-devices-preview {
+    .ant-tabs-tab {
+      background: transparent !important;
+      border: 0 none !important;
+      padding: 0 !important;
+    }
+
+    .ant-tabs-tab-btn {
+      padding: 1.35em 2.35em 0.7em 1.45em;
+
+      &::before {
+        box-shadow: none !important;
+      }
+    }
+
+    .ant-tabs-tab-active .ant-tabs-tab-btn::before {
+      background: rgba(color(purple), 6%);
+    }
+
+    .ant-tabs-content-holder {
+      background: rgba(color(purple), 6%);
+      border: 1px solid rgba(color(purple), 6%);
+    }
+  }
+}

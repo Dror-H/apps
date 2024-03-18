@@ -1,0 +1,71 @@
+.cell-tooltip .tooltip-inner {
+  background-color: #343a40;
+}
+
+.cell-tooltip .arrow::before {
+  border-top-color: #343a40;
+}
+
+.selectable-table-item {
+  color: #212529;
+  position: relative;
+
+  &::before {
+    background: #212529;
+    content: '';
+    display: block;
+    height: 1px;
+    margin-top: 20px;
+    position: absolute;
+    right: 0;
+    transition: width 0.2s ease;
+    width: 0;
+  }
+
+  &:hover::before {
+    background: #5f63f2;
+    left: 0;
+    width: 100%;
+  }
+
+  &:hover {
+    color: #5f63f2;
+  }
+}
+
+.selectable-table-item-wrap {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ad-account-pic {
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px rgb(0 0 0 / 5%);
+  margin-top: -1px;
+  width: 22px !important;
+}
+
+.ingo-explain {
+  color: #474b6d;
+  font-size: 14px;
+  line-height: 1;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.25s ease;
+}
+
+.has-extra-button nz-tooltip {
+  position: relative !important;
+  right: unset;
+  top: unset;
+  transform: none;
+}
+
+.right-80 {
+  .ingo-explain {
+    right: 80px !important;
+  }
+}

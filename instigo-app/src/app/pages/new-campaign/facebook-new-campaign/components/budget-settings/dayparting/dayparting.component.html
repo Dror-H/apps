@@ -1,0 +1,37 @@
+<div class="schedule-grid">
+  <div class="schedule-header">
+    <div *ngFor="let hour of scheduleDays[0].hours; let i = index" (click)="applyEntireHour($event, hour)">
+      {{ hour }}
+    </div>
+  </div>
+  <div class="schedule-grid">
+    <ul class="schedule-days">
+      <li *ngFor="let day of scheduleDays" (click)="applyEntireDay($event, day.name)">{{ day.name }}</li>
+    </ul>
+    <div class="schedule-hour">
+      <ngx-selecto
+        #scheduleGrid
+        dragContainer=".elements"
+        [selectableTargets]="['.selecto-area .cube']"
+        [hitRate]="0"
+        [selectByClick]="true"
+        [selectFromInside]="true"
+        [continueSelect]="true"
+        [ratio]="0"
+        (select)="onSelect($event)"
+        (selectEnd)="onSelectEnd($event)"
+      ></ngx-selecto>
+      <div class="elements selecto-area">
+        <div class="day" *ngFor="let day of scheduleDays">
+          <div
+            class="cube hour-{{ hour | slice: 0:2 }} day-{{ day.name | lowercase }}"
+            *ngFor="let hour of day.hours"
+            [attr.day]="day.name | lowercase"
+            [attr.hour]="hour | slice: 0:2"
+          ></div>
+        </div>
+      </div>
+      <div class="empty elements"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{
+  "/server": {
+    "target": "https://localhost:3001",
+    "secure": false,
+    "pathRewrite": {
+      "^/server": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "error"
+  }
+}

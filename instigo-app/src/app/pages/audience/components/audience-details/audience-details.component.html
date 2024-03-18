@@ -1,0 +1,38 @@
+<div nz-row [nzGutter]="24" class="ingo-tabs-view">
+  <div nz-col [nzSpan]="24">
+    <nz-card *ngIf="instance && instance?.id">
+      <h5>Details</h5>
+      <div>Ad Network: <i class="ng-fa-icon fa-1x fa-fw" [ngClass]="icon"></i></div>
+      <div>Audience Name: {{ instance.name.length > 30 ? (instance.name | slice: 0:30) + '...' : instance.name }}</div>
+      <div>Audience Id: {{ instance.id }}</div>
+      <div>Created On: {{ instance.createdAt | date: 'dd/MM/yyyy' }}</div>
+      <div>Last Edited: {{ instance.updatedAt | date: 'dd/MM/yyyy' }}</div>
+      <div>Projected Size: {{ instance.size }}</div>
+      <div>Type: {{ instance.type }}</div>
+      <div *ngIf="instance?.subType">SubType: {{ instance.subType }}</div>
+      <br />
+
+      <h5 *ngIf="instance?.subType !== AudienceSubType.LIST">Properties</h5>
+      <div *ngIf="instance.type === AudienceType.CUSTOM_AUDIENCE && instance.subType === AudienceSubType.WEBSITE">
+        <h6>Include</h6>
+        <span style="white-space: pre-wrap">{{ audienceRules?.include$ | async }}</span>
+        <br />
+        <h6 *ngIf="instance.rules?.exclude">Exclude</h6>
+        <span style="white-space: pre-wrap">{{ audienceRules?.exclude$ | async }}</span>
+        <br />
+        <h6 *ngIf="instance?.lookalikeAudiences?.length">Lookalikes</h6>
+        <span style="white-space: pre-wrap">{{ audienceLookalikes$ | async }}</span>
+      </div>
+      <div *ngIf="instance.type === AudienceType.LOOKALIKE_AUDIENCE">
+        <div [innerHTML]="audienceLookalikeSpec$ | async"></div>
+      </div>
+      <div *ngIf="instance.type === AudienceType.SAVED_AUDIENCE">
+        <h6>Include</h6>
+        <div [innerHTML]="targetingRules.include$ | async"></div>
+        <br />
+        <h6 *ngIf="!targetingRuleExcludeIsEmpty(instance?.rules?.exclude)">Exclude</h6>
+        <div [innerHTML]="targetingRules.exclude$ | async"></div>
+      </div>
+    </nz-card>
+  </div>
+</div>

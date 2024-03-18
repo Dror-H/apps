@@ -1,0 +1,115 @@
+.facebook-preview-card.desktop {
+  width: 400px;
+  transition: 0.25s;
+  transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+
+  .preview-header {
+    .header-text-area {
+      .title {
+        color: #3b5998;
+      }
+    }
+
+    .event-header-text-area {
+      margin-left: -5px;
+    }
+  }
+
+  .event-message {
+    .message-row {
+      margin-top: 0;
+    }
+  }
+
+  .preview-carousel {
+    width: 350px !important;
+    transition: 0.25s;
+    transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+    .preview-carousel-item {
+      width: 348px !important;
+      transition: 0.25s;
+      transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+    }
+  }
+  .carousel-size {
+    .slick-slide.slick-active {
+      width: 250px !important;
+      margin-right: 10px;
+    }
+  }
+}
+
+.facebook-preview-card.mobile {
+  width: 330px;
+  transition: width 0.25s;
+  transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+
+  .preview-header {
+    .header-text-area {
+      padding-left: 10px;
+      .title {
+        color: #141823;
+      }
+    }
+
+    .event-header-text-area {
+      padding-left: 5px;
+    }
+  }
+
+  .event-message {
+    .message-row {
+      margin-top: 0;
+    }
+  }
+
+  .preview-carousel {
+    width: 280px !important;
+    transition: width 0.25s;
+    transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+
+    .preview-carousel-item {
+      width: 278px !important;
+      transition: width 0.25s;
+      transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+    }
+  }
+
+  .carousel-size {
+    .slick-slide.slick-active {
+      width: 200px !important;
+      margin-right: 10px;
+    }
+  }
+}
+
+.facebook-preview-card.right-hand {
+  width: 280px;
+  transition: 0.25s;
+  transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+
+  .message {
+    .message-row {
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+  }
+
+  .preview-carousel {
+    width: 230px !important;
+    transition: 0.25s;
+    transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+    .preview-carousel-item {
+      width: 228px !important;
+      transition: 0.25s;
+      transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+    }
+  }
+
+  .carousel-size {
+    .slick-slide.slick-active {
+      width: 180px !important;
+      margin-right: 10px;
+    }
+  }
+}

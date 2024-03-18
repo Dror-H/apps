@@ -1,0 +1,20 @@
+<div
+  *ngIf="
+    audienceForm.controls.provider.value === 'facebook' && audienceForm.controls.adAccount.value as facebookAdAccount
+  "
+>
+  <div>
+    <ingo-facebook-lookalike-audience [adAccount]="facebookAdAccount" [formControl]="audienceLookalikes.facebook">
+    </ingo-facebook-lookalike-audience>
+  </div>
+</div>
+<div
+  *ngIf="
+    audienceForm.controls.provider.value === 'linkedin' && audienceForm.controls.adAccount.value as linkedinAdAccount
+  "
+>
+  <div>
+    <app-linkedin-lookalike-audience [adAccount]="linkedinAdAccount" [formControl]="audienceLookalikes.linkedin">
+    </app-linkedin-lookalike-audience>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<nz-card class="ws-card ws-add" [ngClass]="{ active: !isDisabled }">
+  <ng-container *ngIf="isDisabled; then disabled; else active"></ng-container>
+
+  <ng-template #disabled>
+    <div
+      class="ws-add-placeholder"
+      nz-tooltip
+      nzTooltipTitle="You are limited to one workspace while on a free subscription. Upgrade your plan to create new workspaces."
+      nzTooltipPlacement="bottom"
+      nzTooltipOverlayClassName="ingo-explain-card campaign-name-tooltip"
+      nzTooltipColor="#5f63f2"
+      nzTooltipTrigger="click"
+      classToApply="ingo-highlight"
+    >
+      <i class="fal fa-file-plus"></i>
+      <span>Create New</span>
+    </div>
+  </ng-template>
+
+  <ng-template #active>
+    <div class="ws-add-placeholder" *ngIf="!isFormActive" (click)="toggleForm()">
+      <i class="fal fa-file-plus"></i>
+      <span>Create New</span>
+    </div>
+
+    <div class="ws-add-form" *ngIf="isFormActive">
+      <i class="far fa-times" (click)="isFormActive = false"></i>
+      <form nz-form class="ingo-add-edit-form" [formGroup]="createWorkspaceForm" (ngSubmit)="createWorkspace()">
+        <nz-form-item style="margin-bottom: 10px">
+          <nz-form-label nzRequired>Workspace Name</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <input formControlName="workspace" nz-input required placeholder="e.g. My Workspace" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button
+          nz-button
+          nzType="primary"
+          class="btn-success btn-bold"
+          style="width: 100%"
+          [disabled]="!createWorkspaceForm.valid"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+  </ng-template>
+</nz-card>

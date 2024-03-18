@@ -1,0 +1,58 @@
+<nz-card class="ingo-card-nbm">
+  <div class="newcamp-type-options">
+    <form nz-form class="ingo-add-edit-form">
+      <nz-form-item>
+        <nz-form-label>Creative Source</nz-form-label>
+        <nz-form-control>
+          <nz-button-group>
+            <button
+              nz-button
+              nzType="default"
+              class="btn-group-btn"
+              *ngFor="let typeOption of creativeSourceOptions | slice: 0:3; let i = index"
+              [ngClass]="{ active: typeOption.id === campaignCreatives.value.sourceType }"
+              [disabled]="typeOption.active === false"
+              (click)="creativeActiveSource(typeOption.id)"
+            >
+              {{ typeOption.title }}
+            </button>
+            <nz-badge [nzCount]="comingSoonIcon">
+              <button
+                nz-button
+                nzType="light"
+                class="ant-btn-light"
+                *ngFor="let typeOption of creativeSourceOptions | slice: 3:4"
+                [disabled]="true"
+              >
+                {{ typeOption.title }}
+              </button>
+            </nz-badge>
+          </nz-button-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <ng-template #comingSoonIcon>
+    <div class="coming-soon-btn" nz-tooltip [nzTooltipTitle]="'Coming Soon'" [nzTooltipColor]="'#5f63f2'">
+      <i class="fas fa-info-circle"></i>
+    </div>
+  </ng-template>
+
+  <ng-template #placeholderComplete>
+    <ng-content select="[complete]"></ng-content>
+  </ng-template>
+
+  <ingo-create-new-variations
+    *ngIf="campaignCreatives.value.sourceType === 0"
+    [multivariate]="campaignCreatives.controls.multivariate"
+  >
+    <ng-container *ngTemplateOutlet="placeholderComplete"></ng-container>
+  </ingo-create-new-variations>
+  <ingo-use-existing-templates *ngIf="campaignCreatives.value.sourceType === 1" [campaignCreatives]="campaignCreatives">
+    <ng-container *ngTemplateOutlet="placeholderComplete"></ng-container>
+  </ingo-use-existing-templates>
+
+  <ingo-user-previous-posts *ngIf="campaignCreatives.value.sourceType === 2" [campaignCreatives]="campaignCreatives">
+    <ng-container *ngTemplateOutlet="placeholderComplete"></ng-container>
+  </ingo-user-previous-posts>
+</nz-card>

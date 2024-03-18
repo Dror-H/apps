@@ -1,0 +1,26 @@
+<nz-form-item>
+  <nz-form-label nzRequired
+    >Select audience
+    <ingo-explain tooltipId="app.campCreate.campaign.campaignGroup"></ingo-explain>
+  </nz-form-label>
+  <nz-form-control nzErrorTip="app.campCreate.campaign.campaignGroupError">
+    <nz-select
+      nzShowSearch
+      [ngModel]="null"
+      (ngModelChange)="onSelectAudience($event)"
+      (nzOnSearch)="onSearch($event)"
+      (nzScrollToBottom)="loadMoreCustomAudiences()"
+      nzPlaceHolder="Select Audience"
+      [nzOptionHeightPx]="38"
+      [nzDropdownRender]="renderTemplate"
+    >
+      <nz-option *ngFor="let item of audiences" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+    </nz-select>
+
+    <ng-template #renderTemplate>
+      <div nz-row nzJustify="center" *ngIf="shouldLoadMore">
+        <a class="btn-link" (click)="loadMoreCustomAudiences()">Load More</a>
+      </div>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>

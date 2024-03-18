@@ -1,0 +1,78 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24" [nzXXl]="24">
+    <form nz-form class="ingo-add-edit-form">
+      <nz-form-item>
+        <nz-form-label>
+          Instagram Account (Optional)
+          <ingo-explain tooltipId="app.campCreate.creative.igAccount"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <ingo-instagram-account-selector
+            [instagramAccounts]="instagramAccounts"
+            [formControl]="instagramAccountControl"
+          ></ingo-instagram-account-selector>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>
+          Ad Placement
+          <ingo-explain tooltipId="app.campCreate.creative.placement"></ingo-explain>
+        </nz-form-label>
+        <nz-form-control>
+          <ingo-ad-preview-placement
+            [formControl]="adSetFormat"
+            [adSetFormat]="adSetFormat.value"
+            [instagramAccountControl]="instagramAccountControl"
+            (placementPreview)="placementPreview($event)"
+          ></ingo-ad-preview-placement>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" [nzXXl]="24">
+        <nz-form-item>
+          <nz-form-label>
+            <ng-container *ngIf="!activePlacement; else adPreviewTitle">Ad Preview</ng-container>
+            <ingo-explain tooltipId="app.campCreate.creative.preview"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control>
+            <ng-container *ngIf="existingAdTemplateForm.status === 'VALID'; then carousel; else nothing"></ng-container>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <ng-template #adPreviewTitle>Preview Ad on {{ activePlacement }}</ng-template>
+
+      <ng-template #carousel>
+        <nz-form-item class="ingo-tabs-view ingo-devices-preview">
+          <nz-form-control>
+            <nz-tabset
+              nzType="card"
+              (nzSelectedIndexChange)="previewDevice($event)"
+              [nzSelectedIndex]="isMobile === 'desktop' ? 0 : 1"
+            >
+              <nz-tab nzTitle="Desktop" [nzDisabled]="previewType.desktop == false">
+                <ingo-ad-preview-carousel-item
+                  *ngIf="isMobile === 'desktop'"
+                  [itemIndex]="1"
+                  [actualIndex]="1"
+                  [adTemplateDto]="existingAdTemplateForm.value"
+                ></ingo-ad-preview-carousel-item>
+              </nz-tab>
+              <nz-tab nzTitle="Mobile" [nzDisabled]="previewType.mobile == false">
+                <ingo-ad-preview-carousel-item
+                  *ngIf="isMobile === 'mobile'"
+                  [itemIndex]="1"
+                  [actualIndex]="1"
+                  [adTemplateDto]="existingAdTemplateForm.value"
+                ></ingo-ad-preview-carousel-item>
+              </nz-tab>
+            </nz-tabset>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-template>
+      <ng-template #nothing>
+        <ingo-ad-template-skeleton></ingo-ad-template-skeleton>
+      </ng-template>
+    </form>
+  </div>
+</div>

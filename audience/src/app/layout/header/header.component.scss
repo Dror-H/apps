@@ -1,0 +1,52 @@
+@use 'shadows.variables' as *;
+@use 'borders.variables' as *;
+@use 'backgrounds.variables' as *;
+@use 'colors.variables' as *;
+
+/*
+//* fix for nz-affix
+//* which introduces horizontal scrollbar when window has vertical scrolling
+*/
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.auth {
+  &-status {
+    background-color: $bkg-body-base;
+
+    &-container {
+      align-items: center;
+      display: flex;
+      height: 80px;
+      justify-content: flex-end;
+      padding: 0 1rem;
+
+      @media screen and (min-width: 1440px) {
+        padding: 0 80px;
+      }
+
+      nz-avatar {
+        border: $border-1;
+        box-shadow: $avatar-shadow;
+      }
+    }
+  }
+
+  &-button {
+    &--facebook {
+      background-color: $facebook-blue;
+
+      &:hover,
+      &:focus {
+        background-color: darken($facebook-blue, 5);
+      }
+
+      .fb-icon {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceVerificationService Test suite should be created 1`] = `
+Object {
+  "context": Object {
+    "from": "233.201.170.95",
+    "name": "Hipolito,Gerhold",
+  },
+  "subject": "Unknown device login - Instigo",
+  "template": "unknown-device-login",
+  "to": "Douglas.Farrell@gmail.com",
+}
+`;

@@ -1,0 +1,72 @@
+<nz-card class="account-form ingo-card-nbm" nzTitle="Settings" [nzExtra]="workspaceCardExtra">
+  <form nz-form [formGroup]="editableForm" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="0">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label>Name</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <input
+                formControlName="name"
+                [readonly]="!isEditable"
+                nz-input
+                nzBorderless
+                [ngClass]="{ active: isEditable }"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label>Currency</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="currency"
+              [nzDisabled]="!isEditable"
+              nzPlaceHolder="Select currency type"
+              [compareWith]="compareFn"
+              [nzOptions]="currencyList"
+              [nzOptionHeightPx]="38"
+            >
+            </nz-select>
+            <ng-template #billingTypeSelect let-selected> {{ selected.nzLabel }} </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item class="cache-toggle">
+          <nz-form-label>Use Cached Insights</nz-form-label>
+          <nz-form-control>
+            <nz-switch formControlName="useCachedInsights" [nzDisabled]="!isEditable"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-card>
+
+<ng-template #workspaceCardExtra>
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-dark btn-clear"
+    [disabled]="!isWorkspaceOwner()"
+    *ngIf="!isEditable"
+    (click)="this.isEditable = true"
+  >
+    Edit
+  </button>
+  <button nz-button nzType="primary" class="btn-fade btn-info btn-clear" *ngIf="isEditable" (click)="cancelFormEdit()">
+    Cancel
+  </button>
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-fade btn-success btn-clear"
+    *ngIf="isEditable && editableForm.dirty"
+    (click)="updateWorkspace()"
+  >
+    Save Changes
+  </button>
+</ng-template>

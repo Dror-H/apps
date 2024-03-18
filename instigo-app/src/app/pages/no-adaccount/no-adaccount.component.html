@@ -1,0 +1,17 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24">
+    <nz-result
+      nzTitle="No Ad Account Found"
+      nzStatus="error"
+      nzSubTitle="To be able to use Instigo, your must intergrate at least one ad account with this workspace"
+      [nzIcon]="cancelSubIcon"
+    >
+      <div nz-result-extra>
+        <button nz-button nzType="primary" (click)="redirectToWorkspace()">Connect Ad Account</button>
+      </div>
+    </nz-result>
+  </div>
+</div>
+<ng-template #cancelSubIcon>
+  <i class="fad fa-link"></i>
+</ng-template>

@@ -1,0 +1,15 @@
+<div nz-row nzJustify="center" class="buttons-container">
+  <button
+    *ngFor="let actionBtn of actionButtons; let i = index"
+    nz-col
+    [nzXs]="24"
+    [nzMd]="8"
+    nzFlex="0 0 auto"
+    nz-button
+    nzType="default"
+    [ngClass]="{ active: actionBtn.active }"
+    (click)="onClick(i, actionBtn.action)"
+  >
+    {{ actionBtn.label }}
+  </button>
+</div>

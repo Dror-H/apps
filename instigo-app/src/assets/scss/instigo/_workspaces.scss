@@ -1,0 +1,352 @@
+.ws-card {
+  margin-bottom: 1.1rem !important;
+  min-height: 261px;
+
+  i.anticon.anticon-user {
+    font-size: 26px;
+  }
+}
+
+.ws-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.ws-title {
+  align-items: center;
+  display: flex;
+  margin-right: 0.75rem;
+
+  .title:not(:last-child) {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0.125rem;
+    @media all and (max-width: 1280px) {
+      font-size: 15px !important;
+    }
+  }
+
+  .sub-text {
+    display: block;
+    font-size: 14px;
+    max-width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @media all and (min-width: 1200px) and (max-width: 1650px) {
+      max-width: 140px;
+    }
+    @media all and (max-width: 1280px) {
+      font-size: 13px;
+      line-height: 1.25;
+    }
+  }
+}
+
+.ws-icon {
+  align-items: center;
+  background: #5f63f2;
+  border-radius: 4px;
+  color: #fff;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 600;
+  height: 40px;
+  justify-content: center;
+  letter-spacing: 0.06em;
+  letter-spacing: -0.25px;
+  position: relative;
+  width: 40px;
+  @media all and (max-width: 1280px) {
+    height: 36px;
+    margin-right: 0.5rem;
+    width: 36px;
+  }
+}
+
+.ws-title .ws-icon {
+  margin-right: 1rem;
+}
+
+.ws-details {
+  margin-bottom: 1.25rem;
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+}
+
+.ws-additional {
+  margin-bottom: 1rem;
+}
+
+.ws-additional-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -3px;
+}
+
+.ws-count {
+  align-items: center;
+  color: #6b6e8d;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  @media all and (max-width: 1280px) {
+    font-size: 13px;
+  }
+}
+
+.ws-active-badge {
+  background: #3bc324;
+  border-radius: 0.25rem;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.35em 0.45em;
+  text-align: center;
+  transition: all 0.15s ease-in-out;
+  vertical-align: baseline;
+  white-space: nowrap;
+  @media all and (max-width: 1280px) {
+    font-size: 13px;
+  }
+}
+
+.ws-meta {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ws-member .ant-avatar {
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 5px;
+
+  &:nth-child(1) {
+    background: rgba(color(purple), 6%);
+    color: color(purple);
+  }
+
+  &:nth-child(2) {
+    background: rgba(color(blue), 6%);
+    color: color(blue);
+  }
+
+  &:nth-child(3) {
+    background: rgba(color(violet), 6%);
+    color: color(violet);
+  }
+
+  &:nth-child(4) {
+    background: rgba(color(orange), 6%);
+    color: color(orange);
+  }
+
+  &.extra-members {
+    background: color(gray, 20);
+    color: color(gray, 50);
+  }
+}
+
+.ant-card.ws-add {
+  background: transparent;
+  border: 1px dashed rgba(color(gray, 40), 75%);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+
+  .ant-card-body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: inherit;
+    opacity: 0.85;
+    transition: all 0.25s ease;
+  }
+}
+
+.ws-add-placeholder {
+  align-items: center;
+  color: #ced0e4;
+  display: inline-flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+
+  i {
+    font-size: 30px;
+    margin-bottom: 8px;
+  }
+
+  span {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.25px;
+  }
+}
+
+.ws-add-form > i {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    color: #5f63f2;
+  }
+}
+
+.int-box {
+  align-items: flex-start;
+  border: 1px solid color(white, 30);
+  border-radius: 6px;
+  display: flex;
+  flex-flow: wrap row;
+  margin-bottom: 25px;
+  padding: 25px;
+
+  > * {
+    flex: 0 0 100%;
+  }
+
+  .int-box-top {
+    align-items: center;
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    width: 100%;
+
+    > span {
+      align-items: center;
+      color: color(gray, 40);
+      display: flex;
+      font-size: 22px;
+      height: 40px;
+      justify-content: flex-start;
+      width: 40px;
+    }
+  }
+}
+
+.ingo-ints {
+  margin: -25px;
+
+  .ant-list-item {
+    padding: 20px 25px;
+  }
+
+  .ant-list-item-meta {
+    align-items: center;
+  }
+
+  .ant-list-item-meta-avatar {
+    background: #f5f6f9;
+    border-radius: 50%;
+    font-size: 16px;
+    height: 40px;
+    line-height: 42px;
+    margin-right: 16px;
+    text-align: center;
+    width: 40px;
+  }
+
+  h4.ant-list-item-meta-title {
+    color: #474b6d;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .ant-list-item-meta-description {
+    color: #6b6e8d;
+    font-size: 13px;
+    letter-spacing: -0.075px;
+  }
+
+  .ant-switch {
+    background: rgba(color(gray, 50), 20%);
+    border-radius: 10px;
+
+    &.ant-switch.ant-switch-checked {
+      background: rgba(color(green, 10), 20%);
+    }
+  }
+
+  .ant-list-item-action > li {
+    padding: 0;
+  }
+
+  .ant-list-item-action {
+    margin-left: 20px;
+  }
+
+  span.ints-member {
+    color: color(gray, 40);
+    font-size: 14px;
+  }
+}
+
+.device-breakdown-card {
+  height: 100%;
+  @media all and (max-width: 1400px) {
+    height: auto;
+    padding-bottom: 20px;
+  }
+  @media all and (min-width: 1401px) and (max-width: 1600px) {
+    padding: 0 !important;
+  }
+
+  .ant-card-body {
+    padding: 0 !important;
+    @media all and (min-width: 1601px) {
+      height: calc(100% - 60px);
+    }
+  }
+
+  canvas {
+    transform: scale(1.1);
+  }
+}
+
+.geo-breakdown-card {
+  height: 100%;
+
+  .ant-card-body {
+    padding: 0 !important;
+  }
+}
+
+.geo-breakdown-card thead tr > th:first-child,
+.geo-breakdown-card tbody tr > td:first-child {
+  padding-left: 25px !important;
+}
+
+.geo-breakdown-content {
+  display: flex;
+  flex-flow: wrap row;
+
+  > *:first-child {
+    flex: 0 0 40%;
+    z-index: 9;
+  }
+}
+
+.dashboard-overview-wrapper {
+  margin-bottom: 20px;
+}
+
+ingo-widget-vector-map {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 60%;
+  justify-content: center;
+  margin-left: -25px;
+  width: 100%;
+}

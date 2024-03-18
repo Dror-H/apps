@@ -1,0 +1,62 @@
+<nz-card class="ingo-card-nbm">
+  <form nz-form [formGroup]="settingsForm" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="7" [nzXl]="6">
+        <ingo-ad-account-selector
+          [provider]="supportedProviders.LINKEDIN"
+          [formControl]="settingsForm.controls.account"
+          [adAccountList]="adAccountList"
+        ></ingo-ad-account-selector>
+      </div>
+
+      <div nz-col [nzSpan]="8" [nzXl]="8">
+        <ingo-campaign-groups-selector
+          [formControl]="settingsForm.controls.campaignGroup"
+          [adAccount]="settingsForm.controls.account"
+        ></ingo-campaign-groups-selector>
+      </div>
+
+      <div nz-col [nzSpan]="9" [nzXl]="10">
+        <nz-form-item>
+          <nz-form-label nzRequired
+            >Campaign Name
+            <ingo-explain tooltipId="app.campCreate.campaign.campName"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to name your campaign">
+            <nz-input-group>
+              <input formControlName="name" nz-input placeholder="e.g. Funnel stage and objective" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label nzRequired>
+            Campaign Objective
+            <ingo-explain tooltipId="app.campCreate.campaign.objective"></ingo-explain>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="You have to select an objective for your campaign">
+            <ingo-objective-selector
+              formControlName="objective"
+              [campaignObjectives]="linkedinCampaignObjective"
+            ></ingo-objective-selector>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <nz-divider class="mx--25"></nz-divider>
+
+    <button
+      nz-button
+      nzType="primary"
+      class="btn-primary mr-10"
+      [disabled]="!(settingsForm.status === 'VALID')"
+      (click)="setStep.emit(1)"
+    >
+      Continue
+    </button>
+  </form>
+</nz-card>

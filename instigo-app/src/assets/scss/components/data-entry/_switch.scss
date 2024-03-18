@@ -1,0 +1,26 @@
+.ant-switch {
+  background: color(gray, 30);
+  border-radius: 6px;
+
+  &.ant-switch-checked {
+    background: color(purple);
+  }
+
+  &:focus,
+  &:hover {
+    box-shadow: none !important;
+  }
+
+  .ant-switch-handle::before {
+    border-radius: 6px;
+  }
+}
+
+.ingo-switch-notice {
+  background: #fafbff;
+  border: 1px solid #eeeff8;
+  border-radius: 4px;
+  line-height: 1.4;
+  margin-top: 15px;
+  padding: 15px;
+}

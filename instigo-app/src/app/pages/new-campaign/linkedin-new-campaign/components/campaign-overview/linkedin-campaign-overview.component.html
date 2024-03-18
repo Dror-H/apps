@@ -1,0 +1,115 @@
+<nz-card [nzTitle]="overviewHeading" class="nc-ov-wrapper">
+  <nz-collapse nzGhost nzExpandIconPosition="left">
+    <nz-collapse-panel
+      [nzHeader]="overviewCampaignSettings"
+      [nzActive]="step === 0"
+      [nzShowArrow]="true"
+      [nzExpandedIcon]="overviewSectionArrow"
+      (nzActiveChange)="setStep(0)"
+    >
+      <nz-card class="na-ov-wrapper ingo-card-np">
+        <div class="nc-summary-item" *ngFor="let subSection of creativesOverviewSections | keyvalue; let i = index">
+          <h5>{{ subSection.value.name }}</h5>
+          <span class="nc-summary-counter">
+            <span *ngIf="campaignForm.get(subSection.value.formControl).status === 'VALID'"
+              ><i class="far fa-check"></i></span
+          ></span>
+        </div>
+      </nz-card>
+    </nz-collapse-panel>
+
+    <nz-collapse-panel
+      [nzHeader]="overviewCreatives"
+      [nzActive]="step === 1"
+      [nzShowArrow]="true"
+      [nzExpandedIcon]="overviewSectionArrow"
+      (nzActiveChange)="setStep(1)"
+      [nzDisabled]="campaignForm.controls.settings.status === 'INVALID'"
+    >
+      <ng-container *ngIf="step === 1">
+        <ingo-linkedin-creative-variations-overview [creativesForm]="campaignForm.controls.creatives">
+        </ingo-linkedin-creative-variations-overview>
+      </ng-container>
+    </nz-collapse-panel>
+
+    <nz-collapse-panel
+      [nzHeader]="overviewTargeting"
+      [nzActive]="step === 2"
+      [nzShowArrow]="true"
+      [nzExpandedIcon]="overviewSectionArrow"
+      (nzActiveChange)="setStep(2)"
+      [nzDisabled]="campaignForm.controls.settings.status === 'INVALID'"
+    >
+      <ng-container *ngIf="step === 2">
+        <ingo-audience-summary
+          [audienceForm]="campaignForm.controls.targeting['controls'].targetingCriteria"
+          [isNewCamp]="true"
+        ></ingo-audience-summary>
+      </ng-container>
+    </nz-collapse-panel>
+
+    <nz-collapse-panel
+      [nzHeader]="overviewBudget"
+      [nzActive]="step === 3"
+      [nzShowArrow]="true"
+      [nzExpandedIcon]="overviewSectionArrow"
+      (nzActiveChange)="setStep(3)"
+      [nzDisabled]="
+        campaignForm.controls.settings.status === 'INVALID' || campaignForm.controls.targeting.status === 'INVALID'
+      "
+    >
+      <ingo-budget-overview *ngIf="step === 3" [budgetSettings]="campaignForm.controls.budget"></ingo-budget-overview>
+    </nz-collapse-panel>
+
+    <ng-template #overviewCampaignSettings>
+      <div class="nc-ov-header">
+        <div class="nc-ov-image">
+          <img src="./assets/images/newcamp/{{ overviewSections[0].icon }}" alt="" />
+        </div>
+        <div class="nc-ov-content">
+          <h4>{{ overviewSections[0].name }}</h4>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #overviewCreatives>
+      <div class="nc-ov-header">
+        <div class="nc-ov-image">
+          <img src="./assets/images/newcamp/{{ overviewSections[1].icon }}" alt="" />
+        </div>
+        <div class="nc-ov-content">
+          <h4>{{ overviewSections[1].name }}</h4>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #overviewTargeting>
+      <div class="nc-ov-header">
+        <div class="nc-ov-image">
+          <img src="./assets/images/newcamp/{{ overviewSections[2].icon }}" alt="" />
+        </div>
+        <div class="nc-ov-content">
+          <h4>{{ overviewSections[2].name }}</h4>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #overviewBudget>
+      <div class="nc-ov-header">
+        <div class="nc-ov-image">
+          <img src="./assets/images/newcamp/{{ overviewSections[3].icon }}" alt="" />
+        </div>
+        <div class="nc-ov-content">
+          <h4>{{ overviewSections[3].name }}</h4>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #overviewSectionArrow>
+      <div class="nc-ov-collapse-icon"><i class="fas fa-angle-down"></i></div>
+    </ng-template>
+  </nz-collapse>
+</nz-card>
+<ng-template #overviewHeading>
+  <h2>Overview</h2>
+</ng-template>

@@ -1,0 +1,71 @@
+<ng-container *ngIf="pageData$ | async as pageData">
+  <ingo-knowledgebase-skeleton *ngIf="pageData?.type === 'start'"></ingo-knowledgebase-skeleton>
+  <div nz-row [nzGutter]="25" *ngIf="pageData?.type === 'finish'">
+    <div nz-col nzSpan="24">
+      <nz-page-header class="site-page-header">
+        <nz-page-header-title>Knowledgebase</nz-page-header-title>
+      </nz-page-header>
+    </div>
+  </div>
+  <!-- Main Content -->
+  <div nz-row [nzGutter]="24" *ngIf="pageData?.type === 'finish'">
+    <div nz-col [nzXXl]="6" [nzLg]="8" [nzMd]="10" [nzXs]="24">
+      <nz-card class="ingo-card-nbm ingo-kb-nav" nzTitle="Browse by Topic">
+        <ul nz-menu nzMode="vertical">
+          <li
+            nz-menu-item
+            *ngFor="let topic of pageData?.knowledgebaseItems; let i = index"
+            [ngClass]="{ active: topic.active }"
+            (click)="activeTopicUpdated(pageData?.knowledgebaseItems, i)"
+          >
+            <span>{{ topic.name }}</span>
+          </li>
+        </ul>
+      </nz-card>
+      <nz-card class="ingo-card-nbm ingo-card-banner" nzTitle="">
+        <figure>
+          <img [src]="pageData?.knowledgebaseBanner?.image" />
+        </figure>
+        <figcaption>
+          <h4>{{ pageData?.knowledgebaseBanner?.text }}</h4>
+        </figcaption>
+      </nz-card>
+    </div>
+    <div nz-col [nzXXl]="18" [nzLg]="16" [nzMd]="14" [nzXs]="24">
+      <ng-container *ngFor="let topic of pageData?.knowledgebaseItems">
+        <nz-card class="ingo-card-nbm" [nzTitle]="topic.name" *ngIf="topic.active">
+          <nz-collapse
+            [nzGhost]="true"
+            [nzBordered]="false"
+            [nzExpandIconPosition]="'right'"
+            class="ingo-primary-collapse"
+          >
+            <nz-collapse-panel
+              [nzHeader]="item.title"
+              [nzActive]="i === 0"
+              [nzExpandedIcon]="expandIcon"
+              *ngFor="let item of topic.items; let i = index"
+            >
+              <p>{{ item.content }}</p>
+              <h4>Did you find this information helpful?</h4>
+              <div class="kb-actions">
+                <button class="ant-btn kb-action" (click)="updateFaqCount(item.id, item.votesUp, 'helpful')">
+                  <i class="fal fa-smile"></i><span>Yes</span>
+                </button>
+                <button class="ant-btn kb-action" (click)="updateFaqCount(item.id, item.votesDown, 'unhelpful')">
+                  <i class="fal fa-frown"></i><span>No</span>
+                </button>
+              </div>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-card>
+      </ng-container>
+    </div>
+  </div>
+  <ng-template #expandIcon>
+    <div class="collapse-expand-icon">
+      <i class="fal fa-plus"></i>
+      <i class="fal fa-minus"></i>
+    </div>
+  </ng-template>
+</ng-container>

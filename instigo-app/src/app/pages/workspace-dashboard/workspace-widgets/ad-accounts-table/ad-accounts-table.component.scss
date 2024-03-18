@@ -1,0 +1,45 @@
+.ant-input-affix-wrapper {
+  border: 0 none;
+  border-radius: 4px;
+  box-shadow: none !important;
+  outline: 0 !important;
+  transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+  width: 0;
+
+  &.search-open {
+    box-shadow: 0 0 3px -1px rgb(0, 0, 0.55) !important;
+    width: 300px !important;
+
+    input {
+      padding-left: 20px;
+    }
+  }
+}
+
+.card-table-header {
+  align-items: center;
+  display: flex;
+  height: 21px;
+
+  .table-search {
+    margin-left: 15px;
+    position: relative;
+
+    a {
+      color: #6b6e8d;
+      cursor: pointer;
+      font-size: 14px;
+      left: 10px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9;
+    }
+  }
+}
+
+::ng-deep .ingo-ws-db-accounts table.ant-table-fixed {
+  @media all and (max-width: 1750px) {
+    min-width: 1750px !important;
+  }
+}

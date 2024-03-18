@@ -1,0 +1,98 @@
+// Instigo Popovers
+.ant-popover-inner-content {
+  padding: 0.5rem 1rem;
+
+  .ant-popover-inner {
+    border-radius: 4px;
+  }
+}
+// Mega Menu Popover
+.ingo-create-popover-origin {
+  bottom: -13px;
+  cursor: none;
+  left: calc(50% + 13px);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+.popover-mega-dropdown {
+  max-width: 525px;
+  padding: 4px 0;
+
+  *:focus {
+    outline: 0 !important;
+  }
+
+  .popover-mega-item {
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 0;
+    padding: 0.75rem;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    .popover-mega-icon {
+      align-items: center;
+      display: flex;
+      font-size: 20px;
+    }
+
+    .popover-mega-content {
+      line-height: 17px;
+      margin-left: 16px;
+      text-align: left;
+
+      p {
+        font-size: 15px;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      span {
+        color: color(gray, 40);
+        font-size: 13px;
+        margin-bottom: 0;
+      }
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      &:hover {
+        background: rgba(color(gray, 40), 6%);
+      }
+    }
+
+    &:not(.disabled):hover {
+      background: rgba(color(purple), 6%);
+
+      i,
+      p,
+      span {
+        color: color(purple);
+      }
+    }
+  }
+}
+
+.ant-checkbox-wrapper {
+  align-items: center;
+}
+
+.ant-checkbox {
+  top: 0;
+}
+
+.ingo-create-popover {
+  .ant-popover-inner {
+    max-width: 525px !important;
+  }
+}
+
+.notification-popover {
+  width: 250px
+}

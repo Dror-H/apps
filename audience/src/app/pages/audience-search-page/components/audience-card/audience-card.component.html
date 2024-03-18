@@ -1,0 +1,13 @@
+<nz-card class="card">
+  <div class="card-top">
+    <audi-details-overview [rank]="audience?.rank" [specRatio]="audience?.specRatio"></audi-details-overview>
+  </div>
+  <div class="card-targeting">
+    <ng-container *ngFor="let targeting of includedTargeting">
+      <ng-container *ngFor="let segment of targeting">
+        <audi-segment [segment]="segment"></audi-segment>
+      </ng-container>
+    </ng-container>
+  </div>
+  <a class="card-show-more" (click)="openDrawer($event)">Show More</a>
+</nz-card>

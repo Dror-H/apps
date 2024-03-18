@@ -1,0 +1,5 @@
+@import 'variables';
+
+@function color($color, $tone: 'base') {
+  @return map-get(map-get($ingo-colors, $color), $tone);
+}

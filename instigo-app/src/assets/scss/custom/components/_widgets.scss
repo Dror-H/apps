@@ -1,0 +1,37 @@
+//
+// Widgets.scss
+//
+
+.mini-stats-wid {
+  .mini-stat-icon {
+    overflow: hidden;
+    position: relative;
+
+    &::before,
+    &::after {
+      background-color: rgba($white, 0.1);
+      content: '';
+      height: 54px;
+      left: 16px;
+      position: absolute;
+      top: -5px;
+      transform: rotate(32deg);
+      transition: all 0.4s;
+      width: 8px;
+    }
+
+    &::after {
+      left: -12px;
+      transition: all 0.2s;
+      width: 12px;
+    }
+  }
+
+  &:hover {
+    .mini-stat-icon {
+      &::after {
+        left: 60px;
+      }
+    }
+  }
+}

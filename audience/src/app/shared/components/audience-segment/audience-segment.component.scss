@@ -1,0 +1,28 @@
+@use 'audiences-app-variables' as *;
+@use 'placeholders' as *;
+
+.segment {
+  &__inner {
+    padding: 0 0.5rem;
+  }
+
+  &__breadcrumbs {
+    @extend %ellipsis;
+
+    width: 85%;
+
+    &-divider {
+      margin: 0 0.25rem;
+    }
+  }
+
+  &-name {
+    @extend %ellipsis;
+
+    flex: 1;
+  }
+}
+
+.ant-tag {
+  font-size: $font-size-xs;
+}

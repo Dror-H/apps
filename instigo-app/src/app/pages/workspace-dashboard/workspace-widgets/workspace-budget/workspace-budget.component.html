@@ -1,0 +1,57 @@
+<nz-card [nzTitle]="title" [nzExtra]="setBudget">
+  <div *ngIf="workspaceInsights$ | async as workspaceInsights">
+    <div class="text-center m-v-45">
+      <nz-progress
+        [nzPercent]="(workspaceInsights.value?.spend * 100) / budget"
+        nzType="circle"
+        [nzWidth]="160"
+        [nzStrokeWidth]="3"
+        [nzFormat]="total"
+        nzStatus="success"
+      ></nz-progress>
+    </div>
+    <ng-template #total>
+      <span>{{ workspaceInsights.value?.spend || 0 | currency: 'USD' }}</span>
+    </ng-template>
+    <div class="d-flex justify-content-center">
+      <nz-badge
+        nzStatus="default"
+        [nzStyle]="{ backgroundColor: '#fff', color: '#c9a7', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+      ></nz-badge>
+      <span
+        ><span class="font-weight-semibold"
+          >{{ (workspaceInsights.value?.spend * 100) / budget | number: '1.0-2':'en-US' }}%</span
+        >
+        of Your Goal</span
+      >
+    </div>
+  </div>
+</nz-card>
+<ng-template #setBudget>
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="cardDropdown"
+    class="card-extra-dropdown"
+    [nzOverlayClassName]="'dropdown-arrow-right'"
+    [nzTrigger]="'click'"
+    [nzClickHide]="false"
+  >
+    <i class="fas fa-ellipsis-h"></i>
+  </a>
+
+  <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>
+        <nz-input-group nzSearch nzSize="large">
+          <input #budget (keyup)="budge$.next(budget.value)" type="number" nz-input placeholder="SetBudget" />
+        </nz-input-group>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #title>
+  <div class="d-flex justify-content-between align-items-center">
+    <h5>{{ (currentDatePreset$ | async).label }} Budget</h5>
+  </div>
+</ng-template>

@@ -1,0 +1,46 @@
+<div @slideUp>
+  <h1>Connect Ad Accounts</h1>
+  <h6 class="subheading-text">The last item on the agenda, but probably the most important one</h6>
+
+  <div class="row">
+    <div class="col-xs-12 col-xl-6">
+      <a
+        [attr.href]="socialLoginPaths.facebookPath"
+        class="btn btn-block btn-square shadow-sm integration-btn facebook-btn"
+        [ngClass]="{ 'connected-integration': (isFacebookIntegration$ | async) }"
+      >
+        <i class="ng-fa-icon fab fa-facebook-f fa-1x"></i>
+        &nbsp;Facebook
+        <i *ngIf="!(isFacebookIntegration$ | async)" class="fad fa-layer-plus"></i>
+        <i *ngIf="isFacebookIntegration$ | async" class="fas fa-check-circle"></i>
+      </a>
+    </div>
+
+    <div class="col-xs-12 col-xl-6" *ngIf="enableLinkedin">
+      <a
+        [attr.href]="socialLoginPaths.linkedinPath"
+        class="btn btn-block btn-square shadow-sm integration-btn linkedin-btn"
+        [ngClass]="{ 'connected-integration': (isLinkedinIntegration$ | async) }"
+      >
+        <i class="ng-fa-icon fab fa-linkedin-in fa-1x"></i>
+        &nbsp;Linkedin
+        <i *ngIf="!(isLinkedinIntegration$ | async)" class="fad fa-layer-plus"></i>
+        <i *ngIf="isLinkedinIntegration$ | async" class="fas fa-check-circle"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-xl-6">
+      <button (click)="letsRoll()" class="btn btn-lg btn-block btn-square shadow-sm custom-submit-btn">
+        Let's Roll
+      </button>
+    </div>
+    <div class="col-xs-12 col-xl-6">
+      <h6 class="observation-text">
+        You can add, edit and remove integrations at any time from your <strong>workspace settings</strong>
+      </h6>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

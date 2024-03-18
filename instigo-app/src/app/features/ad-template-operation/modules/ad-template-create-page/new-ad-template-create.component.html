@@ -1,0 +1,70 @@
+<nz-card class="ingo-card-nbm-24">
+  <form nz-form [formGroup]="settings" class="ingo-add-edit-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="10">
+        <ingo-ad-template-name-input [adTemplateForm]="adTemplateForm"></ingo-ad-template-name-input>
+      </div>
+      <div nz-col [nzSpan]="14">
+        <div nz-row nzJustify="end">
+          <button
+            nz-button
+            nzType="primary"
+            class="btn-primary"
+            [disabled]="adTemplateForm.status === 'INVALID'"
+            (click)="createAdTemplate.emit()"
+          >
+            Create new Ad Template
+          </button>
+        </div>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24">
+        <div class="ingo-form-divider">
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Ad Network</nz-form-label>
+          <nz-form-control nzErrorTip="You have to select an ad network">
+            <app-new-ad-template-header
+              [availableProvider]="adNetworks"
+              formControlName="provider"
+            ></app-new-ad-template-header>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12" class="ml-neg-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Ad Account</nz-form-label>
+          <nz-form-control nzErrorTip="You have to select an ad account">
+            <nz-select
+              id="ad-account"
+              formControlName="adAccount"
+              nzPlaceHolder="Select Account"
+              [nzOptions]="nzSelectAdAccounts"
+              [nzOptionHeightPx]="38"
+            ></nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Ad Type</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group class="ingo-radio-group radio-group-3" formControlName="adTemplateType">
+              <div nz-radio-button *ngFor="let type of adTemplateTypes" [nzValue]="type.value">
+                <span class="title">
+                  <span>{{ type.name }}</span>
+                </span>
+              </div>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-card>

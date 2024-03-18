@@ -1,0 +1,127 @@
+<nz-card style="width: 100%" [nzTitle]="cardHeading" [nzExtra]="cardExtra" class="h-100 no-padding">
+  <div class="card-table-bordered">
+    <nz-table
+      #accountsTable
+      [nzData]="adAccountsData"
+      [nzShowPagination]="true"
+      [nzVirtualItemSize]="6"
+      [nzVirtualForTrackBy]="trackByIndex"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="false"
+      [nzScroll]="{ x: '1500px', y: '360px' }"
+      nzTableLayout="fixed"
+    >
+      <thead>
+        <tr>
+          <ng-container *ngFor="let column of columns; let i = index">
+            <th
+              *ngIf="column.show && column.freezeLeft && column.ellipsis && column.width"
+              nzLeft
+              nzEllipsis
+              [nzWidth]="column.width"
+              [innerHTML]="column.name"
+            ></th>
+            <th
+              *ngIf="column.show && column.freezeLeft && !column.ellipsis && column.width"
+              nzLeft
+              [nzWidth]="column.width"
+              [innerHTML]="column.name"
+            ></th>
+            <th
+              *ngIf="column.show && !column.freezeLeft && !column.ellipsis && !column.width"
+              [innerHTML]="column.name"
+            ></th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of adAccountsData">
+          <ng-container *ngFor="let column of columns; let i = index">
+            <td *ngIf="column.show && i === 0" nzLeft>
+              <i class="fab fa-facebook-square" *ngIf="data[column.prop] === 'facebook'"></i>
+              <i class="fab fa-linkedin" *ngIf="data[column.prop] === 'linkedin'"></i>
+            </td>
+            <td *ngIf="column.show && i === 1" nzLeft>{{ data[column.prop] }}</td>
+            <td *ngIf="column.show && i > 1">{{ data[column.prop] }}</td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
+<ng-template #cardHeading>
+  <div class="card-table-header">
+    <h2>Ad Accounts Table Widget</h2>
+    <div class="table-search">
+      <i
+        class="far fa-search"
+        (click)="toggleSearch()"
+        nz-tooltip
+        [nzTooltipTitle]="'Search'"
+        [nzTooltipColor]="'#5f63f2'"
+      ></i>
+      <nz-input-group [nzSuffix]="suffixIconSearch" [ngClass]="{ 'search-open': isSearchOpen }">
+        <input
+          type="text"
+          #searchText
+          nz-input
+          placeholder="Search Ad Accounts"
+          Green
+          (input)="searchTable(searchText.value)"
+          (keyup.enter)="searchTable(searchText.value)"
+        />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>
+<ng-template #cardExtra>
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="cardDropdown"
+    class="card-extra-dropdown"
+    [nzOverlayClassName]="'dropdown-arrow-right'"
+    [nzTrigger]="'click'"
+    data-html2canvas-ignore="true"
+    nz-tooltip
+    [nzTooltipTitle]="'Customize Columns'"
+    [nzTooltipColor]="'#5f63f2'"
+  >
+    <i class="fas fa-ellipsis-h"></i>
+  </a>
+  <ul class="card-extra-actions" data-html2canvas-ignore="true">
+    <li *ngFor="let label of ranges" [ngClass]="{ active: label.label == activeRange }">
+      <a (click)="toggleRange(label.label)">{{ label.text }}</a>
+    </li>
+  </ul>
+  <nz-dropdown-menu #cardDropdown="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <ng-container *ngFor="let column of columns; let i = index">
+        <li nz-menu-item>
+          <div class="ingo-dropdown-option">
+            <label
+              nz-checkbox
+              nzValue="A"
+              [ngModel]="column.show"
+              [nzDisabled]="column.unhideable"
+              *ngIf="i === 0"
+              (ngModelChange)="changeColumnVis($event, i)"
+              >Network</label
+            >
+            <label
+              nz-checkbox
+              nzValue="A"
+              [ngModel]="column.show"
+              [nzDisabled]="column.unhideable"
+              *ngIf="i > 0"
+              (ngModelChange)="changeColumnVis($event, i)"
+              >{{ column.name }}</label
+            >
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>

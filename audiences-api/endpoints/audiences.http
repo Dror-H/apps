@@ -1,0 +1,257 @@
+# @host=https://audiences-api.instigo.io
+# @host=https://audiences-api-staging.instigo.io/
+@host=https://localhost:3000
+@token=eyJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUoxYzJWeUlqcDdJbVZ0WVdsc0lqb2liSFZ3ZFRZd1FHZHRZV2xzTG1OdmJTSXNJbWxrSWpvaU9XVTVPV0UyTURjdFlXUmlNeTAwWTJKakxUZ3pPVGt0TjJSbVpHSXlNV1ZrWmpKa0lpd2libUZ0WlNJNkltSnZaMlJoYmlCc2RYQjFJaXdpWm1seWMzUk9ZVzFsSWpvaVltOW5aR0Z1SWl3aWJHRnpkRTVoYldVaU9pSnNkWEIxSWl3aWNISnZabWxzWlZCcFkzUjFjbVVpT2lKb2RIUndjem92TDNCc1lYUm1iM0p0TFd4dmIydGhjMmxrWlM1bVluTmllQzVqYjIwdmNHeGhkR1p2Y20wdmNISnZabWxzWlhCcFl5OF9ZWE5wWkQwek1qYzRORE0zTWpneU1UZzJOVFF3Sm1obGFXZG9kRDAxTUNaM2FXUjBhRDAxTUNabGVIUTlNVFkyTXpFM01URXhNeVpvWVhOb1BVRmxVbU5DUTNCdGNWWlBTSFZ0Y1U5VVowVWlMQ0psYldGcGJGWmxjbWxtYVdWa0lqcG1ZV3h6WlN3aVkzSmxZWFJsWkVGMElqb2lNakF5TWkwd09DMHhOVlF4TURvMU16b3hNeTQ0TWpkYUluMHNJbU55WldGMFpXUkJkQ0k2SWtGMVp5QXhOU3dnTWpBeU1pd2dOVG8xT0Rvek15QlFUU0lzSW1saGRDSTZNVFkyTURVM09URXhNMzAuaXRtemtaTktMbkVpZ1ZHWHAzdmZCaVQyUkppNVBndEVkQjZYNHpOZkxwbyIsInJlZGlyZWN0IjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDIwMS8ifQ==
+###
+GET {{host}}/search?keywords=growth hackers
+
+###
+GET {{host}}/search?id=61afbabe-ea72-5770-a07f-980cc0fbaec8&id=e2be0cf0-b7f4-59e7-9189-c7d6a5210978
+
+###
+GET {{host}}/search?keywords=college,school,institute,university,academy,seminary,conservatory
+
+###
+GET {{host}}/search/segment_auto_complete?keywords=college&limit=10
+
+###
+GET {{host}}/search/keywords-suggestions?keywords=college,gold&id=005f081f-e647-559b-b180-ce29c9fb5d0c,160ad0f9-8df3-5897-bdfc-ef6162d56558,2168d35a-37c7-48ce-af6a-4c386df26afa
+
+###
+GET {{host}}/targeting/search?searchQuery=Back-End%20Web%20Developer&provider=facebook&adAccountProviderId=act_1390312014489081
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoibHVwdTYwQGdtYWlsLmNvbSIsImlkIjoiMDk3OTM3MGUtMGU4NC00N2NiLTgzYTUtMTU3NTQ4ZWYzOGRiIiwibmFtZSI6ImJvZ2RhbiBsdXB1IiwicHJvZmlsZVBpY3R1cmUiOiJodHRwczovL3BsYXRmb3JtLWxvb2thc2lkZS5mYnNieC5jb20vcGxhdGZvcm0vcHJvZmlsZXBpYy8_YXNpZD0zMjc4NDM3MjgyMTg2NTQwJmhlaWdodD01MCZ3aWR0aD01MCZleHQ9MTY1MjU5OTkyMCZoYXNoPUFlUTFMR3lRZjA1bkVpcGRLRXMiLCJlbWFpbFZlcmlmaWVkIjpmYWxzZX0sImNyZWF0ZWRBdCI6IkFwciAxNSwgMjAyMiwgNzozMjowMCBBTSIsImlhdCI6MTY1MDAwNzkyMH0.3t_UnZDQ3-LaCCMCljbuDVhSTYpqkPRYSpRv42q1J9U
+Content-Type: application/json
+
+###
+GET {{host}}/auth/facebook/login?state=eyJyZWRpcmVjdCI6Imh0dHBzOi8vbG9jYWxob3N0OjQyMDEvIn0=
+
+# {
+#   "redirect":"https"
+# }
+
+###
+GET {{host}}/subscriptions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+POST {{host}}/subscriptions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+GET {{host}}/subscriptions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+GET {{host}}/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+PUT {{host}}/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "bogdan lupu",
+  "profilePicture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3278437282186540&height=50&width=50&ext=1660322414&hash=AeTu366vBwTYJi4MgUY",
+  "emailVerified": true
+}
+
+###
+POST {{host}}/targeting/save
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "userTags":["foo","bar"],
+  "name":"my cool",
+  "targeting": {
+    "include": {
+      "and": [
+        {
+          "or": {
+            "countries": [
+              {
+                "name": "United States",
+                "type": "countries",
+                "countryCode": "US",
+                "countryName": "United States",
+                "supportsRegion": true,
+                "supportsCity": true,
+                "providerId": "US",
+                "audienceSize": null,
+                "providerType": "adgeolocation",
+                "providerSubType": "country",
+                "included": true
+              }
+            ],
+            "locationTypes": [
+              {
+                "providerId": "home"
+              },
+              {
+                "providerId": "recent"
+              }
+            ]
+          }
+        },
+        {
+          "or": {
+            "ageRange": [
+              {
+                "providerId": "(18,65)",
+                "type": "ageRange"
+              }
+            ]
+          }
+        },
+        {
+          "or": {
+            "locales": [
+              {
+                "providerId": []
+              }
+            ]
+          }
+        },
+        {
+          "or": {
+            "interests": [
+              {
+                "providerId": "6013105711368",
+                "type": "interests",
+                "path": [
+                  "interests"
+                ],
+                "name": "Microsoft Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+###
+POST {{host}}/targeting/reach/act_1390312014489081
+Cookie: Authorization={{token}}
+Content-Type: application/json
+
+{
+  "targeting": {
+    "include": {
+      "and": [
+        {
+          "or": {
+            "countries": [
+              {
+                "name": "United States",
+                "type": "countries",
+                "countryCode": "US",
+                "countryName": "United States",
+                "supportsRegion": true,
+                "supportsCity": true,
+                "providerId": "US",
+                "audienceSize": null,
+                "providerType": "adgeolocation",
+                "providerSubType": "country",
+                "included": true
+              }
+            ],
+            "locationTypes": [
+              {
+                "providerId": "home"
+              },
+              {
+                "providerId": "recent"
+              }
+            ]
+          }
+        },
+        {
+          "or": {
+            "ageRange": [
+              {
+                "providerId": "(18,65)",
+                "type": "ageRange"
+              }
+            ]
+          }
+        },
+        {
+          "or": {
+            "locales": [
+              {
+                "providerId": []
+              }
+            ]
+          }
+        },
+        {
+          "or": {
+            "interests": [
+              {
+                "providerId": "6013105711368",
+                "type": "interests",
+                "path": [
+                  "interests"
+                ],
+                "name": "Microsoft Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+###
+GET {{host}}/targeting/browse/act_1390312014489081
+Cookie: Authorization={{token}}
+Content-Type: application/json
+
+###
+GET {{host}}/targeting/search
+?searchQuery=car
+&adAccountProviderId=act_1390312014489081
+&provider=facebook
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
+GET {{host}}/cron/crawl-facebook-accounts
+Content-Type: application/json
+
+###
+GET {{host}}/cron/sync-accounts
+Content-Type: application/json
+
+###
+GET {{host}}/cron/seed-facebook-segments
+Content-Type: application/json
+
+###
+GET {{host}}/cron/refresh-facebook-segments
+Content-Type: application/json
+
+###
+GET {{host}}/cron/rebuild-index
+Content-Type: application/json
+
+
+###
+POST {{host}}/cron/crawl-facebook-accounts
+Content-Type: application/json
+
+[
+  {
+    "id": "act_312005409738110",
+    "access_token": "EAAtkQZBG2nUgBAPJPXHLj8ZBedn3qKTyIXbZA3rizHpB0sMmWDgsqwMv1m1qUy3nxpiLm1LKl5ReCEC6RYlQdautKB8btNqTTfXBAYZBggbyjiRaGfipM26ToMOvAiC4ZBEN82G6FIRn0aoJ7J7WsTzCefLST3zgVpVzgTK2zdvL5g3CvvyqxKZCM8yEzDkdcZA6NRASByGAJPr3wK3twHmANyJRm48Sp4TZB8jZA3beZCZBlcvVfZAthk12"
+  }
+]

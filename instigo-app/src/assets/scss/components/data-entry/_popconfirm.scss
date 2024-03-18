@@ -1,0 +1,107 @@
+.ingo-popconfirm {
+  .ant-popover-inner {
+    border-radius: 4px;
+  }
+
+  .ant-popover-inner-content {
+    padding: 0.75rem 1.15rem;
+  }
+
+  .ant-popover-message {
+    padding: 4px 0 18px;
+  }
+
+  .ant-popover-buttons {
+    display: flex;
+    margin-bottom: 0;
+    text-align: left;
+
+    button {
+      background: transparent;
+      border: 1px solid rgba(color(purple), 12%);
+      color: #5f63f2;
+      flex: 0 0 50%;
+      height: 34px;
+      margin-left: 0;
+      margin-right: 8px;
+
+      &:hover,
+      &:focus {
+        border-color: rgba(color(purple), 20%);
+      }
+
+      &.ant-btn-primary {
+        background: rgba(color(red, 10), 6%);
+        border-color: rgba(color(red, 10), 12%);
+        color: color(red, 10);
+
+        &:hover,
+        &:focus {
+          background: rgba(color(red, 10), 10%);
+        }
+      }
+
+      &:last-child {
+        margin: 0 !important;
+      }
+    }
+  }
+}
+
+.ingo-popconfirm-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 250;
+
+  i {
+    align-items: center;
+    background-color: rgba(color(purple), 8%);
+    border-radius: 4px;
+    color: #5f63f2;
+    display: inline-flex;
+    font-size: 18px;
+    height: 30px;
+    justify-content: center;
+    line-height: 1;
+    width: 30px;
+  }
+
+  span {
+    font-size: 15px;
+    line-height: 1.4;
+    margin-top: 10px;
+  }
+}
+
+.ant-popover-inner {
+  max-width: 250px;
+
+  .ant-popover-buttons {
+    border-top: 1px solid #f5f6f9;
+    margin: 0 -25px;
+    padding: 10px 25px 0;
+    padding-top: 10px;
+
+    > .ant-btn {
+      height: 32px;
+      line-height: 1.5;
+      padding: 0 12px;
+    }
+  }
+
+  h2 {
+    color: #474b6d;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0.75rem;
+
+    ~ p {
+      color: #6b6e8d;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.25rem;
+      margin-bottom: 0;
+    }
+  }
+}
